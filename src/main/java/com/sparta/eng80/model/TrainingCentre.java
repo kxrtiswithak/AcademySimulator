@@ -10,11 +10,12 @@ public class TrainingCentre {
 
     private static final long SEED = 1234987293479834781L;
     private static final RandomGenerator randomGenerator = new RandomGenerator(SEED);
+    public static final int MAX_SIZE = 100;
 
     //private static int ID;
     private String name;
     private int size;
-    private List<Trainee> inTraining;
+    private List<Trainee> inTraining = new ArrayList<>();
 
     public TrainingCentre(String name) {
         this.name = name;
@@ -30,18 +31,25 @@ public class TrainingCentre {
     }
 
     public boolean addTrainee(Trainee trainee) {
+        if (trainee == null)
+        {
+            return false;
+        }
         return inTraining.add(trainee);
     }
 
     public List<Trainee> acceptTrainees(List<Trainee> trainees, int minNumber, int maxNumber) {
         int randomVal = randomGenerator.inRange(minNumber, maxNumber);
         Queue<Trainee> traineeQueue = new LinkedBlockingQueue<>(trainees);
-        for (int i = 0; i < randomVal; i++)
-        {
-            if (!traineeQueue.isEmpty())
-            {
-                Trainee trainee = traineeQueue.remove();
-                addTrainee(trainee);
+        for (int i = 0; i < randomVal; i++) {
+            boolean traineeAdded = false;
+            while (!traineeAdded) {
+                if (!traineeQueue.isEmpty()) {
+                    Trainee trainee = traineeQueue.remove();
+                    if (inTraining.size() < MAX_SIZE) {
+                        traineeAdded = addTrainee(trainee);
+                    }
+                }
             }
         }
         return new ArrayList<>(traineeQueue);
