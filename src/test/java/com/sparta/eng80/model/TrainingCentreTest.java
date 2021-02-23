@@ -3,6 +3,9 @@ package com.sparta.eng80.model;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TrainingCentreTest {
 
     @Test
@@ -27,13 +30,11 @@ public class TrainingCentreTest {
     @Test
     public void addMoreThen100TraineeTest() {
         TrainingCentre trainingCenter = new TrainingCentre("Test");
-        boolean added = true;
+        List<Trainee> list = new ArrayList<>();
         for (int i = 0; i < 110; i++) {
-            added = trainingCenter.addTrainee(new Trainee());
-            if (!added) {
-                break;
-            }
+            list.add(new Trainee());
         }
-        Assertions.assertFalse(added);
+        list = trainingCenter.acceptTrainees(list, 0, 110);
+        Assertions.assertTrue(trainingCenter.getInTraining().size() == 100);
     }
 }
