@@ -11,10 +11,11 @@ public class Simulation implements Runnable {
     private LocalDate simulateUntil;
     private LocalDate currentDate;
     private TraineeManager traineeManager = new TraineeManager();
-    private TrainingCenterManager trainingCenterManager = new TrainingCenterManager();
+    private TrainingCenterManager trainingCenterManager;
 
     public Simulation() {
         currentDate = LocalDate.now();
+        trainingCenterManager = new TrainingCenterManager(currentDate);
     }
 
     @Override
@@ -26,20 +27,17 @@ public class Simulation implements Runnable {
             while (!currentDate.isAfter(simulateUntil)) {
                 //...
                 trainingCenterManager.generateNewCentre(currentDate);
-//                Printer.printString("Day : " + currentDate.toString());
-                currentDate = currentDate.plusDays(1);
-=======
-//                Printer.printString("Day : " + currentDate.toString());
-//                currentDate = currentDate.plusDays(1);
-                  Printer.printString("Date : " + currentDate.toString());
-                  currentDate = currentDate.plusMonths(1);
+//              Printer.printString("Day : " + currentDate.toString());
+//              currentDate = currentDate.plusDays(1);
+                Printer.printString("Date : " + currentDate.toString());
+                currentDate = currentDate.plusMonths(1);
 
-                  List<Trainee> newTrainees = traineeManager.getNewTrainees(20, 30);
-                  List<TrainingCenter> trainingCenters = trainingCenterManager.getTrainingCenters();
+                List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
+                List<TrainingCenter> trainingCenters = trainingCenterManager.getListOfTrainingCenters();
 
-                  for (TrainingCenter trainingCenter : trainingCenters) {
-                      newTrainees = trainingCenter.acceptTrainees(newTrainees, 10, 20);
-                  }
+                for (TrainingCenter trainingCenter : trainingCenters) {
+                    newTrainees = trainingCenter.acceptTrainees(newTrainees, 10, 20);
+                }
             }
         }
         ArrayList<TrainingCenter> trainingCentersList = trainingCenterManager.getListOfTrainingCenters();
