@@ -21,6 +21,10 @@ public class TrainingCenter {
         return size;
     }
 
+    public boolean addTrainee(Trainee trainee) {
+        return inTraining.add(trainee);
+    }
+
     public List<Trainee> getInTraining() {
         return inTraining;
     }
