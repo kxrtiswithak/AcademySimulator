@@ -31,4 +31,14 @@ public class TrainingCentreManager {
         return listOfTrainingCentres;
     }
 
+    public int getNumOfFullTrainingCentres(){
+        int count = 0;
+        for(TrainingCentre trainingCentre : listOfTrainingCentres){
+            if(trainingCentre.getSize() == TrainingCentre.MAX_SIZE){
+                count++;
+            }
+        }
+        return count;
+    }
+
 }
