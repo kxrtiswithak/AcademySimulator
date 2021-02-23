@@ -36,7 +36,7 @@ public class Simulation implements Runnable {
                 List<TrainingCenter> trainingCenters = trainingCenterManager.getListOfTrainingCenters();
 
                 for (TrainingCenter trainingCenter : trainingCenters) {
-                    newTrainees = trainingCenter.acceptTrainees(newTrainees, 10, 20);
+                    newTrainees = trainingCenter.acceptTrainees(newTrainees, 0, 20);
                 }
             }
         }

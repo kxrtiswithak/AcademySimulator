@@ -3,7 +3,6 @@ package com.sparta.eng80.model;
 import java.util.List;
 import com.sparta.eng80.controller.RandomGenerator;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -15,7 +14,7 @@ public class TrainingCenter {
     //private static int ID;
     private String name;
     private int size;
-    private List<Trainee> inTraining;
+    private List<Trainee> inTraining = new ArrayList<>();
 
     public TrainingCenter(String name) {
         this.name = name;
