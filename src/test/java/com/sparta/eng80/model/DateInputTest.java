@@ -1,6 +1,6 @@
 package com.sparta.eng80.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DateInputTest {
     @Test
