@@ -9,5 +9,8 @@
         <module name="AcademySimulator" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AcademySimulator" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
