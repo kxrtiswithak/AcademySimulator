@@ -1,20 +1,18 @@
 package com.sparta.eng80.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 
 public class TrainingCentreTest {
 
     @Test
-    @DisplayName("Testing to see if unique Trainees can be created")
     public void createTrainingCentre() {
         TrainingCentre trainingCentre = new TrainingCentre("Test");
         Assertions.assertNotNull(trainingCentre);
     }
 
     @Test
-    @DisplayName("Testing to see if trainees can be added")
     public void addTraineesToTrainingCentre() {
         TrainingCentre trainingCentre = new TrainingCentre("Test");
         trainingCentre.addTrainee(new Trainee());
@@ -22,7 +20,6 @@ public class TrainingCentreTest {
     }
 
     @Test
-    @DisplayName("Testing to see if null trainees can be added")
     public void addNullTraineeTest() {
         TrainingCentre trainingCentre = new TrainingCentre("Test");
         Assertions.assertFalse(trainingCentre.addTrainee(null));

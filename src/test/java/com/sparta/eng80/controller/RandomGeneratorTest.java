@@ -23,11 +23,16 @@ public class RandomGeneratorTest {
         }
     }
 
+    @Test
     public void generateRandomNumberWithMinGreaterThanMax() {
         RandomGenerator randomGenerator = new RandomGenerator(0);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            randomGenerator.inRange(MAX, MIN);});
     }
 
+    @Test
     public void generateRandomNumberWithSameMinMax() {
-
+        RandomGenerator randomGenerator = new RandomGenerator(0);
+        randomGenerator.inRange(MAX, MAX);
     }
 }
