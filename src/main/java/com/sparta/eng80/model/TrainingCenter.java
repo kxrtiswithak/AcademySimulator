@@ -1,7 +1,7 @@
 package com.sparta.eng80.model;
 
+import java.util.List;
 import com.sparta.eng80.controller.RandomGenerator;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;

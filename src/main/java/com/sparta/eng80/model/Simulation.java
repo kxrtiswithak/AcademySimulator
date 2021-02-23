@@ -3,6 +3,7 @@ package com.sparta.eng80.model;
 import com.sparta.eng80.view.Printer;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Simulation implements Runnable {
@@ -18,11 +19,16 @@ public class Simulation implements Runnable {
 
     @Override
     public void run() {
+        TrainingCenterManager trainingCenterManager = new TrainingCenterManager(currentDate);
         if (simulateUntil == null) {
             Printer.printString("Please set the amount of time the simulation should simulate until!");
         } else {
             while (!currentDate.isAfter(simulateUntil)) {
                 //...
+                trainingCenterManager.generateNewCentre(currentDate);
+//                Printer.printString("Day : " + currentDate.toString());
+                currentDate = currentDate.plusDays(1);
+=======
 //                Printer.printString("Day : " + currentDate.toString());
 //                currentDate = currentDate.plusDays(1);
                   Printer.printString("Date : " + currentDate.toString());
@@ -35,6 +41,12 @@ public class Simulation implements Runnable {
                       newTrainees = trainingCenter.acceptTrainees(newTrainees, 10, 20);
                   }
             }
+        }
+        ArrayList<TrainingCenter> trainingCentersList = trainingCenterManager.getListOfTrainingCenters();
+        Printer.printString("Size: " + trainingCentersList.size());
+        for (TrainingCenter center:trainingCentersList) {
+            Printer.printString("Name: " + center.getName());
+
         }
     }
 
