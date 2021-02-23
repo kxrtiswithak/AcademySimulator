@@ -14,6 +14,7 @@ public class Simulation implements Runnable {
     private TrainingCenterManager trainingCenterManager;
 
     public Simulation() {
+        simulateUntil = LocalDate.now();
         currentDate = LocalDate.now();
         trainingCenterManager = new TrainingCenterManager(currentDate);
     }
@@ -21,7 +22,7 @@ public class Simulation implements Runnable {
     @Override
     public void run() {
         TrainingCenterManager trainingCenterManager = new TrainingCenterManager(currentDate);
-        if (simulateUntil == null) {
+        if (simulateUntil.isEqual(currentDate)) {
             Printer.printString("Please set the amount of time the simulation should simulate until!");
         } else {
             while (!currentDate.isAfter(simulateUntil)) {
