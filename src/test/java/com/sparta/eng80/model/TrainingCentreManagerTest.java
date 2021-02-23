@@ -1,5 +1,6 @@
 package com.sparta.eng80.model;
 
+import com.sparta.eng80.view.Printer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -22,8 +23,26 @@ public class TrainingCentreManagerTest {
     }
 
     @Test
-    public void getNumOfFullTrainingCentresTest() {
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(LocalDate.now());
-        int i = trainingCentreManager.getNumOfFullTrainingCentres();
+    public void generateNewUniqueCentreTest() {
+        LocalDate startDate = LocalDate.now();
+        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(startDate);
+        trainingCentreManager.generateNewCentre(startDate);
+        trainingCentreManager.generateNewCentre(startDate.plusMonths(2));
+        ArrayList<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
+        Assertions.assertFalse(trainingCentres.get(0).equals(trainingCentres.get(1)));
+    }
+
+//    @Test
+//    public void getNumOfFullTrainingCentresTest() {
+//        Simulation simulation = new Simulation();
+//        simulation.setSimulationFor(10);
+//        simulation.run();
+//        int i = trainingCentreManager.getNumOfFullTrainingCentres();
+//        Printer.printString(""+i);
+//    }
+
+    @Test
+    public void checkAllTrainingCentresCountedAsFull() {
+
     }
 }

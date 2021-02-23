@@ -41,7 +41,7 @@ public class TrainingCentreTest {
     }
 
     @Test
-    public void addMoreThen100TraineeTest() {
+    public void addMoreThan100TraineeTest() {
         TrainingCentre trainingCenter = new TrainingCentre("Test");
         List<Trainee> list = new ArrayList<>();
         for (int i = 0; i < 110; i++) {
