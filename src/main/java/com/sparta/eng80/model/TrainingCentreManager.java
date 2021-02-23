@@ -1,18 +1,16 @@
 package com.sparta.eng80.model;
 
-import com.sparta.eng80.view.Printer;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class TrainingCenterManager {
+public class TrainingCentreManager {
     private int numberOfTrainingCentres = 0;
     private LocalDate startDate;
     private LocalDate currentDate;
     private LocalDate lastCentreAddedDate;
-    private ArrayList<TrainingCenter> listOfTrainingCenters = new ArrayList<>();
+    private ArrayList<TrainingCentre> listOfTrainingCentres = new ArrayList<>();
 
-    TrainingCenterManager(LocalDate startDate) {
+    TrainingCentreManager(LocalDate startDate) {
         this.startDate = lastCentreAddedDate = startDate;
     }
 
@@ -21,16 +19,26 @@ public class TrainingCenterManager {
         this.currentDate = currentDate;
 //        Printer.printString("Current: " + currentDate + " last: " + lastCentreAddedDate);
         if (currentDate.equals(lastCentreAddedDate.plusMonths(2)) || currentDate.equals(startDate)) {
-            TrainingCenter trainingCenter = new TrainingCenter(trainingCentreName);
+            TrainingCentre trainingCentre = new TrainingCentre(trainingCentreName);
             numberOfTrainingCentres++;
             lastCentreAddedDate = currentDate;
-            listOfTrainingCenters.add(trainingCenter);
+            listOfTrainingCentres.add(trainingCentre);
 //            Printer.printString("New Training Center added: " + trainingCenter.getName() + " On " + currentDate);
         }
     }
 
-    public ArrayList<TrainingCenter> getListOfTrainingCenters() {
-        return listOfTrainingCenters;
+    public ArrayList<TrainingCentre> getListOfTrainingCenters() {
+        return listOfTrainingCentres;
+    }
+
+    public int getNumOfFullTrainingCentres(){
+        int count = 0;
+        for(TrainingCentre trainingCentre : listOfTrainingCentres){
+            if(trainingCentre.getSize() == TrainingCentre.MAX_SIZE){
+                count++;
+            }
+        }
+        return count;
     }
 
 }
