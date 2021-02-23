@@ -2,13 +2,13 @@ package com.sparta.eng80.model;
 
 import java.util.List;
 
-public class TrainingCenter {
+public class TrainingCentre {
     //private static int ID;
     private String name;
     private int size;
     private List<Trainee> inTraining;
 
-    public TrainingCenter(String name) {
+    public TrainingCentre(String name) {
         this.name = name;
         this.size = 0;
     }
