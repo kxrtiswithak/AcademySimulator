@@ -12,19 +12,10 @@ public class TraineeManager {
 
 	public List<Trainee> generateNewTrainees(int minNumber, int maxNumber) {
 		int randomVal = randomGenerator.inRange(minNumber, maxNumber);
-		System.out.println(conflictMethod());
 		List<Trainee> newTrainees = new ArrayList<>();
 		for (int i = 0; i < randomVal; i++) {
 			newTrainees.add(new Trainee());
 		}
 		return newTrainees;
-	}
-
-	public int conflictMethod()
-	{
-		int a = 5;
-		// random message
-		new Trainee();
-		return a;
 	}
 }
