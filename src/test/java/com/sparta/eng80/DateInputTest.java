@@ -1,5 +1,6 @@
 package com.sparta.eng80;
 
+import com.sparta.eng80.model.Simulation;
 import org.junit.Test;
 
 public class DateInputTest {
