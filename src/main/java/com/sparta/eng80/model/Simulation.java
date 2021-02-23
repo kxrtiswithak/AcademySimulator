@@ -1,5 +1,6 @@
 package com.sparta.eng80.model;
 
+import com.sparta.eng80.controller.OutputManager;
 import com.sparta.eng80.controller.TraineeManager;
 import com.sparta.eng80.controller.TrainingCentreManager;
 import com.sparta.eng80.util.Printer;
@@ -13,27 +14,25 @@ public class Simulation implements Runnable {
 
     private LocalDate simulateUntil;
     private LocalDate currentDate;
-    private TraineeManager traineeManager = new TraineeManager();
+    private TraineeManager traineeManager;
     private TrainingCentreManager trainingCentreManager;
+    private OutputManager outputManager;
 
     public Simulation() {
         simulateUntil = LocalDate.now();
         currentDate = LocalDate.now();
-        trainingCentreManager = new TrainingCentreManager(currentDate);
+        traineeManager = new TraineeManager();
     }
 
     @Override
     public void run() {
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(currentDate);
+        trainingCentreManager = new TrainingCentreManager(currentDate);
         if (simulateUntil.isEqual(currentDate)) {
             Printer.printString("Please set the amount of time the simulation should simulate until!");
         } else {
             while (!currentDate.isAfter(simulateUntil)) {
-                //...
+
                 trainingCentreManager.generateNewCentre(currentDate);
-                //              Printer.printString("Day : " + currentDate.toString());
-                //              currentDate = currentDate.plusDays(1);
-                Printer.printString("Date : " + currentDate.toString());
                 currentDate = currentDate.plusMonths(1);
 
                 List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
@@ -47,14 +46,10 @@ public class Simulation implements Runnable {
                 }
             }
         }
-        ArrayList<TrainingCentre> trainingCentersList = trainingCentreManager.getListOfTrainingCenters();
-        Printer.printString("Size: " + trainingCentersList.size());
-        for (TrainingCentre center : trainingCentersList) {
-            Printer.printString("Name: " + center.getName());
-        }
-    }
 
-    //These methods allow you to set an arbitrary number of years, months and days for the simulator to run until.
+        outputManager = new OutputManager(trainingCentreManager, traineeManager, simulateUntil);
+        outputManager.run();
+    }
 
     public void setSimulationFor(int months) {
         if (months < 0) {
@@ -95,8 +90,6 @@ public class Simulation implements Runnable {
         simulateUntil = simulateUntil.plusDays(days);
     }
 
-    //This method allow you to set a date for the simulator to run until
-
     public void setSimulationUntil(int years, int months, int days) {
         if (years > 9999 || currentDate.getYear() > years) {
             Printer.printString("Sorry, year has to be between " + currentDate.getYear() + " and 9999.");
@@ -116,5 +109,4 @@ public class Simulation implements Runnable {
             simulateUntil = null;
         }
     }
-
 }

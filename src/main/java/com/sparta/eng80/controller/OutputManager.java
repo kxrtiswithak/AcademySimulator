@@ -1,8 +1,8 @@
 package com.sparta.eng80.controller;
 
-import com.sparta.eng80.model.Output;
 import com.sparta.eng80.model.TrainingCentre;
 import com.sparta.eng80.util.Printer;
+import com.sparta.eng80.view.FileOutput;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -10,11 +10,21 @@ import java.time.Period;
 public class OutputManager implements Output {
 
     public LocalDate currentDate = LocalDate.now();
-    TrainingCentreManager tcm;
+    TrainingCentreManager trainingCentreManager;
+    TraineeManager traineeManager;
     LocalDate endingDate;
+    FileOutput fileOutput;
 
-    public OutputManager(LocalDate endingDate) {
+    public OutputManager(TrainingCentreManager trainingCentreManager, TraineeManager traineeManager, LocalDate endingDate) {
+        this.trainingCentreManager = trainingCentreManager;
+        this.traineeManager = traineeManager;
         this.endingDate = endingDate;
+        this.fileOutput = new FileOutput(outputNumOfOpenCentres(), outputNumOfFullCentres(), outputNumOfTraineesInTraining(), outputNumOfTraineesInWaitingList());
+    }
+
+    public void run() {
+        fileOutput.outputToFile();
+        fileOutput.outputToConsole();
     }
 
     @Override
@@ -24,45 +34,42 @@ public class OutputManager implements Output {
                 period.getMonths() + " months and " +
                         period.getYears() + " years";
         return "The overall time for this simulation is " + dateOutput;
-    } //Done
+    }
 
     @Override
     public int outputNumOfTrainees() {
         int numOfTrainees = 0;
-        for (TrainingCentre tc : tcm.getListOfTrainingCenters()) {
+        for (TrainingCentre tc : trainingCentreManager.getListOfTrainingCenters()) {
             numOfTrainees += tc.getInTraining().size();
         }
-        //TODO get waiting list
-        //numOfTrainees += waitingList.size();
+
+        numOfTrainees += traineeManager.waitingList.size();
         return numOfTrainees;
     }
 
     @Override
     public int outputNumOfTraineesInTraining() {
         int numOfTrainees = 0;
-        for (TrainingCentre tc : tcm.getListOfTrainingCenters()) {
+        for (TrainingCentre tc : trainingCentreManager.getListOfTrainingCenters()) {
             numOfTrainees += tc.getInTraining().size();
         }
         return numOfTrainees;
-    } //Done
+    }
 
     @Override
     public int outputNumOfTraineesInWaitingList() {
-        //TODO get waiting list
-        int numOfTraineesWaiting = 0;
-        //numOfTraineesWaiting += waitingList.size;
-        return numOfTraineesWaiting;
+        return traineeManager.waitingList.size();
     }
 
     @Override
     public int outputNumOfCentres() {
-        return tcm.getListOfTrainingCenters().size();
+        return trainingCentreManager.getListOfTrainingCenters().size();
     } //Done
 
     @Override
     public int outputNumOfOpenCentres() {
         int openCentres = 0;
-        for (TrainingCentre tc : tcm.getListOfTrainingCenters()) {
+        for (TrainingCentre tc : trainingCentreManager.getListOfTrainingCenters()) {
             if (tc.getInTraining().size() != 100) {
                 openCentres += 1;
             }

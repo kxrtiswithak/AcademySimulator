@@ -1,0 +1,4 @@
+Open Training Centres: 2471
+Full Training Centres: 30
+Total number of Trainees in Training Centres: 3000
+Total number of Trainees in waiting list: 0
