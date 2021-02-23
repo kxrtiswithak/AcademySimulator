@@ -12,7 +12,6 @@ public class TraineeManager {
 
 	public List<Trainee> generateNewTrainees(int minNumber, int maxNumber) {
 		int randomVal = randomGenerator.inRange(minNumber, maxNumber);
-
 		List<Trainee> newTrainees = new ArrayList<>();
 		for (int i = 0; i < randomVal; i++) {
 			newTrainees.add(new Trainee());
