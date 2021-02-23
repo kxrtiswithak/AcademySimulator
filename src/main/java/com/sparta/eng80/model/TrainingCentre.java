@@ -42,13 +42,16 @@ public class TrainingCentre {
         int randomVal = randomGenerator.inRange(minNumber, maxNumber);
         Queue<Trainee> traineeQueue = new LinkedBlockingQueue<>(trainees);
         for (int i = 0; i < randomVal; i++) {
-            boolean traineeAdded = false;
-            while (!traineeAdded) {
-                if (!traineeQueue.isEmpty()) {
-                    Trainee trainee = traineeQueue.remove();
-                    if (inTraining.size() < MAX_SIZE) {
-                        traineeAdded = addTrainee(trainee);
-                    }
+            if (!traineeQueue.isEmpty())
+            {
+                Trainee trainee = traineeQueue.remove();
+                if (inTraining.size() < MAX_SIZE)
+                {
+                    addTrainee(trainee);
+                }
+                else
+                {
+                    break;
                 }
             }
         }
