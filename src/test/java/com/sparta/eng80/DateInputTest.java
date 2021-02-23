@@ -21,4 +21,34 @@ public class DateInputTest {
         Simulation simulation = new Simulation();
         simulation.setSimulationFor(2, 12, 19);
     }
+
+    @Test
+    public void inputDateAfterCurrent() {
+        Simulation simulation = new Simulation();
+        simulation.setSimulationUntil(2022, 1, 1);
+    }
+
+    @Test
+    public void inputInvalidMonth() {
+        Simulation simulation = new Simulation();
+        simulation.setSimulationFor(-10);
+    }
+
+    @Test
+    public void inputInvalidMonthAndYear() {
+        Simulation simulation = new Simulation();
+        simulation.setSimulationFor(-10,3);
+    }
+
+    @Test
+    public void inputInvalidMonthYearAndDay() {
+        Simulation simulation = new Simulation();
+        simulation.setSimulationFor(2, 12, -19);
+    }
+
+    @Test
+    public void inputDateBeforeCurrent() {
+        Simulation simulation = new Simulation();
+        simulation.setSimulationUntil(2020, 1, 1);
+    }
 }
