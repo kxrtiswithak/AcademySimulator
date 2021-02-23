@@ -10,6 +10,7 @@ public class TrainingCentre {
 
     private static final long SEED = 1234987293479834781L;
     private static final RandomGenerator randomGenerator = new RandomGenerator(SEED);
+    public static final int MAX_SIZE = 100;
 
     //private static int ID;
     private String name;
@@ -49,5 +50,9 @@ public class TrainingCentre {
 
     public List<Trainee> getInTraining() {
         return inTraining;
+    }
+
+    public int getNumOfTrainees() {
+        return inTraining.size();
     }
 }
