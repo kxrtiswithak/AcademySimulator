@@ -3,26 +3,48 @@ package com.sparta.eng80.model;
 import com.sparta.eng80.view.Printer;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Simulation implements Runnable {
 
     private LocalDate simulateUntil;
     private LocalDate currentDate;
+    private TraineeManager traineeManager = new TraineeManager();
+    private TrainingCenterManager trainingCenterManager;
 
     public Simulation() {
         currentDate = LocalDate.now();
+        trainingCenterManager = new TrainingCenterManager(currentDate);
     }
 
     @Override
     public void run() {
+        TrainingCenterManager trainingCenterManager = new TrainingCenterManager(currentDate);
         if (simulateUntil == null) {
             Printer.printString("Please set the amount of time the simulation should simulate until!");
         } else {
             while (!currentDate.isAfter(simulateUntil)) {
                 //...
-                Printer.printString("Day : " + currentDate.toString());
-                currentDate = currentDate.plusDays(1);
+                trainingCenterManager.generateNewCentre(currentDate);
+//              Printer.printString("Day : " + currentDate.toString());
+//              currentDate = currentDate.plusDays(1);
+                Printer.printString("Date : " + currentDate.toString());
+                currentDate = currentDate.plusMonths(1);
+
+                List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
+                List<TrainingCenter> trainingCenters = trainingCenterManager.getListOfTrainingCenters();
+
+                for (TrainingCenter trainingCenter : trainingCenters) {
+                    newTrainees = trainingCenter.acceptTrainees(newTrainees, 10, 20);
+                }
             }
+        }
+        ArrayList<TrainingCenter> trainingCentersList = trainingCenterManager.getListOfTrainingCenters();
+        Printer.printString("Size: " + trainingCentersList.size());
+        for (TrainingCenter center:trainingCentersList) {
+            Printer.printString("Name: " + center.getName());
+
         }
     }
 
