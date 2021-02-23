@@ -12,11 +12,16 @@ public class TraineeManager {
 
 	public List<Trainee> generateNewTrainees(int minNumber, int maxNumber) {
 		int randomVal = randomGenerator.inRange(minNumber, maxNumber);
+		conflictMethdod();
+		return new ArrayList<>();
+//		List<Trainee> newTrainees = new ArrayList<>();
+//		for (int i = 0; i < randomVal; i++) {
+//			newTrainees.add(new Trainee());
+//		}
+//		return newTrainees;
+	}
 
-		List<Trainee> newTrainees = new ArrayList<>();
-		for (int i = 0; i < randomVal; i++) {
-			newTrainees.add(new Trainee());
-		}
-		return newTrainees;
+	public void conflictMethdod()
+	{
 	}
 }
