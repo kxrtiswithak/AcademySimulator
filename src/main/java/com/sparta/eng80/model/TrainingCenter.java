@@ -1,12 +1,8 @@
 package com.sparta.eng80.model;
 
-import com.sparta.eng80.view.Printer;
-
-import java.util.ArrayList;
 import java.util.List;
 import com.sparta.eng80.controller.RandomGenerator;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -17,11 +13,12 @@ public class TrainingCenter {
 
     //private static int ID;
     private String name;
-    private List<Trainee> inTraining;
+    private int size;
+    private List<Trainee> inTraining = new ArrayList<>();
 
     public TrainingCenter(String name) {
         this.name = name;
-        this.inTraining = new ArrayList<>();
+        this.size = 0;
     }
 
     public String getName() {
@@ -29,7 +26,7 @@ public class TrainingCenter {
     }
 
     public int getSize() {
-        return getInTraining().size();
+        return size;
     }
 
     public boolean addTrainee(Trainee trainee) {
@@ -52,20 +49,5 @@ public class TrainingCenter {
 
     public List<Trainee> getInTraining() {
         return inTraining;
-    }
-
-    public boolean addToTrainingCentre(Trainee trainee) {
-        if (trainee == null) {
-            Printer.printString("Null trainee cannot be added, sorry");
-            return false;
-        } else if (inTraining.contains(trainee)) {
-            Printer.printString("Trainee already exists, so wont be added");
-            return false;
-        } else if (getSize() == 100) {
-            Printer.printString("Training Centre is full, please add to a different one.");
-            return false;
-        }
-        inTraining.add(trainee);
-        return true;
     }
 }

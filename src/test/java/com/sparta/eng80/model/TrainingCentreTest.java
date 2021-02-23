@@ -17,7 +17,7 @@ public class TrainingCentreTest {
     @DisplayName("Testing to see if trainees can be added")
     public void addTraineesToTrainingCentre() {
         TrainingCenter trainingCenter = new TrainingCenter("Test");
-        trainingCenter.addToTrainingCentre(new Trainee("Trainee 1"));
+        trainingCenter.addTrainee(new Trainee());
         Assertions.assertTrue(trainingCenter.getInTraining().size() > 0);
     }
 
@@ -25,16 +25,16 @@ public class TrainingCentreTest {
     @DisplayName("Testing to see if null trainees can be added")
     public void addNullTraineeTest() {
         TrainingCenter trainingCenter = new TrainingCenter("Test");
-        Assertions.assertFalse(trainingCenter.addToTrainingCentre(null));
+        Assertions.assertFalse(trainingCenter.addTrainee(null));
     }
 
     @Test
     @DisplayName("Testing to see if duplicate trainees can be added")
     public void addDuplicateTraineeTest() {
         TrainingCenter trainingCenter = new TrainingCenter("Test");
-        Trainee trainee = new Trainee("Drake");
-        trainingCenter.addToTrainingCentre(trainee);
-        Assertions.assertFalse(trainingCenter.addToTrainingCentre(trainee));
+        Trainee trainee = new Trainee();
+        trainingCenter.addTrainee(trainee);
+        Assertions.assertFalse(trainingCenter.addTrainee(trainee));
     }
 
     @Test
@@ -43,8 +43,8 @@ public class TrainingCentreTest {
         TrainingCenter trainingCenter = new TrainingCenter("Test");
         boolean added = true;
         for (int i = 0; i < 110; i++) {
-            added = trainingCenter.addToTrainingCentre(
-                    new Trainee("" + i)
+            added = trainingCenter.addTrainee(
+                    new Trainee()
             );
             if (!added) {
                 break;
