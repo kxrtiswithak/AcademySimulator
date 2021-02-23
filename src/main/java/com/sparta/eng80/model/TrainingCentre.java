@@ -61,4 +61,8 @@ public class TrainingCentre {
     public List<Trainee> getInTraining() {
         return inTraining;
     }
+
+    public int getNumOfTrainees() {
+        return inTraining.size();
+    }
 }
