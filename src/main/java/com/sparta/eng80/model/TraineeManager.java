@@ -18,4 +18,9 @@ public class TraineeManager {
 		}
 		return newTrainees;
 	}
+
+	public void conflictMethod()
+	{
+
+	}
 }
