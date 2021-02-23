@@ -31,31 +31,25 @@ public class TrainingCentre {
     }
 
     public boolean addTrainee(Trainee trainee) {
-        if (trainee == null)
-        {
+        if (trainee == null) {
             return false;
         }
         return inTraining.add(trainee);
     }
 
-    public List<Trainee> acceptTrainees(List<Trainee> trainees, int minNumber, int maxNumber) {
+    public Queue<Trainee> acceptTrainees(Queue<Trainee> traineeQueue, int minNumber, int maxNumber) {
         int randomVal = randomGenerator.inRange(minNumber, maxNumber);
-        Queue<Trainee> traineeQueue = new LinkedBlockingQueue<>(trainees);
         for (int i = 0; i < randomVal; i++) {
-            if (!traineeQueue.isEmpty())
-            {
+            if (!traineeQueue.isEmpty()) {
                 Trainee trainee = traineeQueue.remove();
-                if (inTraining.size() < MAX_SIZE)
-                {
+                if (inTraining.size() < MAX_SIZE) {
                     addTrainee(trainee);
-                }
-                else
-                {
+                } else {
                     break;
                 }
             }
         }
-        return new ArrayList<>(traineeQueue);
+        return traineeQueue;
     }
 
     public List<Trainee> getInTraining() {
