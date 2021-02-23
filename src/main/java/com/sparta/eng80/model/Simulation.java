@@ -3,11 +3,14 @@ package com.sparta.eng80.model;
 import com.sparta.eng80.view.Printer;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Simulation implements Runnable {
 
     private LocalDate simulateUntil;
     private LocalDate currentDate;
+    private TraineeManager traineeManager = new TraineeManager();
+    private TrainingCenterManager trainingCenterManager = new TrainingCenterManager();
 
     public Simulation() {
         currentDate = LocalDate.now();
@@ -20,8 +23,17 @@ public class Simulation implements Runnable {
         } else {
             while (!currentDate.isAfter(simulateUntil)) {
                 //...
-                Printer.printString("Day : " + currentDate.toString());
-                currentDate = currentDate.plusDays(1);
+//                Printer.printString("Day : " + currentDate.toString());
+//                currentDate = currentDate.plusDays(1);
+                  Printer.printString("Date : " + currentDate.toString());
+                  currentDate = currentDate.plusMonths(1);
+
+                  List<Trainee> newTrainees = traineeManager.getNewTrainees(20, 30);
+                  List<TrainingCenter> trainingCenters = trainingCenterManager.getTrainingCenters();
+
+                  for (TrainingCenter trainingCenter : trainingCenters) {
+                      newTrainees = trainingCenter.acceptTrainees(newTrainees, 10, 20);
+                  }
             }
         }
     }
@@ -79,7 +91,7 @@ public class Simulation implements Runnable {
             return;
         }
         if (days < 0) {
-            Printer.printString("Sorry, days cannot be negative, nor smaller then the current day of this month.");
+            Printer.printString("Sorry, days cannot be negative.");
             return;
         }
         simulateUntil = LocalDate.of(years, months, days);
