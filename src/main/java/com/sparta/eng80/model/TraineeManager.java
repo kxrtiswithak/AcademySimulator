@@ -12,7 +12,7 @@ public class TraineeManager {
 
 	public List<Trainee> generateNewTrainees(int minNumber, int maxNumber) {
 		int randomVal = randomGenerator.inRange(minNumber, maxNumber);
-		conflictMethdod();
+		System.out.println(conflictMethdod());
 		return new ArrayList<>();
 //		List<Trainee> newTrainees = new ArrayList<>();
 //		for (int i = 0; i < randomVal; i++) {
@@ -21,7 +21,11 @@ public class TraineeManager {
 //		return newTrainees;
 	}
 
-	public void conflictMethdod()
+	public int conflictMethdod()
 	{
+		int a = 5;
+		// random message
+		new Trainee();
+		return a;
 	}
 }
