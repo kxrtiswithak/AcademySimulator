@@ -32,4 +32,5 @@ public class TrainingCenterManager {
     public ArrayList<TrainingCenter> getListOfTrainingCenters() {
         return listOfTrainingCenters;
     }
+
 }
