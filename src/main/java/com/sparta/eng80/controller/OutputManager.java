@@ -19,7 +19,7 @@ public class OutputManager implements Output {
         this.trainingCentreManager = trainingCentreManager;
         this.traineeManager = traineeManager;
         this.endingDate = endingDate;
-        this.fileOutput = new FileOutput(outputNumOfOpenCentres(), outputNumOfFullCentres(), outputNumOfTraineesInTraining(), outputNumOfTraineesInWaitingList());
+        this.fileOutput = new FileOutput(outputNumOfOpenCentres(), outputNumOfFullCentres(), outputNumOfTraineesInTraining(), outputNumOfTraineesInWaitingList(), overallProjectTime(endingDate));
     }
 
     public void run() {
@@ -31,8 +31,8 @@ public class OutputManager implements Output {
     public String overallProjectTime(LocalDate endingDate) {
         Period period = Period.between(currentDate, endingDate);
         String dateOutput = //period.getDays() + " days, " +
-                period.getMonths() + " months and " +
-                        period.getYears() + " years";
+                period.getYears() + " years and " +
+                        period.getMonths() + " months";
         return "The overall time for this simulation is " + dateOutput;
     }
 
@@ -75,7 +75,7 @@ public class OutputManager implements Output {
             }
         }
         return openCentres;
-    } //Done
+    }
 
     @Override
     public int outputNumOfFullCentres() {

@@ -17,12 +17,14 @@ public class FileOutput {
     private int fullTrainingCentres;
     private int traineesInTraining;
     private int traineesInWaitingList;
+    private String overallProjectTime;
 
-    public FileOutput(int openTrainingCentres, int fullTrainingCentres, int traineesInTraining, int traineesInWaitingList) {
+    public FileOutput(int openTrainingCentres, int fullTrainingCentres, int traineesInTraining, int traineesInWaitingList, String overallProjectTime) {
         this.openTrainingCentres = openTrainingCentres;
         this.fullTrainingCentres = fullTrainingCentres;
         this.traineesInTraining = traineesInTraining;
         this.traineesInWaitingList = traineesInWaitingList;
+        this.overallProjectTime = overallProjectTime;
     }
 
     public void outputToFile() {
@@ -48,7 +50,8 @@ public class FileOutput {
     }
 
     public String createOutput() {
-        return  "Open Training Centres: " + openTrainingCentres +
+        return  overallProjectTime +
+                "\nOpen Training Centres: " + openTrainingCentres +
                 "\nFull Training Centres: " + fullTrainingCentres +
                 "\nTotal number of Trainees in Training Centres: " + traineesInTraining +
                 "\nTotal number of Trainees in waiting list: " + traineesInWaitingList;
