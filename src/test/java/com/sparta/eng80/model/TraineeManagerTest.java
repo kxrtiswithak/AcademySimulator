@@ -1,6 +1,5 @@
 package com.sparta.eng80.model;
 
-import com.sparta.eng80.view.Printer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -8,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TraineeManagerTest {
-    final int MIN = 20;
-    final int MAX = 30;
+    final int MIN = 0;
+    final int MAX = 20;
 
     @Test
-    public void generateBetween20And30Trainees() {
+    public void generateBetween0And20Trainees() {
         TraineeManager traineeManager = new TraineeManager();
         List<List<Trainee>> listOfListsOfTrainees = new ArrayList<>();
         for (int count = 0; count < 5; count++) {
@@ -20,7 +19,7 @@ public class TraineeManagerTest {
             listOfListsOfTrainees.add(listOfTrainees);
         }
         for (List<Trainee> i : listOfListsOfTrainees) {
-            Assertions.assertTrue(i.size() >= 20 && i.size() <= 30);
+            Assertions.assertTrue(i.size() >= 0 && i.size() <= 20);
         }
     }
 

@@ -13,7 +13,7 @@ public class RandomGeneratorTest {
 
     @Test
     public void generateRandomNumberCheck() {
-        RandomGenerator randomGenerator = new RandomGenerator(1);
+        RandomGenerator randomGenerator = new RandomGenerator(seed);
         List<Integer> listOfIntegers= new ArrayList<>();
         for (int count = 0; count < 10; count++) {
             int randomVal = randomGenerator.inRange(MIN, MAX);
@@ -25,14 +25,14 @@ public class RandomGeneratorTest {
 
     @Test
     public void generateRandomNumberWithMinGreaterThanMax() {
-        RandomGenerator randomGenerator = new RandomGenerator(0);
+        RandomGenerator randomGenerator = new RandomGenerator(seed);
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             randomGenerator.inRange(MAX, MIN);});
     }
 
     @Test
     public void generateRandomNumberWithSameMinMax() {
-        RandomGenerator randomGenerator = new RandomGenerator(0);
+        RandomGenerator randomGenerator = new RandomGenerator(seed);
         randomGenerator.inRange(MAX, MAX);
     }
 }
