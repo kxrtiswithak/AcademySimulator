@@ -79,7 +79,7 @@ public class Simulation implements Runnable {
             return;
         }
         if (days < 0) {
-            Printer.printString("Sorry, days cannot be negative, nor smaller then the current day of this month.");
+            Printer.printString("Sorry, days cannot be negative.");
             return;
         }
         simulateUntil = LocalDate.of(years, months, days);
