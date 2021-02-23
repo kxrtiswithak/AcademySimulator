@@ -1,17 +1,17 @@
 package com.sparta.eng80.model;
 
-import java.util.List;
-import com.sparta.eng80.controller.RandomGenerator;
+import com.sparta.eng80.util.RandomGenerator;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrainingCentre {
 
+    public static final int MAX_SIZE = 100;
     private static final long SEED = 1234987293479834781L;
     private static final RandomGenerator randomGenerator = new RandomGenerator(SEED);
-    public static final int MAX_SIZE = 100;
-
     //private static int ID;
     private String name;
     private int size;
@@ -31,8 +31,7 @@ public class TrainingCentre {
     }
 
     public boolean addTrainee(Trainee trainee) {
-        if (trainee == null)
-        {
+        if (trainee == null) {
             return false;
         }
         return inTraining.add(trainee);
@@ -42,15 +41,11 @@ public class TrainingCentre {
         int randomVal = randomGenerator.inRange(minNumber, maxNumber);
         Queue<Trainee> traineeQueue = new LinkedBlockingQueue<>(trainees);
         for (int i = 0; i < randomVal; i++) {
-            if (!traineeQueue.isEmpty())
-            {
+            if (!traineeQueue.isEmpty()) {
                 Trainee trainee = traineeQueue.remove();
-                if (inTraining.size() < MAX_SIZE)
-                {
+                if (inTraining.size() < MAX_SIZE) {
                     addTrainee(trainee);
-                }
-                else
-                {
+                } else {
                     break;
                 }
             }

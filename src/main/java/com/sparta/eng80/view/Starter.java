@@ -1,4 +1,4 @@
-package com.sparta.eng80.controller;
+package com.sparta.eng80.view;
 
 import com.sparta.eng80.model.Simulation;
 

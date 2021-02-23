@@ -1,6 +1,8 @@
 package com.sparta.eng80.model;
 
-import com.sparta.eng80.view.Printer;
+import com.sparta.eng80.controller.TraineeManager;
+import com.sparta.eng80.controller.TrainingCentreManager;
+import com.sparta.eng80.util.Printer;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,8 +30,8 @@ public class Simulation implements Runnable {
             while (!currentDate.isAfter(simulateUntil)) {
                 //...
                 trainingCentreManager.generateNewCentre(currentDate);
-//              Printer.printString("Day : " + currentDate.toString());
-//              currentDate = currentDate.plusDays(1);
+                //              Printer.printString("Day : " + currentDate.toString());
+                //              currentDate = currentDate.plusDays(1);
                 Printer.printString("Date : " + currentDate.toString());
                 currentDate = currentDate.plusMonths(1);
 
@@ -43,7 +45,7 @@ public class Simulation implements Runnable {
         }
         ArrayList<TrainingCentre> trainingCentersList = trainingCentreManager.getListOfTrainingCenters();
         Printer.printString("Size: " + trainingCentersList.size());
-        for (TrainingCentre center:trainingCentersList) {
+        for (TrainingCentre center : trainingCentersList) {
             Printer.printString("Name: " + center.getName());
 
         }
