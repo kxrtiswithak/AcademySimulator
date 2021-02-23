@@ -3,11 +3,10 @@ package com.sparta.eng80.model;
 import java.util.List;
 import com.sparta.eng80.controller.RandomGenerator;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class TrainingCenter {
+public class TrainingCentre {
 
     private static final long SEED = 1234987293479834781L;
     private static final RandomGenerator randomGenerator = new RandomGenerator(SEED);
@@ -17,7 +16,7 @@ public class TrainingCenter {
     private int size;
     private List<Trainee> inTraining;
 
-    public TrainingCenter(String name) {
+    public TrainingCentre(String name) {
         this.name = name;
         this.size = 0;
     }

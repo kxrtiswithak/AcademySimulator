@@ -11,38 +11,38 @@ public class Simulation implements Runnable {
     private LocalDate simulateUntil;
     private LocalDate currentDate;
     private TraineeManager traineeManager = new TraineeManager();
-    private TrainingCenterManager trainingCenterManager;
+    private TrainingCentreManager trainingCentreManager;
 
     public Simulation() {
         currentDate = LocalDate.now();
-        trainingCenterManager = new TrainingCenterManager(currentDate);
+        trainingCentreManager = new TrainingCentreManager(currentDate);
     }
 
     @Override
     public void run() {
-        TrainingCenterManager trainingCenterManager = new TrainingCenterManager(currentDate);
+        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(currentDate);
         if (simulateUntil == null) {
             Printer.printString("Please set the amount of time the simulation should simulate until!");
         } else {
             while (!currentDate.isAfter(simulateUntil)) {
                 //...
-                trainingCenterManager.generateNewCentre(currentDate);
+                trainingCentreManager.generateNewCentre(currentDate);
 //              Printer.printString("Day : " + currentDate.toString());
 //              currentDate = currentDate.plusDays(1);
                 Printer.printString("Date : " + currentDate.toString());
                 currentDate = currentDate.plusMonths(1);
 
                 List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
-                List<TrainingCenter> trainingCenters = trainingCenterManager.getListOfTrainingCenters();
+                List<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
 
-                for (TrainingCenter trainingCenter : trainingCenters) {
-                    newTrainees = trainingCenter.acceptTrainees(newTrainees, 10, 20);
+                for (TrainingCentre trainingCentre : trainingCentres) {
+                    newTrainees = trainingCentre.acceptTrainees(newTrainees, 10, 20);
                 }
             }
         }
-        ArrayList<TrainingCenter> trainingCentersList = trainingCenterManager.getListOfTrainingCenters();
+        ArrayList<TrainingCentre> trainingCentersList = trainingCentreManager.getListOfTrainingCenters();
         Printer.printString("Size: " + trainingCentersList.size());
-        for (TrainingCenter center:trainingCentersList) {
+        for (TrainingCentre center:trainingCentersList) {
             Printer.printString("Name: " + center.getName());
 
         }
