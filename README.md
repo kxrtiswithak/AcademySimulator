@@ -7,4 +7,4 @@ A group project assigned by Sparta Global to simulate the company and its expans
 - training centres reaching maximum capacity 
 - a waiting list being utilised to for trainees yet to be placed in a training centre. 
 
-Above is a brief overview. A more in-depth analysis of user stories and project progress can be found on the project board.
+Above is a brief overview. A more in-depth analysis of user stories and project progress can be found on the [project board](https://github.com/kxrtiswithak/AcademySimulator/projects/3).
