@@ -7,6 +7,7 @@ import com.sparta.eng80.util.Printer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class Simulation implements Runnable {
 
@@ -36,10 +37,13 @@ public class Simulation implements Runnable {
                 currentDate = currentDate.plusMonths(1);
 
                 List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
+                traineeManager.addToWaitingList(newTrainees);
+                Queue<Trainee> waitingList = traineeManager.getWaitingList();
                 List<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
 
                 for (TrainingCentre trainingCentre : trainingCentres) {
-                    newTrainees = trainingCentre.acceptTrainees(newTrainees, 10, 20);
+                    if (waitingList.isEmpty()) break;
+                    waitingList = trainingCentre.acceptTrainees(waitingList, 10, 20);
                 }
             }
         }
@@ -47,7 +51,6 @@ public class Simulation implements Runnable {
         Printer.printString("Size: " + trainingCentersList.size());
         for (TrainingCentre center : trainingCentersList) {
             Printer.printString("Name: " + center.getName());
-
         }
     }
 
