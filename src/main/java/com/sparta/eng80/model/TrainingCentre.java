@@ -6,19 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-public class TrainingCentre {
+public abstract class TrainingCentre {
 
-    public static final int MAX_SIZE = 100;
+
     private static final long SEED = 1234987293479834781L;
     private static final RandomGenerator randomGenerator = new RandomGenerator(SEED);
     //private static int ID;
     private String name;
     private int size;
+    public static int MAX_SIZE;
     private List<Trainee> inTraining = new ArrayList<>();
 
     public TrainingCentre(String name) {
         this.name = name;
         this.size = 0;
+        this.MAX_SIZE = 100;
     }
 
     public String getName() {
