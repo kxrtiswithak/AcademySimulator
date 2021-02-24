@@ -1,55 +1,56 @@
 package com.sparta.eng80.model;
 
-import com.sparta.eng80.view.Printer;
+import com.sparta.eng80.App;
+import com.sparta.eng80.controller.OutputManager;
+import com.sparta.eng80.controller.TraineeManager;
+import com.sparta.eng80.controller.TrainingCentreManager;
+import com.sparta.eng80.util.Printer;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class Simulation implements Runnable {
 
     private LocalDate simulateUntil;
     private LocalDate currentDate;
-    private TraineeManager traineeManager = new TraineeManager();
-    private TrainingCenterManager trainingCenterManager;
+    private TraineeManager traineeManager;
+    private TrainingCentreManager trainingCentreManager;
+    private OutputManager outputManager;
 
     public Simulation() {
         simulateUntil = LocalDate.now();
         currentDate = LocalDate.now();
-        trainingCenterManager = new TrainingCenterManager(currentDate);
+        traineeManager = new TraineeManager();
     }
 
     @Override
     public void run() {
-        TrainingCenterManager trainingCenterManager = new TrainingCenterManager(currentDate);
+        trainingCentreManager = new TrainingCentreManager(currentDate);
         if (simulateUntil.isEqual(currentDate)) {
             Printer.printString("Please set the amount of time the simulation should simulate until!");
         } else {
-            while (!currentDate.isAfter(simulateUntil)) {
-                //...
-                trainingCenterManager.generateNewCentre(currentDate);
-//              Printer.printString("Day : " + currentDate.toString());
-//              currentDate = currentDate.plusDays(1);
-                Printer.printString("Date : " + currentDate.toString());
-                currentDate = currentDate.plusMonths(1);
+            while (!currentDate.isAfter(simulateUntil) && !currentDate.isEqual(simulateUntil)) {
+                trainingCentreManager.generateNewCentre(currentDate);
 
                 List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
-                List<TrainingCenter> trainingCenters = trainingCenterManager.getListOfTrainingCenters();
+                traineeManager.addToWaitingList(newTrainees);
+                Queue<Trainee> waitingList = traineeManager.getWaitingList();
+                List<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
 
-                for (TrainingCenter trainingCenter : trainingCenters) {
-                    newTrainees = trainingCenter.acceptTrainees(newTrainees, 0, 20);
+                for (TrainingCentre trainingCentre : trainingCentres) {
+                    if (waitingList.isEmpty()) break;
+                    waitingList = trainingCentre.acceptTrainees(waitingList, 0, 20);
                 }
+
+                currentDate = currentDate.plusMonths(1);
             }
         }
-        ArrayList<TrainingCenter> trainingCentersList = trainingCenterManager.getListOfTrainingCenters();
-        Printer.printString("Size: " + trainingCentersList.size());
-        for (TrainingCenter center:trainingCentersList) {
-            Printer.printString("Name: " + center.getName());
 
-        }
+        boolean fileOutput = App.outputSelection();
+        outputManager = new OutputManager(trainingCentreManager, traineeManager, simulateUntil, fileOutput);
+        outputManager.run();
     }
-
-    //These methods allow you to set an arbitrary number of years, months and days for the simulator to run until.
 
     public void setSimulationFor(int months) {
         if (months < 0) {
@@ -90,8 +91,6 @@ public class Simulation implements Runnable {
         simulateUntil = simulateUntil.plusDays(days);
     }
 
-    //This method allow you to set a date for the simulator to run until
-
     public void setSimulationUntil(int years, int months, int days) {
         if (years > 9999 || currentDate.getYear() > years) {
             Printer.printString("Sorry, year has to be between " + currentDate.getYear() + " and 9999.");
@@ -112,4 +111,15 @@ public class Simulation implements Runnable {
         }
     }
 
+    public TraineeManager getTraineeManager() {
+        return traineeManager;
+    }
+
+    public TrainingCentreManager getTrainingCentreManager() {
+        return trainingCentreManager;
+    }
+
+    public OutputManager getOutputManager() {
+        return outputManager;
+    }
 }

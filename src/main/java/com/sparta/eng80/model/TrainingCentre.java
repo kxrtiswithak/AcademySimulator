@@ -1,22 +1,22 @@
 package com.sparta.eng80.model;
 
-import java.util.List;
-import com.sparta.eng80.controller.RandomGenerator;
+import com.sparta.eng80.util.RandomGenerator;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
 
-public class TrainingCenter {
+public class TrainingCentre {
 
+    public static final int MAX_SIZE = 100;
     private static final long SEED = 1234987293479834781L;
     private static final RandomGenerator randomGenerator = new RandomGenerator(SEED);
-
     //private static int ID;
     private String name;
     private int size;
     private List<Trainee> inTraining = new ArrayList<>();
 
-    public TrainingCenter(String name) {
+    public TrainingCentre(String name) {
         this.name = name;
         this.size = 0;
     }
@@ -30,24 +30,29 @@ public class TrainingCenter {
     }
 
     public boolean addTrainee(Trainee trainee) {
+        if (trainee == null) {
+            return false;
+        }
         return inTraining.add(trainee);
     }
 
-    public List<Trainee> acceptTrainees(List<Trainee> trainees, int minNumber, int maxNumber) {
+    public Queue<Trainee> acceptTrainees(Queue<Trainee> traineeQueue, int minNumber, int maxNumber) {
         int randomVal = randomGenerator.inRange(minNumber, maxNumber);
-        Queue<Trainee> traineeQueue = new LinkedBlockingQueue<>(trainees);
-        for (int i = 0; i < randomVal; i++)
-        {
-            if (!traineeQueue.isEmpty())
-            {
-                Trainee trainee = traineeQueue.remove();
-                addTrainee(trainee);
+        for (int i = 0; i < randomVal; i++) {
+            if (!traineeQueue.isEmpty()) {
+                if (inTraining.size() < MAX_SIZE) {
+                    Trainee trainee = traineeQueue.remove();
+                    addTrainee(trainee);
+                } else {
+                    break;
+                }
             }
         }
-        return new ArrayList<>(traineeQueue);
+        return traineeQueue;
     }
 
     public List<Trainee> getInTraining() {
         return inTraining;
     }
+
 }

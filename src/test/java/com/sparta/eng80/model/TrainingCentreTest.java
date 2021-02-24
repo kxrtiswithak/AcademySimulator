@@ -1,55 +1,73 @@
 package com.sparta.eng80.model;
 
-import org.junit.Test;
+import com.sparta.eng80.controller.TraineeManager;
+import com.sparta.eng80.util.Printer;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
+
+import java.security.Principal;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrainingCentreTest {
 
     @Test
-    @DisplayName("Testing to see if unique Trainees can be created")
     public void createTrainingCentre() {
-        TrainingCenter trainingCenter = new TrainingCenter("Test");
+        TrainingCentre trainingCenter = new TrainingCentre("Test");
         Assertions.assertNotNull(trainingCenter);
     }
 
     @Test
-    @DisplayName("Testing to see if trainees can be added")
     public void addTraineesToTrainingCentre() {
-        TrainingCenter trainingCenter = new TrainingCenter("Test");
+        TrainingCentre trainingCenter = new TrainingCentre("Test");
         trainingCenter.addTrainee(new Trainee());
         Assertions.assertTrue(trainingCenter.getInTraining().size() > 0);
     }
 
     @Test
-    @DisplayName("Testing to see if null trainees can be added")
     public void addNullTraineeTest() {
-        TrainingCenter trainingCenter = new TrainingCenter("Test");
+        TrainingCentre trainingCenter = new TrainingCentre("Test");
         Assertions.assertFalse(trainingCenter.addTrainee(null));
     }
 
     @Test
-    @DisplayName("Testing to see if duplicate trainees can be added")
-    public void addDuplicateTraineeTest() {
-        TrainingCenter trainingCenter = new TrainingCenter("Test");
-        Trainee trainee = new Trainee();
-        trainingCenter.addTrainee(trainee);
-        Assertions.assertFalse(trainingCenter.addTrainee(trainee));
+    public void add20To30TraineesTest() {
+        TrainingCentre trainingCenter = new TrainingCentre("Test");
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        for (int i = 0; i < 100; i++) {
+            trainees.add(new Trainee());
+        }
+        trainingCenter.acceptTrainees(trainees, 20, 30);
+        int trainingCenterCapacity = trainingCenter.getInTraining().size();
+        Assertions.assertTrue( trainingCenterCapacity >= 20 && trainingCenterCapacity <= 30);
     }
 
     @Test
-    @DisplayName("Testing to see if more then 100 trainees can be added")
-    public void addMoreThen100TraineeTest() {
-        TrainingCenter trainingCenter = new TrainingCenter("Test");
-        boolean added = true;
+    public void addMoreThan100TraineeTest() {
+        TrainingCentre trainingCenter = new TrainingCentre("Test");
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+
         for (int i = 0; i < 110; i++) {
-            added = trainingCenter.addTrainee(
-                    new Trainee()
-            );
-            if (!added) {
-                break;
-            }
+            trainees.add(new Trainee());
         }
-        Assertions.assertFalse(added);
+        trainingCenter.acceptTrainees(trainees, 101, 110);
+        Assertions.assertTrue(trainingCenter.getInTraining().size() == 100);
+    }
+
+    @Test
+    public void traineesRemovedFromWaitingListAfterAddedToCentre() {
+        TraineeManager traineeManager = new TraineeManager();
+        TrainingCentre trainingCentre = new TrainingCentre("test");
+        List<Trainee> traineeList = traineeManager.generateNewTrainees(20, 30);
+        traineeManager.addToWaitingList(traineeList);
+        Queue<Trainee> waitingList1 = traineeManager.getWaitingList();
+        Queue<Trainee> waitingList2 = trainingCentre.acceptTrainees(waitingList1, 0, 20);
+        List<Trainee> traineesInCentre = trainingCentre.getInTraining();
+        Printer.printString(traineeList.size()+" "+ waitingList1.size() + " " +waitingList2.size() + " " +traineesInCentre.size());
+        for (Trainee trainee: traineesInCentre) {
+            Assertions.assertFalse(waitingList2.contains(trainee));
+        }
+        Assertions.assertEquals(waitingList2.size(), waitingList1.size());
     }
 }
