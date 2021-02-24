@@ -40,8 +40,8 @@ public class TrainingCentre {
         int randomVal = randomGenerator.inRange(minNumber, maxNumber);
         for (int i = 0; i < randomVal; i++) {
             if (!traineeQueue.isEmpty()) {
-                Trainee trainee = traineeQueue.remove();
                 if (inTraining.size() < MAX_SIZE) {
+                    Trainee trainee = traineeQueue.remove();
                     addTrainee(trainee);
                 } else {
                     break;
