@@ -19,7 +19,7 @@ public class FileOutputTest {
         traineeManager.addToWaitingList(newTrainees);
         LocalDate simulateUntil = LocalDate.now();
         simulateUntil = simulateUntil.plusMonths(3);
-        OutputManager outputManager = new OutputManager(trainingCentreManager, traineeManager, simulateUntil);
+        OutputManager outputManager = new OutputManager(trainingCentreManager, traineeManager, simulateUntil, false);
         outputManager.run();
         FileOutput fileOutput = new FileOutput(
                 outputManager.outputNumOfOpenCentres(),
