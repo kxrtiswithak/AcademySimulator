@@ -12,6 +12,25 @@ import java.util.List;
 public class FileOutputTest {
 
     @Test
+    public void consoleOutputTest() {
+        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(LocalDate.now());
+        TraineeManager traineeManager = new TraineeManager();
+        List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
+        traineeManager.addToWaitingList(newTrainees);
+        LocalDate simulateUntil = LocalDate.now();
+        simulateUntil = simulateUntil.plusMonths(3);
+        OutputManager outputManager = new OutputManager(trainingCentreManager, traineeManager, simulateUntil, false);
+        outputManager.run();
+        FileOutput fileOutput = new FileOutput(
+                outputManager.outputNumOfOpenCentres(),
+                outputManager.outputNumOfFullCentres(),
+                outputManager.outputNumOfTraineesInTraining(),
+                outputManager.outputNumOfTraineesInWaitingList(),
+                outputManager.overallProjectTime(simulateUntil)
+        );
+    }
+
+    @Test
     public void fileOutputTest() {
         TrainingCentreManager trainingCentreManager = new TrainingCentreManager(LocalDate.now());
         TraineeManager traineeManager = new TraineeManager();
@@ -19,7 +38,7 @@ public class FileOutputTest {
         traineeManager.addToWaitingList(newTrainees);
         LocalDate simulateUntil = LocalDate.now();
         simulateUntil = simulateUntil.plusMonths(3);
-        OutputManager outputManager = new OutputManager(trainingCentreManager, traineeManager, simulateUntil);
+        OutputManager outputManager = new OutputManager(trainingCentreManager, traineeManager, simulateUntil, true);
         outputManager.run();
         FileOutput fileOutput = new FileOutput(
                 outputManager.outputNumOfOpenCentres(),

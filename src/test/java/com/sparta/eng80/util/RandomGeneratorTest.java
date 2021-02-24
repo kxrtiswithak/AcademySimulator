@@ -16,8 +16,10 @@ public class RandomGeneratorTest {
     public void generateRandomNumberCheck() {
         RandomGenerator randomGenerator = new RandomGenerator(seed);
         List<Integer> listOfIntegers= new ArrayList<>();
+        int randomVal;
         for (int count = 0; count < 10; count++) {
-            int randomVal = randomGenerator.inRange(MIN, MAX);
+            randomVal = randomGenerator.inRange(MIN, MAX);
+            listOfIntegers.add(randomVal);
         }
         for (int number : listOfIntegers) {
             Assertions.assertTrue(number >= MIN && number <= MAX);
