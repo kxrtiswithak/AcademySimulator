@@ -1,7 +1,7 @@
 package com.sparta.eng80.controller;
 
 import com.sparta.eng80.model.Trainee;
-import com.sparta.eng80.util.Printer;
+
 import org.junit.jupiter.api.BeforeEach;
 import com.sparta.eng80.model.TrainingCentre;
 import org.junit.jupiter.api.Test;
@@ -50,12 +50,6 @@ public class TrainingCentreManagerTest {
         }
         ArrayList<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
         Assertions.assertTrue(trainingCentres.size() == 6);
-    }
-
-    @Test
-    public  void checkGetNumOfFullTrainingCentresReturnType() {
-        int numOfFullCentre = trainingCentreManager.getNumOfFullTrainingCentres();
-        Assertions.assertNotNull(numOfFullCentre);
     }
 
     @Test

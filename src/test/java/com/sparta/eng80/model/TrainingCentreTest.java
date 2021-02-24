@@ -13,10 +13,9 @@ import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrainingCentreTest {
-    TrainingCentre techCentre;
-    TrainingCentre bootcamp;
-    TrainingCentre trainingHub;
-    int maxSize;
+    TechCentre techCentre;
+    Bootcamp bootcamp;
+    TrainingHub trainingHub;
 
     @BeforeEach
     public void setup() {
@@ -38,6 +37,24 @@ public class TrainingCentreTest {
     @Test
     public void createTrainingHub() {
         Assertions.assertNotNull(trainingHub);
+    }
+
+    @Test
+    public void createUniqueTechCentre() {
+       TrainingCentre techCentre2 = new TechCentre("Tech Centre 2");
+       Assertions.assertFalse(techCentre.equals(techCentre2));
+    }
+
+    @Test
+    public void createUniqueBootcamp() {
+        TrainingCentre bootcamp2 = new Bootcamp("Bootcamp 2");
+        Assertions.assertFalse(techCentre.equals(bootcamp2));
+    }
+
+    @Test
+    public void createUniqueTrainingHub() {
+        TrainingCentre trainingHub2 = new TechCentre("Training Hub 2");
+        Assertions.assertFalse(techCentre.equals(trainingHub2));
     }
 
     @Test
@@ -97,9 +114,24 @@ public class TrainingCentreTest {
     }
 
     @Test
+    public void getMaxSizeTechCentre(){
+        Assertions.assertEquals(200, techCentre.getMaxSize());
+    }
+
+    @Test
+    public void getMaxSizeBootcamp(){
+        Assertions.assertEquals(500, bootcamp.MAX_SIZE);
+    }
+
+    @Test
+    public void getMaxSizeTrainingCentre(){
+        Assertions.assertEquals(100, trainingHub.MAX_SIZE);
+    }
+
+    @Test
     public void addMoreThanMaxSizeTraineesTechCentreTest() {
         Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
-        maxSize = techCentre.MAX_SIZE;
+        int maxSize = techCentre.MAX_SIZE;
         for (int i = 0; i < (maxSize+10); i++) {
             trainees.add(new Trainee());
         }
@@ -110,7 +142,7 @@ public class TrainingCentreTest {
     @Test
     public void addMoreThanMaxSizeTraineesBootcampTest() {
         Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
-        maxSize = bootcamp.MAX_SIZE;
+        int maxSize = bootcamp.MAX_SIZE;
         for (int i = 0; i < (maxSize+10); i++) {
             trainees.add(new Trainee());
         }
@@ -121,7 +153,7 @@ public class TrainingCentreTest {
     @Test
     public void addMoreThanMaxSizeTraineesTrainingHubTest() {
         Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
-        maxSize = trainingHub.MAX_SIZE;
+        int maxSize = trainingHub.MAX_SIZE;
         for (int i = 0; i < (maxSize+10); i++) {
             trainees.add(new Trainee());
         }
