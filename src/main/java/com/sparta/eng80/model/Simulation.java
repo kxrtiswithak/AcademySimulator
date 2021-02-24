@@ -1,6 +1,6 @@
 package com.sparta.eng80.model;
 
-import com.sparta.eng80.App;
+import com.sparta.eng80.view.App;
 import com.sparta.eng80.controller.OutputManager;
 import com.sparta.eng80.controller.TraineeManager;
 import com.sparta.eng80.controller.TrainingCentreManager;
