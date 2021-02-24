@@ -48,15 +48,15 @@ public class SimulationTest {
 //
 //    @Test
 //    public void checkNumberOfOpenTrainingCentresLessThanTotal() {
-////        List<TrainingCentre> trainingCentres = simulation.getTrainingCentreManager().getListOfTrainingCenters();
-////        int numberOfOpenCentres = 0, numberOfCentres;
-////        numberOfCentres = trainingCentres.size();
-////        for (TrainingCentre trainingCentre:trainingCentres) {
-////            if(trainingCentre.getInTraining().size() != 100) {
-////                numberOfOpenCentres++;
-////            }
-////        }
-////        Assertions.assertTrue(numberOfOpenCentres <= numberOfCentres);
+//        List<TrainingCentre> trainingCentres = simulation.getTrainingCentreManager().getListOfTrainingCenters();
+//        int numberOfOpenCentres = 0, numberOfCentres;
+//        numberOfCentres = trainingCentres.size();
+//        for (TrainingCentre trainingCentre:trainingCentres) {
+//            if(trainingCentre.getInTraining().size() != 100) {
+//                numberOfOpenCentres++;
+//            }
+//        }
+//        Assertions.assertTrue(numberOfOpenCentres <= numberOfCentres);
 //    }
 //
 //    @Test
