@@ -12,7 +12,7 @@ public class TraineeManager {
 
     private static final long SEED = 1397819237199981723L;
     private static final RandomGenerator randomGenerator = new RandomGenerator(SEED);
-    Queue<Trainee> waitingList = new LinkedBlockingQueue<>();
+    private Queue<Trainee> waitingList = new LinkedBlockingQueue<>();
 
     public List<Trainee> generateNewTrainees(int minNumber, int maxNumber) {
         int randomVal = randomGenerator.inRange(minNumber, maxNumber);

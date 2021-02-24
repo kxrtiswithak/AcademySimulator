@@ -41,7 +41,7 @@ public class Simulation implements Runnable {
 
                 for (TrainingCentre trainingCentre : trainingCentres) {
                     if (waitingList.isEmpty()) break;
-                    waitingList = trainingCentre.acceptTrainees(waitingList, 10, 20);
+                    waitingList = trainingCentre.acceptTrainees(waitingList, 0, 20);
                 }
             }
         }

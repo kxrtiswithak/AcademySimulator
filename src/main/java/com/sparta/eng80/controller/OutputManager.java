@@ -43,7 +43,7 @@ public class OutputManager implements Output {
             numOfTrainees += tc.getInTraining().size();
         }
 
-        numOfTrainees += traineeManager.waitingList.size();
+        numOfTrainees += traineeManager.getWaitingList().size();
         return numOfTrainees;
     }
 
@@ -58,7 +58,7 @@ public class OutputManager implements Output {
 
     @Override
     public int outputNumOfTraineesInWaitingList() {
-        return traineeManager.waitingList.size();
+        return traineeManager.getWaitingList().size();
     }
 
     @Override
