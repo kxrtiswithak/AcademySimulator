@@ -62,7 +62,7 @@ public class FileOutput {
         return file.isFile();
     }
 
-    private int formatResults(int unformattedNumber) {
-        return Integer.parseInt(NumberFormat.getInstance().format((double) unformattedNumber));
+    private String formatResults(int unformattedNumber) {
+        return NumberFormat.getInstance().format((double) unformattedNumber);
     }
 }
