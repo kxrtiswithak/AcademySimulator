@@ -30,5 +30,4 @@ public class FileOutputTest {
         );
         fileOutput.outputToFile();
     }
-
 }

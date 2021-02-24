@@ -3,8 +3,8 @@ package com.sparta.eng80.model;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
-import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrainingCentreTest {
 
@@ -30,11 +30,11 @@ public class TrainingCentreTest {
     @Test
     public void add20To30TraineesTest() {
         TrainingCentre trainingCenter = new TrainingCentre("Test");
-        Queue<Trainee> list = new LinkedList<>();
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
         for (int i = 0; i < 100; i++) {
-            list.add(new Trainee());
+            trainees.add(new Trainee());
         }
-        trainingCenter.acceptTrainees(list, 20, 30);
+        trainingCenter.acceptTrainees(trainees, 20, 30);
         int trainingCenterCapacity = trainingCenter.getInTraining().size();
         Assertions.assertTrue( trainingCenterCapacity >= 20 && trainingCenterCapacity <= 30);
     }
@@ -42,11 +42,12 @@ public class TrainingCentreTest {
     @Test
     public void addMoreThan100TraineeTest() {
         TrainingCentre trainingCenter = new TrainingCentre("Test");
-        Queue<Trainee> list = new LinkedList<>();
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+
         for (int i = 0; i < 110; i++) {
-            list.add(new Trainee());
+            trainees.add(new Trainee());
         }
-        trainingCenter.acceptTrainees(list, 101, 110);
+        trainingCenter.acceptTrainees(trainees, 101, 110);
         Assertions.assertTrue(trainingCenter.getInTraining().size() == 100);
     }
 }
