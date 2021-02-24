@@ -46,7 +46,7 @@ public class TrainingCentreManager {
         String bootcampName = "Boot Camp " + numberOfBootcamps;
         this.currentDate = currentDate;
         if(currentDate.equals(lastCentreAddedDate.plusMonths(2)) || currentDate.equals(startDate)){
-            TrainingCentre bootcamp = new Bootcamp(bootcampName);
+            TrainingCentre bootcamp = new Bootcamp(bootcampName, currentDate);
             numberOfBootcamps++;
             lastCentreAddedDate = currentDate;
             listOfTrainingCentres.add(bootcamp);
@@ -57,7 +57,7 @@ public class TrainingCentreManager {
         String techCentreName = "Tech Centre " + numberOfTechCentres;
         this.currentDate = currentDate;
         if(currentDate.equals(lastCentreAddedDate.plusMonths(2)) || currentDate.equals(startDate)){
-            TrainingCentre techCentre = new TechCentre(techCentreName);
+            TrainingCentre techCentre = new TechCentre(techCentreName, currentDate);
             numberOfTechCentres++;
             lastCentreAddedDate = currentDate;
             listOfTrainingCentres.add(techCentre);
@@ -68,7 +68,7 @@ public class TrainingCentreManager {
         String techCentreName = "Tech Centre " + numberOfTrainingHub;
         this.currentDate = currentDate;
         if(currentDate.equals(lastCentreAddedDate.plusMonths(2)) || currentDate.equals(startDate)){
-            TrainingCentre trainingHub = new TrainingHub(techCentreName);
+            TrainingCentre trainingHub = new TrainingHub(techCentreName, currentDate);
             numberOfTrainingHub++;
             lastCentreAddedDate = currentDate;
             listOfTrainingCentres.add(trainingHub);
@@ -88,5 +88,22 @@ public class TrainingCentreManager {
         }
         return count;
     }
+
+    public LocalDate getCurrentDate(){
+        return currentDate;
+    }
+
+    private void checkCentreAges(){
+        for (TrainingCentre trainingCentre : listOfTrainingCentres){
+            if(trainingCentre.getAge() > 2 && trainingCentre.isClosed == false
+                //TODO Specify training centre type
+            ){
+                if(trainingCentre.getInTraining().size() < 25){
+                    trainingCentre.isClosed = true;
+                }
+            }
+        }
+    }
+
 
 }
