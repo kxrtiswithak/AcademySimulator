@@ -1,11 +1,12 @@
 package com.sparta.eng80.model.types_of_centres;
 
 import com.sparta.eng80.model.TrainingCentre;
+import com.sparta.eng80.util.Date;
 
 import java.time.LocalDate;
 
 public class TrainingHub extends TrainingCentre {
-    public TrainingHub(String name, LocalDate openDate) {
+    public TrainingHub(String name, Date openDate) {
         super(name, openDate);
     }
 }
