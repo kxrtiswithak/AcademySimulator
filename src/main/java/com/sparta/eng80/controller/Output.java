@@ -1,4 +1,4 @@
-package com.sparta.eng80.model;
+package com.sparta.eng80.controller;
 
 import java.time.LocalDate;
 
