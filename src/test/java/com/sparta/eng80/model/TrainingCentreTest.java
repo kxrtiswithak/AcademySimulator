@@ -1,7 +1,9 @@
 package com.sparta.eng80.model;
 
 import com.sparta.eng80.controller.TraineeManager;
-import com.sparta.eng80.util.Printer;
+import com.sparta.eng80.model.types_of_centres.Bootcamp;
+import com.sparta.eng80.model.types_of_centres.TechCentre;
+import com.sparta.eng80.model.types_of_centres.TrainingHub;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -11,64 +13,130 @@ import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrainingCentreTest {
-    TrainingCentre trainingCentre;
+    TrainingCentre techCentre;
+    TrainingCentre bootcamp;
+    TrainingCentre trainingHub;
+    int maxSize;
 
     @BeforeEach
     public void setup() {
-        trainingCentre = new TrainingCentre("test");
+        techCentre = new TechCentre("Tech Centre");
+        bootcamp = new Bootcamp("Bootcamp");
+        trainingHub = new TrainingHub("Training Hub");
     }
 
     @Test
-    public void createTrainingCentre() {
-        Assertions.assertNotNull(trainingCentre);
+    public void createTechCentre() {
+        Assertions.assertNotNull(techCentre);
     }
 
     @Test
-    public void addTraineesToTrainingCentre() {
+    public void createBootcamp() {
+        Assertions.assertNotNull(bootcamp);
+    }
 
-        trainingCentre.addTrainee(new Trainee());
-        Assertions.assertTrue(trainingCentre.getInTraining().size() > 0);
+    @Test
+    public void createTrainingHub() {
+        Assertions.assertNotNull(trainingHub);
+    }
+
+    @Test
+    public void addTraineesToTechCentre() {
+        techCentre.addTrainee(new Trainee());
+        Assertions.assertTrue(techCentre.getInTraining().size() == 1);
+    }
+
+    @Test
+    public void addTraineesToBootcamp() {
+        bootcamp.addTrainee(new Trainee());
+        Assertions.assertTrue(bootcamp.getInTraining().size() == 1);
+    }
+
+    @Test
+    public void addTraineesToTrainingHub() {
+        trainingHub.addTrainee(new Trainee());
+        Assertions.assertTrue(trainingHub.getInTraining().size() == 1);
     }
 
     @Test
     public void addNullTraineeTest() {
-
-        Assertions.assertFalse(trainingCentre.addTrainee(null));
+        Assertions.assertFalse(techCentre.addTrainee(null));
     }
 
     @Test
-    public void add0To20TraineesTest() {
-
+    public void add0To20TraineesTechCentreTest() {
         Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
         for (int i = 0; i < 100; i++) {
             trainees.add(new Trainee());
         }
-        trainingCentre.acceptTrainees(trainees, 0, 20);
-        int trainingCentreCapacity = trainingCentre.getInTraining().size();
+        techCentre.acceptTrainees(trainees, 0, 20);
+        int trainingCentreCapacity = techCentre.getInTraining().size();
         Assertions.assertTrue( trainingCentreCapacity >= 0 && trainingCentreCapacity <= 20);
     }
 
     @Test
-    public void addMoreThan100TraineesTest() {
-
+    public void add0To20TraineesBootcampTest() {
         Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
-
-        for (int i = 0; i < 110; i++) {
+        for (int i = 0; i < 100; i++) {
             trainees.add(new Trainee());
         }
-        trainingCentre.acceptTrainees(trainees, 101, 110);
-        Assertions.assertTrue(trainingCentre.getInTraining().size() == 100);
+        bootcamp.acceptTrainees(trainees, 0, 20);
+        int trainingCentreCapacity = bootcamp.getInTraining().size();
+        Assertions.assertTrue( trainingCentreCapacity >= 0 && trainingCentreCapacity <= 20);
+    }
+
+    @Test
+    public void add0To20TraineesTrainingHubTest() {
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        for (int i = 0; i < 100; i++) {
+            trainees.add(new Trainee());
+        }
+        trainingHub.acceptTrainees(trainees, 0, 20);
+        int trainingCentreCapacity = trainingHub.getInTraining().size();
+        Assertions.assertTrue( trainingCentreCapacity >= 0 && trainingCentreCapacity <= 20);
+    }
+
+    @Test
+    public void addMoreThanMaxSizeTraineesTechCentreTest() {
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        maxSize = techCentre.MAX_SIZE;
+        for (int i = 0; i < (maxSize+10); i++) {
+            trainees.add(new Trainee());
+        }
+        techCentre.acceptTrainees(trainees, maxSize, maxSize+10);
+        Assertions.assertTrue(techCentre.getInTraining().size() == maxSize);
+    }
+
+    @Test
+    public void addMoreThanMaxSizeTraineesBootcampTest() {
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        maxSize = bootcamp.MAX_SIZE;
+        for (int i = 0; i < (maxSize+10); i++) {
+            trainees.add(new Trainee());
+        }
+        bootcamp.acceptTrainees(trainees, maxSize, maxSize+10);
+        Assertions.assertTrue(bootcamp.getInTraining().size() == maxSize);
+    }
+
+    @Test
+    public void addMoreThanMaxSizeTraineesTrainingHubTest() {
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        maxSize = trainingHub.MAX_SIZE;
+        for (int i = 0; i < (maxSize+10); i++) {
+            trainees.add(new Trainee());
+        }
+        trainingHub.acceptTrainees(trainees, maxSize, maxSize+10);
+        Assertions.assertTrue(trainingHub.getInTraining().size() == maxSize);
     }
 
     @Test
     public void traineesRemovedFromWaitingListAfterAddedToCentre() {
-        TrainingCentre trainingCentre = new TrainingCentre("test");
         TraineeManager traineeManager = new TraineeManager();
         List<Trainee> traineeList1 = traineeManager.generateNewTrainees(20, 30);
         traineeManager.addToWaitingList(traineeList1);
         Queue<Trainee> waitingList1 = traineeManager.getWaitingList();
-        Queue<Trainee> waitingList2 = trainingCentre.acceptTrainees(waitingList1, 0, 20);
-        List<Trainee> traineesInCentre = trainingCentre.getInTraining();
+        Queue<Trainee> waitingList2 = techCentre.acceptTrainees(waitingList1, 0, 20);
+        List<Trainee> traineesInCentre = techCentre.getInTraining();
         for (Trainee trainee: traineesInCentre) {
             Assertions.assertTrue(traineesInCentre.contains(trainee));
             Assertions.assertFalse(waitingList2.contains(trainee));
@@ -78,12 +146,11 @@ public class TrainingCentreTest {
     @Test
     public void traineesOnWaitingListAddedFIFO() {
         TraineeManager traineeManager = new TraineeManager();
-        TrainingCentre trainingCentre = new TrainingCentre("test");
         List<Trainee> traineeList = traineeManager.generateNewTrainees(20, 30);
         traineeManager.addToWaitingList(traineeList);
         Queue<Trainee> waitingList1 = traineeManager.getWaitingList();
-        trainingCentre.acceptTrainees(waitingList1, 0, 20);
-        List<Trainee> traineesInCentre = trainingCentre.getInTraining();
+        techCentre.acceptTrainees(waitingList1, 0, 20);
+        List<Trainee> traineesInCentre = techCentre.getInTraining();
         Assertions.assertEquals(traineeList.get(0), traineesInCentre.get(0));
     }
 }

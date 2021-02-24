@@ -1,6 +1,7 @@
 package com.sparta.eng80.controller;
 
 import com.sparta.eng80.model.Trainee;
+import com.sparta.eng80.util.Printer;
 import org.junit.jupiter.api.BeforeEach;
 import com.sparta.eng80.model.TrainingCentre;
 import org.junit.jupiter.api.Test;
@@ -13,10 +14,6 @@ import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrainingCentreManagerTest {
-    //TODO Tests:  TrainingCentreManager.getNumOfFullTrainingCentres() needs fixing
-    // - getNumOfFullTrainingCentresTest()
-    // - checkAllTrainingCentresCountedAsFull()
-    // - check returned data type of getNumOfFullTrainingCentres()
     private LocalDate startDate = LocalDate.now();
     private TrainingCentreManager trainingCentreManager;
 
@@ -32,14 +29,14 @@ public class TrainingCentreManagerTest {
 
     @Test
     public void generateNewCentreTest() {
-        trainingCentreManager.generateNewCentre(LocalDate.now());
+        trainingCentreManager.generateNewTrainingHub(LocalDate.now());
         Assertions.assertTrue(trainingCentreManager.getListOfTrainingCenters().size() == 1);
     }
 
     @Test
     public void generateNewUniqueCentreTest() {
-        trainingCentreManager.generateNewCentre(startDate);
-        trainingCentreManager.generateNewCentre(startDate.plusMonths(2));
+        trainingCentreManager.generateNewTrainingHub(startDate);
+        trainingCentreManager.generateNewTrainingHub(startDate.plusMonths(2));
         ArrayList<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
         Assertions.assertFalse(trainingCentres.get(0).equals(trainingCentres.get(1)));
     }
@@ -48,7 +45,7 @@ public class TrainingCentreManagerTest {
     public void generateNewCentreEvery2MonthsTest() {
         LocalDate currentDate = startDate, endDate = startDate.plusMonths(12);
         while(currentDate.isBefore(endDate)){
-            trainingCentreManager.generateNewCentre(currentDate);
+            trainingCentreManager.generateNewTrainingHub(currentDate);
             currentDate = currentDate.plusMonths(1);
         }
         ArrayList<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
@@ -68,9 +65,9 @@ public class TrainingCentreManagerTest {
             Trainee trainee = new Trainee();
             trainees.add(trainee);
         }
-        trainingCentreManager.generateNewCentre(startDate);
-        trainingCentreManager.generateNewCentre(startDate.plusMonths(2));
-        trainingCentreManager.generateNewCentre(startDate.plusMonths(4));
+        trainingCentreManager.generateNewTrainingHub(startDate);
+        trainingCentreManager.generateNewTrainingHub(startDate.plusMonths(2));
+        trainingCentreManager.generateNewTrainingHub(startDate.plusMonths(4));
         List<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
         trainingCentres.get(0).acceptTrainees(trainees, 100, 200);
         int numOfFullTrainingCentres = 0;
@@ -89,9 +86,9 @@ public class TrainingCentreManagerTest {
             Trainee trainee = new Trainee();
             trainees.add(trainee);
         }
-        trainingCentreManager.generateNewCentre(startDate);
-        trainingCentreManager.generateNewCentre(startDate.plusMonths(2));
-        trainingCentreManager.generateNewCentre(startDate.plusMonths(4));
+        trainingCentreManager.generateNewTrainingHub(startDate);
+        trainingCentreManager.generateNewTrainingHub(startDate.plusMonths(2));
+        trainingCentreManager.generateNewTrainingHub(startDate.plusMonths(4));
         List<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
         trainingCentres.get(0).acceptTrainees(trainees, 100, 200);
         trainingCentres.get(1).acceptTrainees(trainees, 100, 200);
@@ -113,9 +110,9 @@ public class TrainingCentreManagerTest {
             Trainee trainee = new Trainee();
             trainees.add(trainee);
         }
-        trainingCentreManager.generateNewCentre(startDate);
-        trainingCentreManager.generateNewCentre(startDate.plusMonths(2));
-        trainingCentreManager.generateNewCentre(startDate.plusMonths(4));
+        trainingCentreManager.generateNewTrainingHub(startDate);
+        trainingCentreManager.generateNewTrainingHub(startDate.plusMonths(2));
+        trainingCentreManager.generateNewTrainingHub(startDate.plusMonths(4));
         List<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
         trainingCentres.get(0).acceptTrainees(trainees, 100, 200);
         int numOfFullTrainingCentres = 0;
@@ -134,9 +131,9 @@ public class TrainingCentreManagerTest {
             Trainee trainee = new Trainee();
             trainees.add(trainee);
         }
-        trainingCentreManager.generateNewCentre(startDate);
-        trainingCentreManager.generateNewCentre(startDate.plusMonths(2));
-        trainingCentreManager.generateNewCentre(startDate.plusMonths(4));
+        trainingCentreManager.generateNewTrainingHub(startDate);
+        trainingCentreManager.generateNewTrainingHub(startDate.plusMonths(2));
+        trainingCentreManager.generateNewTrainingHub(startDate.plusMonths(4));
         List<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
         trainingCentres.get(0).acceptTrainees(trainees, 100, 200);
         trainingCentres.get(1).acceptTrainees(trainees, 100, 200);
@@ -149,5 +146,27 @@ public class TrainingCentreManagerTest {
         for (TrainingCentre trainingCentre : fullTrainingCentres) {
             Assertions.assertTrue(trainingCentre.getInTraining().size() != 100);
         }
+    }
+
+    @Test
+    public void generateRandomTypeOfCentre() {
+        for (int count = 0; count < 5; count++) {
+            trainingCentreManager.randomlyGenerateCentre(startDate);
+        }
+        List<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
+        for (int count = 0; count < 3; count++) {
+            Assertions.assertTrue((trainingCentres.get(count).getClass() != trainingCentres.get(count+1).getClass()) || (trainingCentres.get(count).getClass() != trainingCentres.get(count+2).getClass()));
+        }
+    }
+
+    //Todo: Fix once implemented
+    // - numberOfBootcamps = trainingCentreManager.getNumberOfBootcamps
+    @Test
+    public void generateBootcampWhen2ExistCheck() {
+        for (int count = 0; count < 4; count++) {
+            trainingCentreManager.generateNewBootcamp(startDate);
+        }
+        int numberOfBootcamps = 2;
+        Assertions.assertEquals(2, numberOfBootcamps);
     }
 }

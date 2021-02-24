@@ -11,7 +11,7 @@ public class SimulationTest {
 //    int numberOfMonths;
 //    @BeforeEach
 //    public void setup() {
-//        numberOfMonths = 5;
+//        numberOfMonths = 300;
 //        simulation = new Simulation();
 //        simulation.setSimulationFor(numberOfMonths);
 //        simulation.run();
@@ -27,8 +27,8 @@ public class SimulationTest {
 //    public void checkNumberOfTraineesInRangeAtEnd() {
 //        int numberOfTrainees = simulation.getTraineeManager().getWaitingList().size();
 //        List<TrainingCentre> trainingCentres = simulation.getTrainingCentreManager().getListOfTrainingCenters();
-//        for (TrainingCentre trainingCentre : trainingCentres) {
-//            numberOfTrainees += trainingCentre.getInTraining().size();
+//        for (TrainingCentre techCentre : trainingCentres) {
+//            numberOfTrainees += techCentre.getInTraining().size();
 //        }
 //        Assertions.assertTrue(numberOfTrainees >= numberOfMonths * 20 && numberOfTrainees <= numberOfMonths * 30);
 //    }
@@ -38,8 +38,8 @@ public class SimulationTest {
 //        List<TrainingCentre> trainingCentres = simulation.getTrainingCentreManager().getListOfTrainingCenters();
 //        int numberOfFullCentres = 0, numberOfCentres;
 //        numberOfCentres = trainingCentres.size();
-//        for (TrainingCentre trainingCentre:trainingCentres) {
-//            if(trainingCentre.getInTraining().size() == 100) {
+//        for (TrainingCentre techCentre:trainingCentres) {
+//            if(techCentre.getInTraining().size() == 100) {
 //                numberOfFullCentres++;
 //            }
 //        }
@@ -51,8 +51,8 @@ public class SimulationTest {
 //        List<TrainingCentre> trainingCentres = simulation.getTrainingCentreManager().getListOfTrainingCenters();
 //        int numberOfOpenCentres = 0, numberOfCentres;
 //        numberOfCentres = trainingCentres.size();
-//        for (TrainingCentre trainingCentre:trainingCentres) {
-//            if(trainingCentre.getInTraining().size() != 100) {
+//        for (TrainingCentre techCentre:trainingCentres) {
+//            if(techCentre.getInTraining().size() != 100) {
 //                numberOfOpenCentres++;
 //            }
 //        }
@@ -64,8 +64,8 @@ public class SimulationTest {
 //        List<TrainingCentre> trainingCentres = simulation.getTrainingCentreManager().getListOfTrainingCenters();
 //        int numberOfFullCentres = 0, numberOfOpenCentres = 0, numberOfCentres;
 //        numberOfCentres = trainingCentres.size();
-//        for (TrainingCentre trainingCentre:trainingCentres) {
-//            if(trainingCentre.getInTraining().size() == 100) {
+//        for (TrainingCentre techCentre:trainingCentres) {
+//            if(techCentre.getInTraining().size() == 100) {
 //                numberOfFullCentres++;
 //            } else {
 //                numberOfOpenCentres++;
