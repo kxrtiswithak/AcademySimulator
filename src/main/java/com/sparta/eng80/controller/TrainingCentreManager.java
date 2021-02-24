@@ -43,8 +43,4 @@ public class TrainingCentreManager {
         return count;
     }
 
-    public int getNumOfOpenTrainingCentres() {
-        return listOfTrainingCentres.size() - getNumOfFullTrainingCentres();
-    }
-
 }

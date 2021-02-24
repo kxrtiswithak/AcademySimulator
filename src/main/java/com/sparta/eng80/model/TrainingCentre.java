@@ -5,7 +5,6 @@ import com.sparta.eng80.util.RandomGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrainingCentre {
 
@@ -56,7 +55,4 @@ public class TrainingCentre {
         return inTraining;
     }
 
-    public int getNumOfTrainees() {
-        return inTraining.size();
-    }
 }
