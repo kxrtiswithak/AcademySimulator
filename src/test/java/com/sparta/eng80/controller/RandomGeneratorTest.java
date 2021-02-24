@@ -1,5 +1,6 @@
 package com.sparta.eng80.controller;
 
+import com.sparta.eng80.util.RandomGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
