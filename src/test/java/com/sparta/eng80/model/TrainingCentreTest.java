@@ -43,6 +43,7 @@ public class TrainingCentreTest {
     public void addMoreThan100TraineeTest() {
         TrainingCentre trainingCenter = new TrainingCentre("Test");
         Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+
         for (int i = 0; i < 110; i++) {
             trainees.add(new Trainee());
         }

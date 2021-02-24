@@ -1,4 +1,4 @@
-package com.sparta.eng80.view;
+package com.sparta.eng80.util;
 
 import com.sparta.eng80.util.Printer;
 import org.junit.jupiter.api.Test;

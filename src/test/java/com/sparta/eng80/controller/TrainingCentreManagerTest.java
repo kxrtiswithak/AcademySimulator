@@ -1,7 +1,8 @@
-package com.sparta.eng80.model;
+package com.sparta.eng80.controller;
 
-import com.sparta.eng80.controller.TrainingCentreManager;
+import com.sparta.eng80.model.Trainee;
 import org.junit.jupiter.api.BeforeEach;
+import com.sparta.eng80.model.TrainingCentre;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -31,14 +32,12 @@ public class TrainingCentreManagerTest {
 
     @Test
     public void generateNewCentreTest() {
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(LocalDate.now());
         trainingCentreManager.generateNewCentre(LocalDate.now());
         Assertions.assertTrue(trainingCentreManager.getListOfTrainingCenters().size() == 1);
     }
 
     @Test
     public void generateNewUniqueCentreTest() {
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(startDate);
         trainingCentreManager.generateNewCentre(startDate);
         trainingCentreManager.generateNewCentre(startDate.plusMonths(2));
         ArrayList<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
@@ -48,7 +47,6 @@ public class TrainingCentreManagerTest {
     @Test
     public void generateNewCentreEvery2MonthsTest() {
         LocalDate currentDate = startDate, endDate = startDate.plusMonths(12);
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(startDate);
         while(currentDate.isBefore(endDate)){
             trainingCentreManager.generateNewCentre(currentDate);
             currentDate = currentDate.plusMonths(1);
@@ -59,14 +57,12 @@ public class TrainingCentreManagerTest {
 
     @Test
     public  void checkGetNumOfFullTrainingCentresReturnType() {
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(startDate);
         int numOfFullCentre = trainingCentreManager.getNumOfFullTrainingCentres();
         Assertions.assertNotNull(numOfFullCentre);
     }
 
     @Test
     public void getNumOfFullTrainingCentresTest() {
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(startDate);
         Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         for (int count = 0; count < 220; count++) {
             Trainee trainee = new Trainee();
@@ -88,7 +84,6 @@ public class TrainingCentreManagerTest {
 
     @Test
     public void checkAllFullTrainingCentresHave100Trainees() {
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(startDate);
         Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         for (int count = 0; count < 220; count++) {
             Trainee trainee = new Trainee();
@@ -113,7 +108,6 @@ public class TrainingCentreManagerTest {
 
     @Test
     public void getNumOfOpenTrainingCentresTest() {
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(startDate);
         Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         for (int count = 0; count < 220; count++) {
             Trainee trainee = new Trainee();
@@ -135,7 +129,6 @@ public class TrainingCentreManagerTest {
 
     @Test
     public void checkAllOpenTrainingCentresLessThan100Trainers() {
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(startDate);
         Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         for (int count = 0; count < 220; count++) {
             Trainee trainee = new Trainee();
