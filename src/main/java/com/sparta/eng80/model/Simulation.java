@@ -31,7 +31,7 @@ public class Simulation implements Runnable {
             Printer.printString("Please set the amount of time the simulation should simulate until!");
         } else {
             while (!currentDate.isAfter(simulateUntil) && !currentDate.isEqual(simulateUntil)) {
-                trainingCentreManager.generateNewCentre(currentDate);
+                trainingCentreManager.randomlyGenerateCentre(currentDate);
 
                 List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
                 traineeManager.addToWaitingList(newTrainees);

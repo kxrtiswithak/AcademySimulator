@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-public class TrainingCentre {
+public abstract class TrainingCentre {
 
 
     private static final long SEED = 1234987293479834781L;
