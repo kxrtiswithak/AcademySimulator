@@ -1,5 +1,6 @@
 package com.sparta.eng80.model;
 
+import com.sparta.eng80.App;
 import com.sparta.eng80.controller.OutputManager;
 import com.sparta.eng80.controller.TraineeManager;
 import com.sparta.eng80.controller.TrainingCentreManager;
@@ -46,7 +47,8 @@ public class Simulation implements Runnable {
             }
         }
 
-        outputManager = new OutputManager(trainingCentreManager, traineeManager, simulateUntil);
+        boolean fileOutput = App.outputSelection();
+        outputManager = new OutputManager(trainingCentreManager, traineeManager, simulateUntil, fileOutput);
         outputManager.run();
     }
 

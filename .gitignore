@@ -14,7 +14,7 @@
 .idea/**/shelf
 
 **/.DS_Store
-**/**.txt
+**/*.txt
 
 # Generated files
 .idea/**/contentModel.xml
