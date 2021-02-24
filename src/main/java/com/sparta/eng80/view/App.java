@@ -1,8 +1,11 @@
-package com.sparta.eng80;
+package com.sparta.eng80.view;
 
 import com.sparta.eng80.model.Simulation;
 import com.sparta.eng80.util.Printer;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class App {
@@ -11,27 +14,70 @@ public class App {
 
     public static void startApplication() {
         Printer.printString("Welcome to Sparta Global Training Simulator.\n");
-        printStartPrompt();
-        while (!scanner.hasNextInt()) {
-            printStartPrompt();
-            scanner.nextLine();
-        }
-        int option = scanner.nextInt();
-
         Simulation simulation = new Simulation();
-        switch (option) {
-            case 1: simulation.setSimulationFor(enterMonths());
-                break;
-            case 2: simulation.setSimulationFor(enterYears(), enterMonths());
-                break;
-            case 3: simulation.setSimulationFor(enterYears(), enterMonths(), enterDays());
-                break;
-            case 4:
-                int[] date = enterDate();
-                simulation.setSimulationUntil(date[0], date[1], date[2]);
-                break;
+        inputType:
+        while (true) {
+            printInputTypePrompt();
+            if (scanner.hasNextInt()) {
+                int option = scanner.nextInt();
+                switch (option) {
+                    case 1:
+                        int[] dayMonthYear = setFromProperties();
+                        simulation.setSimulationFor(dayMonthYear[0], dayMonthYear[1], dayMonthYear[2]);
+                        break inputType;
+                    case 2:
+                        break;
+                    default:
+                        invalidInputPrompt(option);
+                        continue inputType;
+                }
+            }
+
+            monthInput:
+            while (true) {
+                printStartPrompt();
+                if (scanner.hasNextInt()) {
+                    int option = scanner.nextInt();
+                    switch (option) {
+                        case 1:
+                            simulation.setSimulationFor(enterMonths());
+                            break;
+                        case 2:
+                            simulation.setSimulationFor(enterYears(), enterMonths());
+                            break;
+                        case 3:
+                            simulation.setSimulationFor(enterYears(), enterMonths(), enterDays());
+                            break;
+                        case 4:
+                            int[] date = enterDate();
+                            simulation.setSimulationUntil(date[0], date[1], date[2]);
+                            break;
+                        default:
+                            invalidInputPrompt(option);
+                            continue monthInput;
+                    }
+                    break inputType;
+                }
+            }
         }
         simulation.run();
+    }
+
+    private static int[] setFromProperties()
+    {
+        Properties properties = new Properties();
+        int[] dayMonthYear = new int[3];
+        try
+        {
+            properties.load(new FileReader("resources/simulation.properties"));
+            dayMonthYear[0] = Integer.parseInt(properties.getProperty("days", "0"));
+            dayMonthYear[1] = Integer.parseInt(properties.getProperty("months", "0"));
+            dayMonthYear[2] = Integer.parseInt(properties.getProperty("years", "0"));
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return dayMonthYear;
     }
 
     private static int enterMonths() {
@@ -77,9 +123,9 @@ public class App {
         }
         date[1] = scanner.nextInt();
 
-        Printer.printString("Please enter the YEAR (D)");
+        Printer.printString("Please enter the DAY (D)");
         while (!scanner.hasNextInt()) {
-            Printer.printString("Please enter the YEAR (D)");
+            Printer.printString("Please enter the DAY (D)");
             scanner.nextLine();
         }
         date[2] = scanner.nextInt();
@@ -101,6 +147,17 @@ public class App {
             c = scanner.nextLine().charAt(0);
         }
         return outputToFile;
+    }
+
+    private static void invalidInputPrompt(int selection) {
+        Printer.printString(selection + " is not one of the options. Please try again.\n");
+    }
+
+    private static void printInputTypePrompt() {
+        Printer.printString("How would you like to input the simulation parameters?");
+        Printer.printString("\t\tPlease select an option");
+        Printer.printString("\t\t\t1. Using the Properties File");
+        Printer.printString("\t\t\t2. Using the Command Line");
     }
 
     private static void printStartPrompt() {
