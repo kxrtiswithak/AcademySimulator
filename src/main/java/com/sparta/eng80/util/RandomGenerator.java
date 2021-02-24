@@ -13,6 +13,6 @@ public class RandomGenerator {
         if (min > max) {
             throw new IllegalArgumentException("Given min, " + min + ", is greater than the given max, " + max);
         }
-        return (int) ((long) min + Math.random() * ((long) max - min + 1));
+        return random.nextInt((int) ((long) (max) - (long) (min) + 1)) + min;
     }
 }

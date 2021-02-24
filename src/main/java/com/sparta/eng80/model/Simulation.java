@@ -29,10 +29,8 @@ public class Simulation implements Runnable {
         if (simulateUntil.isEqual(currentDate)) {
             Printer.printString("Please set the amount of time the simulation should simulate until!");
         } else {
-            while (!currentDate.isAfter(simulateUntil)) {
-
+            while (!currentDate.isAfter(simulateUntil) && !currentDate.isEqual(simulateUntil)) {
                 trainingCentreManager.generateNewCentre(currentDate);
-                currentDate = currentDate.plusMonths(1);
 
                 List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
                 traineeManager.addToWaitingList(newTrainees);
@@ -41,8 +39,10 @@ public class Simulation implements Runnable {
 
                 for (TrainingCentre trainingCentre : trainingCentres) {
                     if (waitingList.isEmpty()) break;
-                    waitingList = trainingCentre.acceptTrainees(waitingList, 10, 20);
+                    waitingList = trainingCentre.acceptTrainees(waitingList, 0, 20);
                 }
+
+                currentDate = currentDate.plusMonths(1);
             }
         }
 

@@ -51,10 +51,10 @@ public class FileOutput {
 
     public String createOutput() {
         return  overallProjectTime +
-                "\nOpen Training Centres: " + openTrainingCentres +
-                "\nFull Training Centres: " + fullTrainingCentres +
-                "\nTotal number of Trainees in Training Centres: " + traineesInTraining +
-                "\nTotal number of Trainees in waiting list: " + traineesInWaitingList;
+                "\nOpen Training Centres: " + formatResults(openTrainingCentres) +
+                "\nFull Training Centres: " + formatResults(fullTrainingCentres) +
+                "\nTotal number of Trainees in Training Centres: " + formatResults(traineesInTraining) +
+                "\nTotal number of Trainees in waiting list: " + formatResults(traineesInWaitingList);
     }
 
     private boolean fileExists() {
@@ -62,8 +62,7 @@ public class FileOutput {
         return file.isFile();
     }
 
-    private String formatResults(String unformattedText) {
-        double value = Double.parseDouble(unformattedText);
-        return NumberFormat.getInstance().format(value);
+    private String formatResults(int unformattedNumber) {
+        return NumberFormat.getInstance().format((double) unformattedNumber);
     }
 }
