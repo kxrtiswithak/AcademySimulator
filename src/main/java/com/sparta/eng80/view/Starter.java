@@ -5,7 +5,7 @@ import com.sparta.eng80.model.Simulation;
 public class Starter {
     public static void start() {
         Simulation simulation = new Simulation();
-        simulation.setSimulationFor(1);
+        simulation.setSimulationFor(5000);
         simulation.run();
     }
 }

@@ -108,4 +108,16 @@ public class Simulation implements Runnable {
             simulateUntil = null;
         }
     }
+
+    public TraineeManager getTraineeManager() {
+        return traineeManager;
+    }
+
+    public TrainingCentreManager getTrainingCentreManager() {
+        return trainingCentreManager;
+    }
+
+    public OutputManager getOutputManager() {
+        return outputManager;
+    }
 }
