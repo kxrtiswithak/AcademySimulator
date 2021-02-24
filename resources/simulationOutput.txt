@@ -1,5 +1,0 @@
-The overall time for this simulation is 416 years and 8 months
-Open Training Centres: 1,259
-Full Training Centres: 1,242
-Total number of Trainees in Training Centres: 124,417
-Total number of Trainees in waiting list: 0
