@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 public class SimulationTest {
-    Simulation simulation;
-    int numberOfMonths;
+//    Simulation simulation;
+//    int numberOfMonths;
 //    @BeforeEach
 //    public void setup() {
 //        numberOfMonths = 5;
