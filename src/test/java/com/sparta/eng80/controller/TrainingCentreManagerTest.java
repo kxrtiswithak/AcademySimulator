@@ -1,6 +1,6 @@
-package com.sparta.eng80.model;
+package com.sparta.eng80.controller;
 
-import com.sparta.eng80.view.Printer;
+import com.sparta.eng80.model.TrainingCentre;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 

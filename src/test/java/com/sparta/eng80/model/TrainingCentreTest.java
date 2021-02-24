@@ -1,11 +1,10 @@
 package com.sparta.eng80.model;
 
-import com.sparta.eng80.view.Printer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class TrainingCentreTest {
 
@@ -31,7 +30,7 @@ public class TrainingCentreTest {
     @Test
     public void add20To30TraineesTest() {
         TrainingCentre trainingCenter = new TrainingCentre("Test");
-        List<Trainee> list = new ArrayList<>();
+        Queue<Trainee> list = new LinkedList<>();
         for (int i = 0; i < 100; i++) {
             list.add(new Trainee());
         }
@@ -43,7 +42,7 @@ public class TrainingCentreTest {
     @Test
     public void addMoreThan100TraineeTest() {
         TrainingCentre trainingCenter = new TrainingCentre("Test");
-        List<Trainee> list = new ArrayList<>();
+        Queue<Trainee> list = new LinkedList<>();
         for (int i = 0; i < 110; i++) {
             list.add(new Trainee());
         }
