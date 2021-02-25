@@ -4,24 +4,28 @@ import com.sparta.eng80.controller.TraineeManager;
 import com.sparta.eng80.model.types_of_centres.Bootcamp;
 import com.sparta.eng80.model.types_of_centres.TechCentre;
 import com.sparta.eng80.model.types_of_centres.TrainingHub;
+import com.sparta.eng80.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
 
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrainingCentreTest {
-    TechCentre techCentre;
-    Bootcamp bootcamp;
-    TrainingHub trainingHub;
+    TrainingCentre techCentre;
+    TrainingCentre bootcamp;
+    TrainingCentre trainingHub;
+    Date startDate;
 
     @BeforeEach
     public void setup() {
-        techCentre = new TechCentre("Tech Centre");
-        bootcamp = new Bootcamp("Bootcamp");
-        trainingHub = new TrainingHub("Training Hub");
+        startDate = Date.now();
+        techCentre = new TechCentre("Tech Centre", startDate);
+        bootcamp = new Bootcamp("Bootcamp", startDate);
+        trainingHub = new TrainingHub("Training Hub", startDate);
     }
 
     @Test
@@ -41,19 +45,19 @@ public class TrainingCentreTest {
 
     @Test
     public void createUniqueTechCentre() {
-       TrainingCentre techCentre2 = new TechCentre("Tech Centre 2");
+       TrainingCentre techCentre2 = new TechCentre("Tech Centre 2",startDate);
         Assertions.assertNotEquals(techCentre2, techCentre);
     }
 
     @Test
     public void createUniqueBootcamp() {
-        TrainingCentre bootcamp2 = new Bootcamp("Bootcamp 2");
+        TrainingCentre bootcamp2 = new Bootcamp("Bootcamp 2",startDate);
         Assertions.assertNotEquals(bootcamp2, techCentre);
     }
 
     @Test
     public void createUniqueTrainingHub() {
-        TrainingCentre trainingHub2 = new TechCentre("Training Hub 2");
+        TrainingCentre trainingHub2 = new TechCentre("Training Hub 2",startDate);
         Assertions.assertNotEquals(trainingHub2, techCentre);
     }
 
@@ -185,4 +189,35 @@ public class TrainingCentreTest {
         List<Trainee> traineesInCentre = techCentre.getInTraining();
         Assertions.assertEquals(traineeList.get(0), traineesInCentre.get(0));
     }
+
+    @Test
+    public void getTrainingCentreAge(){
+
+    }
+
+    @Test
+    public void moveTraineesToNewCentreOnClosure() {}
+
+    @Test
+    public void moveTraineesToWaitingListOnClosure() {}
+
+    @Test
+    public void assignCourseToTechCentre() {
+
+    }
+
+    @Test
+    public void checkJavaTechCentreTakesJavaTrainees() {}
+
+    @Test
+    public void checkCTechCentreTakesCTrainees() {}
+
+    @Test
+    public void checkDataTechCentreTakesDataTrainees() {}
+
+    @Test
+    public void checkDevOpsTechCentreTakesDevOpsTrainees() {}
+
+    @Test
+    public void checkBusinessTechCentreTakesBusinessTrainees() {}
 }

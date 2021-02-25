@@ -5,6 +5,7 @@ import com.sparta.eng80.util.Printer;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -22,7 +23,7 @@ public class App {
                 int option = scanner.nextInt();
                 switch (option) {
                     case 1:
-                        int[] dayMonthYear = setFromProperties();
+                        BigInteger[] dayMonthYear = setFromProperties();
                         simulation.setSimulationFor(dayMonthYear[0], dayMonthYear[1], dayMonthYear[2]);
                         break inputType;
                     case 2:
@@ -31,9 +32,12 @@ public class App {
                         invalidInputPrompt(option);
                         continue inputType;
                 }
+            } else {
+                invalidInputPrompt(scanner.next());
+                continue inputType;
             }
 
-            monthInput:
+            monthType:
             while (true) {
                 printStartPrompt();
                 if (scanner.hasNextInt()) {
@@ -49,92 +53,107 @@ public class App {
                             simulation.setSimulationFor(enterYears(), enterMonths(), enterDays());
                             break;
                         case 4:
-                            int[] date = enterDate();
-                            simulation.setSimulationUntil(date[0], date[1], date[2]);
+                            BigInteger[] date = enterDate();
+                            simulation.setSimulationUntil(date[0], (short) date[1].intValue(), (short) date[2].intValue());
                             break;
                         default:
                             invalidInputPrompt(option);
-                            continue monthInput;
+                            continue monthType;
                     }
                     break inputType;
+                } else {
+                    invalidInputPrompt(scanner.next());
                 }
             }
         }
+
         simulation.run();
     }
 
-    private static int[] setFromProperties()
-    {
+    private static BigInteger[] setFromProperties() {
         Properties properties = new Properties();
-        int[] dayMonthYear = new int[3];
-        try
-        {
+        BigInteger[] dayMonthYear = new BigInteger[3];
+        try {
             properties.load(new FileReader("resources/simulation.properties"));
-            dayMonthYear[0] = Integer.parseInt(properties.getProperty("days", "0"));
-            dayMonthYear[1] = Integer.parseInt(properties.getProperty("months", "0"));
-            dayMonthYear[2] = Integer.parseInt(properties.getProperty("years", "0"));
-        } catch (IOException e)
-        {
+            dayMonthYear[0] = new BigInteger(properties.getProperty("days", "0"));
+            dayMonthYear[1] = new BigInteger(properties.getProperty("months", "0"));
+            dayMonthYear[2] = new BigInteger(properties.getProperty("years", "0"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return dayMonthYear;
     }
 
-    private static int enterMonths() {
+    private static BigInteger enterMonths() {
         Printer.printString("Please enter the number of MONTHS:");
-        while (!scanner.hasNextInt()) {
+        while (!scanner.hasNextBigInteger()) {
             Printer.printString("Please enter the number of MONTHS:");
             scanner.nextLine();
         }
-        return scanner.nextInt();
+        return scanner.nextBigInteger();
     }
 
-    private static int enterDays() {
+    private static BigInteger enterDays() {
         Printer.printString("Please enter the number of DAYS:");
-        while (!scanner.hasNextInt()) {
+        while (!scanner.hasNextBigInteger()) {
             Printer.printString("Please enter the number of DAYS:");
             scanner.nextLine();
         }
-        return scanner.nextInt();
+        return scanner.nextBigInteger();
     }
 
-    private static int enterYears() {
+    private static BigInteger enterYears() {
         Printer.printString("Please enter the number of YEARS:");
-        while (!scanner.hasNextInt()) {
+        while (!scanner.hasNextBigInteger()) {
             Printer.printString("Please enter the number of YEARS:");
             scanner.nextLine();
         }
-        return scanner.nextInt();
+        return scanner.nextBigInteger();
     }
 
-    private static int[] enterDate() {
-        int[] date = new int[3];
+    private static BigInteger[] enterDate() {
+        BigInteger[] date = new BigInteger[3];
         Printer.printString("Please enter the YEAR (yyyy)");
-        while (!scanner.hasNextInt()) {
+        while (!scanner.hasNextBigInteger()) {
             Printer.printString("Please enter the YEAR (yyyy)");
             scanner.nextLine();
         }
-        date[0] = scanner.nextInt();
+        date[0] = scanner.nextBigInteger();
 
         Printer.printString("Please enter the MONTH (M)");
-        while (!scanner.hasNextInt()) {
+        while (!scanner.hasNextBigInteger()) {
             Printer.printString("Please enter the MONTH (M)");
             scanner.nextLine();
         }
-        date[1] = scanner.nextInt();
+        date[1] = scanner.nextBigInteger();
 
         Printer.printString("Please enter the DAY (D)");
-        while (!scanner.hasNextInt()) {
+        while (!scanner.hasNextBigInteger()) {
             Printer.printString("Please enter the DAY (D)");
             scanner.nextLine();
         }
-        date[2] = scanner.nextInt();
+        date[2] = scanner.nextBigInteger();
 
         return date;
     }
 
-    public static boolean outputSelection() {
+    public static boolean outputTypeSelection() {
         scanner.nextLine();
+        printOutputTypePrompt();
+        char c = Character.toLowerCase(scanner.nextLine().charAt(0));
+        boolean outputEveryMonth;
+        while (true) {
+            if (c == 'y' || c == 'n') {
+                outputEveryMonth = c == Character.toLowerCase('y');
+                break;
+            }
+            printOutputTypePrompt();
+            c = scanner.nextLine().charAt(0);
+        }
+        return outputEveryMonth;
+    }
+
+    public static boolean outputSelection() {
         printOutputOptions();
         char c = Character.toLowerCase(scanner.nextLine().charAt(0));
         boolean outputToFile;
@@ -149,7 +168,7 @@ public class App {
         return outputToFile;
     }
 
-    private static void invalidInputPrompt(int selection) {
+    private static void invalidInputPrompt(Object selection) {
         Printer.printString(selection + " is not one of the options. Please try again.\n");
     }
 
@@ -158,6 +177,12 @@ public class App {
         Printer.printString("\t\tPlease select an option");
         Printer.printString("\t\t\t1. Using the Properties File");
         Printer.printString("\t\t\t2. Using the Command Line");
+    }
+
+    private static void printOutputTypePrompt() {
+        Printer.printString("Would you like an output each month?");
+        Printer.printString("\t\t Please press a key:");
+        Printer.printString("\t\t\t Y or N");
     }
 
     private static void printStartPrompt() {
