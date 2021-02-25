@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class TraineeManagerTest {
     private final int MIN = 20;
@@ -35,15 +36,24 @@ public class TraineeManagerTest {
     public void generateUniqueTraineeLists() {
         List<Trainee> traineeList1 = traineeManager.generateNewTrainees(MIN, MAX);
         List<Trainee> traineeList2 = traineeManager.generateNewTrainees(MIN, MAX);
-        Printer.printString(""+ traineeList1.size() + " " +traineeList2.size());
         Assertions.assertFalse(traineeList1.equals(traineeList2));
     }
 
     @Test
     public void addTraineeToWaitingListTest() {
         List<Trainee> traineeList1 = traineeManager.generateNewTrainees(MIN, MAX);
-        Printer.printString(""+traineeList1.size());
         traineeManager.addToWaitingList(traineeList1);
         Assertions.assertNotNull(traineeManager.getWaitingList());
+    }
+
+    @Test
+    public void checkEntireParameterListAddedToWaitingList() {
+        List<Trainee> traineeList1 = traineeManager.generateNewTrainees(MIN, MAX);
+        traineeManager.addToWaitingList(traineeList1);
+        Queue<Trainee> waitingList = traineeManager.getWaitingList();
+        for (Trainee trainee: traineeList1) {
+            Assertions.assertTrue(waitingList.contains(trainee));
+        }
+
     }
 }

@@ -6,7 +6,7 @@ public class RandomGenerator {
     private Random random;
 
     public RandomGenerator(long seed) {
-        random = new Random(seed);
+        random = new Random(/*seed*/);
     }
 
     public int inRange(int min, int max) {
