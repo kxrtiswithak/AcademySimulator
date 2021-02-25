@@ -42,37 +42,37 @@ public class TrainingCentreTest {
     @Test
     public void createUniqueTechCentre() {
        TrainingCentre techCentre2 = new TechCentre("Tech Centre 2");
-       Assertions.assertFalse(techCentre.equals(techCentre2));
+        Assertions.assertNotEquals(techCentre2, techCentre);
     }
 
     @Test
     public void createUniqueBootcamp() {
         TrainingCentre bootcamp2 = new Bootcamp("Bootcamp 2");
-        Assertions.assertFalse(techCentre.equals(bootcamp2));
+        Assertions.assertNotEquals(bootcamp2, techCentre);
     }
 
     @Test
     public void createUniqueTrainingHub() {
         TrainingCentre trainingHub2 = new TechCentre("Training Hub 2");
-        Assertions.assertFalse(techCentre.equals(trainingHub2));
+        Assertions.assertNotEquals(trainingHub2, techCentre);
     }
 
     @Test
     public void addTraineesToTechCentre() {
         techCentre.addTrainee(new Trainee());
-        Assertions.assertTrue(techCentre.getInTraining().size() == 1);
+        Assertions.assertEquals(techCentre.getInTraining().size(), 1);
     }
 
     @Test
     public void addTraineesToBootcamp() {
         bootcamp.addTrainee(new Trainee());
-        Assertions.assertTrue(bootcamp.getInTraining().size() == 1);
+        Assertions.assertEquals(bootcamp.getInTraining().size(), 1);
     }
 
     @Test
     public void addTraineesToTrainingHub() {
         trainingHub.addTrainee(new Trainee());
-        Assertions.assertTrue(trainingHub.getInTraining().size() == 1);
+        Assertions.assertEquals(trainingHub.getInTraining().size(), 1);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class TrainingCentreTest {
 
     @Test
     public void add0To20TraineesTechCentreTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         for (int i = 0; i < 100; i++) {
             trainees.add(new Trainee());
         }
@@ -93,7 +93,7 @@ public class TrainingCentreTest {
 
     @Test
     public void add0To20TraineesBootcampTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         for (int i = 0; i < 100; i++) {
             trainees.add(new Trainee());
         }
@@ -104,7 +104,7 @@ public class TrainingCentreTest {
 
     @Test
     public void add0To20TraineesTrainingHubTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         for (int i = 0; i < 100; i++) {
             trainees.add(new Trainee());
         }
@@ -114,8 +114,8 @@ public class TrainingCentreTest {
     }
 
     @Test
-    public void getMaxSizeTechCentre(){
-        Assertions.assertEquals(200, techCentre.getMaxSize());
+    public void getMaxSizeTechCentre() {
+        Assertions.assertEquals(200, techCentre.MAX_SIZE);
     }
 
     @Test
@@ -130,35 +130,35 @@ public class TrainingCentreTest {
 
     @Test
     public void addMoreThanMaxSizeTraineesTechCentreTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         int maxSize = techCentre.MAX_SIZE;
         for (int i = 0; i < (maxSize+10); i++) {
             trainees.add(new Trainee());
         }
         techCentre.acceptTrainees(trainees, maxSize, maxSize+10);
-        Assertions.assertTrue(techCentre.getInTraining().size() == maxSize);
+        Assertions.assertEquals(maxSize, techCentre.getInTraining().size());
     }
 
     @Test
     public void addMoreThanMaxSizeTraineesBootcampTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         int maxSize = bootcamp.MAX_SIZE;
         for (int i = 0; i < (maxSize+10); i++) {
             trainees.add(new Trainee());
         }
         bootcamp.acceptTrainees(trainees, maxSize, maxSize+10);
-        Assertions.assertTrue(bootcamp.getInTraining().size() == maxSize);
+        Assertions.assertEquals(maxSize, bootcamp.getInTraining().size());
     }
 
     @Test
     public void addMoreThanMaxSizeTraineesTrainingHubTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         int maxSize = trainingHub.MAX_SIZE;
         for (int i = 0; i < (maxSize+10); i++) {
             trainees.add(new Trainee());
         }
         trainingHub.acceptTrainees(trainees, maxSize, maxSize+10);
-        Assertions.assertTrue(trainingHub.getInTraining().size() == maxSize);
+        Assertions.assertEquals(maxSize, trainingHub.getInTraining().size());
     }
 
     @Test

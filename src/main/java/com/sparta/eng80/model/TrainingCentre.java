@@ -14,7 +14,7 @@ public abstract class TrainingCentre {
     //private static int ID;
     private String name;
     private int size;
-    public static int MAX_SIZE;
+    public int MAX_SIZE;
     private List<Trainee> inTraining = new ArrayList<>();
 
     public TrainingCentre(String name) {

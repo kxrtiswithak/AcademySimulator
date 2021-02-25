@@ -153,14 +153,17 @@ public class TrainingCentreManagerTest {
         }
     }
 
-    //Todo: Fix once implemented
-    // - numberOfBootcamps = trainingCentreManager.getNumberOfBootcamps
     @Test
     public void generateBootcampWhen2ExistCheck() {
-        for (int count = 0; count < 4; count++) {
-            trainingCentreManager.generateNewBootcamp(startDate);
+        for (int count = 0; count < 20; count++) {
+            trainingCentreManager.randomlyGenerateCentre(startDate);
         }
-        int numberOfBootcamps = 2;
-        Assertions.assertEquals(2, numberOfBootcamps);
+        int numberOfBootcamps = trainingCentreManager.getNumberOfBootcamps();
+        Assertions.assertTrue(numberOfBootcamps <= 2);
+    }
+
+    @Test
+    public void checkNumberOfEachCentreIsEqualToTotal() {
+
     }
 }

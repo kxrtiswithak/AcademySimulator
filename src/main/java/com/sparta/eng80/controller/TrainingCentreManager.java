@@ -82,11 +82,26 @@ public class TrainingCentreManager {
     public int getNumOfFullTrainingCentres() {
         int count = 0;
         for (TrainingCentre trainingCentre : listOfTrainingCentres) {
-            if (trainingCentre.getSize() == TrainingCentre.MAX_SIZE) {
+            if (trainingCentre.getSize() == trainingCentre.MAX_SIZE) {
                 count++;
             }
         }
         return count;
     }
 
+    public int getNumberOfTrainingCentres() {
+        return numberOfTrainingCentres;
+    }
+
+    public int getNumberOfBootcamps() {
+        return numberOfBootcamps;
+    }
+
+    public int getNumberOfTechCentres() {
+        return numberOfTechCentres;
+    }
+
+    public int getNumberOfTrainingHub() {
+        return numberOfTrainingHub;
+    }
 }
