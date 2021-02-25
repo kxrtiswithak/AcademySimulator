@@ -154,7 +154,6 @@ public class App {
     }
 
     public static boolean outputSelection() {
-        scanner.nextLine();
         printOutputOptions();
         char c = Character.toLowerCase(scanner.nextLine().charAt(0));
         boolean outputToFile;
