@@ -32,6 +32,9 @@ public class App {
                         invalidInputPrompt(option);
                         continue inputType;
                 }
+            } else {
+                invalidInputPrompt(scanner.next());
+                continue inputType;
             }
 
             monthInput:
@@ -58,6 +61,9 @@ public class App {
                             continue monthInput;
                     }
                     break inputType;
+                } else {
+                    invalidInputPrompt(scanner.next());
+                    continue monthInput;
                 }
             }
         }
@@ -150,7 +156,7 @@ public class App {
         return outputToFile;
     }
 
-    private static void invalidInputPrompt(int selection) {
+    private static void invalidInputPrompt(Object selection) {
         Printer.printString(selection + " is not one of the options. Please try again.\n");
     }
 
