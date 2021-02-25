@@ -24,7 +24,7 @@ public class App {
                 switch (option) {
                     case 1:
                         BigInteger[] dayMonthYear = setFromProperties();
-                        simulation.setSimulationFor(dayMonthYear[0], dayMonthYear[1], dayMonthYear[2]);
+                        simulation.setSimulationFor(dayMonthYear[2], dayMonthYear[1], dayMonthYear[0]);
                         break inputType;
                     case 2:
                         break;
