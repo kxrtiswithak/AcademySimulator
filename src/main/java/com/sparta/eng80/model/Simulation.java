@@ -1,29 +1,32 @@
 package com.sparta.eng80.model;
 
-import com.sparta.eng80.util.Date;
-import com.sparta.eng80.view.App;
 import com.sparta.eng80.controller.OutputManager;
 import com.sparta.eng80.controller.TraineeManager;
 import com.sparta.eng80.controller.TrainingCentreManager;
+import com.sparta.eng80.util.Date;
 import com.sparta.eng80.util.Printer;
+import com.sparta.eng80.view.App;
 
 import java.math.BigInteger;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Queue;
 
 public class Simulation implements Runnable {
 
+    private static TrainingCentreManager trainingCentreManager;
     private Date simulateUntil;
     private Date currentDate;
-    private TraineeManager traineeManager;
-    private TrainingCentreManager trainingCentreManager;
+    private final TraineeManager traineeManager;
     private OutputManager outputManager;
 
     public Simulation() {
         simulateUntil = Date.now();
         currentDate = Date.now();
         traineeManager = new TraineeManager();
+    }
+
+    public static TrainingCentreManager getTrainingCentreManager() {
+        return trainingCentreManager;
     }
 
     @Override
@@ -34,7 +37,10 @@ public class Simulation implements Runnable {
         } else {
             while (!currentDate.isAfter(simulateUntil) && !currentDate.isEqual(simulateUntil)) {
                 trainingCentreManager.randomlyGenerateCentre(currentDate);
-
+                for(int newHub = 0; newHub < 3; newHub++){
+                    trainingCentreManager.generateNewTrainingHub(currentDate);
+                }
+                trainingCentreManager.checkCentreAges();
                 List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
                 traineeManager.addToWaitingList(newTrainees);
                 Queue<Trainee> waitingList = traineeManager.getWaitingList();

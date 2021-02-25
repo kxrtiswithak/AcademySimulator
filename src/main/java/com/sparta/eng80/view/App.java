@@ -63,25 +63,21 @@ public class App {
                     break inputType;
                 } else {
                     invalidInputPrompt(scanner.next());
-                    continue monthInput;
                 }
             }
         }
         simulation.run();
     }
 
-    private static BigInteger[] setFromProperties()
-    {
+    private static BigInteger[] setFromProperties() {
         Properties properties = new Properties();
         BigInteger[] dayMonthYear = new BigInteger[3];
-        try
-        {
+        try {
             properties.load(new FileReader("resources/simulation.properties"));
             dayMonthYear[0] = new BigInteger(properties.getProperty("days", "0"));
             dayMonthYear[1] = new BigInteger(properties.getProperty("months", "0"));
             dayMonthYear[2] = new BigInteger(properties.getProperty("years", "0"));
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return dayMonthYear;
