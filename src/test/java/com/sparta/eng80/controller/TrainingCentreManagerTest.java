@@ -18,10 +18,13 @@ public class TrainingCentreManagerTest {
     private Date startDate = Date.now();
     private Date firstMonth = startDate.plusMonths(BigInteger.ONE);
     private TrainingCentreManager trainingCentreManager;
+    private TraineeManager traineeManager;
 
     @BeforeEach
     public void setup() {
-       trainingCentreManager = new TrainingCentreManager(startDate);
+        traineeManager = new TraineeManager();
+       trainingCentreManager = new TrainingCentreManager(startDate, traineeManager);
+
     }
 
     @Test
