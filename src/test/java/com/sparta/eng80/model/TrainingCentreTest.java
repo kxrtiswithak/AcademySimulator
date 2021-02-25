@@ -192,7 +192,7 @@ public class TrainingCentreTest {
 
     @Test
     public void checkClosedCentresHaveNoTrainees() {
-        
+
     }
 
 //    @Test
