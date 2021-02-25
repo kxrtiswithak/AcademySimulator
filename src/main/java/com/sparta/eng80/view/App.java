@@ -37,7 +37,7 @@ public class App {
                 continue inputType;
             }
 
-            monthInput:
+            monthType:
             while (true) {
                 printStartPrompt();
                 if (scanner.hasNextInt()) {
@@ -58,7 +58,7 @@ public class App {
                             break;
                         default:
                             invalidInputPrompt(option);
-                            continue monthInput;
+                            continue monthType;
                     }
                     break inputType;
                 } else {
@@ -66,6 +66,7 @@ public class App {
                 }
             }
         }
+
         simulation.run();
     }
 
@@ -136,6 +137,22 @@ public class App {
         return date;
     }
 
+    public static boolean outputTypeSelection() {
+        scanner.nextLine();
+        printOutputTypePrompt();
+        char c = Character.toLowerCase(scanner.nextLine().charAt(0));
+        boolean outputEveryMonth;
+        while (true) {
+            if (c == 'y' || c == 'n') {
+                outputEveryMonth = c == Character.toLowerCase('y');
+                break;
+            }
+            printOutputTypePrompt();
+            c = scanner.nextLine().charAt(0);
+        }
+        return outputEveryMonth;
+    }
+
     public static boolean outputSelection() {
         scanner.nextLine();
         printOutputOptions();
@@ -161,6 +178,12 @@ public class App {
         Printer.printString("\t\tPlease select an option");
         Printer.printString("\t\t\t1. Using the Properties File");
         Printer.printString("\t\t\t2. Using the Command Line");
+    }
+
+    private static void printOutputTypePrompt() {
+        Printer.printString("Would you like an output each month?");
+        Printer.printString("\t\t Please press a key:");
+        Printer.printString("\t\t\t Y or N");
     }
 
     private static void printStartPrompt() {

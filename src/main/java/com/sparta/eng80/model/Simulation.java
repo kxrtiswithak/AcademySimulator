@@ -6,7 +6,9 @@ import com.sparta.eng80.controller.TrainingCentreManager;
 import com.sparta.eng80.util.Date;
 import com.sparta.eng80.util.Printer;
 import com.sparta.eng80.view.App;
+import com.sparta.eng80.view.FileOutput;
 
+import java.io.File;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Queue;
@@ -35,12 +37,15 @@ public class Simulation implements Runnable {
         if (simulateUntil.isEqual(currentDate)) {
             Printer.printString("Please set the amount of time the simulation should simulate until!");
         } else {
+            boolean byMonth = App.outputTypeSelection();
             while (!currentDate.isAfter(simulateUntil) && !currentDate.isEqual(simulateUntil)) {
                 trainingCentreManager.randomlyGenerateCentre(currentDate);
-                for(int newHub = 0; newHub < 3; newHub++){
-                    trainingCentreManager.generateNewTrainingHub(currentDate);
-                }
                 trainingCentreManager.checkCentreAges();
+                if(byMonth) {
+                    OutputManager outputManager = new OutputManager(trainingCentreManager, traineeManager, currentDate, false);
+                    outputManager.run();
+                }
+
                 List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
                 traineeManager.addToWaitingList(newTrainees);
                 Queue<Trainee> waitingList = traineeManager.getWaitingList();
