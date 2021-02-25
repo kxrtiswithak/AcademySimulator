@@ -33,7 +33,6 @@ public class FileOutput {
     public void outputToFile() {
         try {
             if (!fileExists()) {
-                logger.error("File does not exist.");
                 File file = new File(fileURL);
                 file.createNewFile();
             }

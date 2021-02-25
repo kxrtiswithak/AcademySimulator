@@ -6,8 +6,7 @@ import com.sparta.eng80.util.Date;
 public class Bootcamp extends TrainingCentre {
 
     public Bootcamp(String name, Date openDate) {
-        super(name, openDate);
-        this.MAX_SIZE = 500;
+        super(name, openDate, 500);
     }
 
 

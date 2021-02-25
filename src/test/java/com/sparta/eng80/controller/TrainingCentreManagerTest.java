@@ -18,10 +18,12 @@ public class TrainingCentreManagerTest {
     private Date startDate = Date.now();
     private Date firstMonth = startDate.plusMonths(BigInteger.ONE);
     private TrainingCentreManager trainingCentreManager;
+    private TraineeManager traineeManager;
 
     @BeforeEach
     public void setup() {
-       trainingCentreManager = new TrainingCentreManager(startDate);
+        traineeManager = new TraineeManager();
+       trainingCentreManager = new TrainingCentreManager(startDate, traineeManager);
     }
 
     @Test
@@ -144,17 +146,6 @@ public class TrainingCentreManagerTest {
         }
     }
 
-//    @Test
-//    public void generateRandomTypeOfCentre() {
-//        for (int count = 0; count < 5; count++) {
-//            trainingCentreManager.randomlyGenerateCentre(firstMonth);
-//        }
-//        List<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
-//        for (int count = 0; count < 3; count++) {
-//            Assertions.assertTrue((trainingCentres.get(count).getClass() != trainingCentres.get(count+1).getClass()) || (trainingCentres.get(count).getClass() != trainingCentres.get(count+2).getClass()));
-//        }
-//    }
-
     @Test
     public void generateBootcampWhen2ExistCheck() {
         for (int count = 0; count < 20; count++) {
@@ -173,38 +164,4 @@ public class TrainingCentreManagerTest {
         Assertions.assertEquals(0, numberOfTrainingHubs%3 );
     }
 
-    @Test
-    public void closeTechCentre1Month() {
-        trainingCentreManager.generateNewTechCentre(firstMonth);
-        trainingCentreManager.generateNewTechCentre(firstMonth);
-        int numberOfTechCentres;
-        numberOfTechCentres = trainingCentreManager.getNumberOfTechCentres();
-        Assertions.assertEquals(2, numberOfTechCentres);
-        //TODO close centre
-        numberOfTechCentres = trainingCentreManager.getNumberOfTechCentres();
-        Assertions.assertEquals(1, numberOfTechCentres);
-    }
-
-    @Test
-    public void closeTrainingHub1Month() {
-        trainingCentreManager.generateNewTechCentre(firstMonth);
-        trainingCentreManager.generateNewTechCentre(firstMonth);
-        int numberOfTechCentres;
-        numberOfTechCentres = trainingCentreManager.getNumberOfTechCentres();
-        Assertions.assertEquals(2, numberOfTechCentres);
-        //TODO close centre
-        numberOfTechCentres = trainingCentreManager.getNumberOfTechCentres();
-        Assertions.assertEquals(1, numberOfTechCentres);
-    }
-    @Test
-    public void closeBootcamp3Month() {
-        trainingCentreManager.generateNewTechCentre(firstMonth);
-        trainingCentreManager.generateNewTechCentre(firstMonth);
-        int numberOfTechCentres;
-        numberOfTechCentres = trainingCentreManager.getNumberOfTechCentres();
-        Assertions.assertEquals(2, numberOfTechCentres);
-        //TODO close centre
-        numberOfTechCentres = trainingCentreManager.getNumberOfTechCentres();
-        Assertions.assertEquals(1, numberOfTechCentres);
-    }
 }

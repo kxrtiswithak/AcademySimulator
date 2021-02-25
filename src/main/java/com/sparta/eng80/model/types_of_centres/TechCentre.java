@@ -9,8 +9,7 @@ public class TechCentre extends TrainingCentre {
     public CourseType courseType;
 
     public TechCentre(String name, Date openDate) {
-        super(name, openDate);
-        this.MAX_SIZE = 200;
+        super(name, openDate,200);
         this.courseType = CourseType.randomCourseType();
     }
 
