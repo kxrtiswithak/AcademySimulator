@@ -88,6 +88,18 @@ public class TrainingCentreManager {
         return listOfTrainingCentres;
     }
 
+    public int getNumberOfBootcamps() {
+        return numberOfBootcamps;
+    }
+
+    public int getNumberOfTechCentres() {
+        return numberOfTechCentres;
+    }
+
+    public int getNumberOfTrainingHub() {
+        return numberOfTrainingHub;
+    }
+
     public Date getCurrentDate() {
         return currentDate;
     }
@@ -95,7 +107,7 @@ public class TrainingCentreManager {
     public void checkCentreAges() {
         //For all the training centres, checks if the age is x months old and the centre is open
         for (TrainingCentre trainingCentre : listOfTrainingCentres) {
-            if ((trainingCentre.getAge() == 3 && !trainingCentre.isClosed && trainingCentre.getClass().getName().contains("Boot"))||
+            if ((trainingCentre.getAge() == 3 && !trainingCentre.isClosed && trainingCentre.getClass().getName().contains("Boot")) ||
                     (trainingCentre.getAge() == 2 && !trainingCentre.isClosed && !trainingCentre.getClass().getName().contains("Boot"))) {
                 //If so the size is checked. If below 25 the centre is closed and trainees are reallocated
                 if (trainingCentre.getInTraining().size() < 25) {
@@ -174,5 +186,4 @@ public class TrainingCentreManager {
 //            }
 //        }
     }
-
 }

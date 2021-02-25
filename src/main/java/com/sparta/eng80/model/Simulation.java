@@ -27,10 +27,6 @@ public class Simulation implements Runnable {
         traineeManager = new TraineeManager();
     }
 
-    public static TrainingCentreManager getTrainingCentreManager() {
-        return trainingCentreManager;
-    }
-
     @Override
     public void run() {
         trainingCentreManager = new TrainingCentreManager(currentDate, traineeManager);
@@ -122,5 +118,17 @@ public class Simulation implements Runnable {
             Printer.printString("The specified date is before or equal to the current date! Simulation won't occur.");
             simulateUntil = null;
         }
+    }
+
+    public TraineeManager getTraineeManager() {
+        return traineeManager;
+    }
+
+    public static TrainingCentreManager getTrainingCentreManager() {
+        return trainingCentreManager;
+    }
+
+    public OutputManager getOutputManager() {
+        return outputManager;
     }
 }
