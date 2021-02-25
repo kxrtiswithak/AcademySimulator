@@ -1,11 +1,14 @@
 package com.sparta.eng80.controller;
 
+import com.sparta.eng80.model.Trainee;
 import com.sparta.eng80.model.TrainingCentre;
 import com.sparta.eng80.model.types_of_centres.Bootcamp;
 import com.sparta.eng80.model.types_of_centres.TechCentre;
+import com.sparta.eng80.util.RandomGenerator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TrainingCentreManager {
     private int numberOfTrainingCentres = 0;
@@ -17,6 +20,7 @@ public class TrainingCentreManager {
     private LocalDate lastBootcampAddedDate;
     private LocalDate lastTechCentreAddedDate;
     private ArrayList<TrainingCentre> listOfTrainingCentres = new ArrayList<>();
+    RandomGenerator randomGenerator = new RandomGenerator(1397819237199981723L);
 
     public TrainingCentreManager(LocalDate startDate) {
         this.startDate = lastCentreAddedDate = startDate;
@@ -60,7 +64,7 @@ public class TrainingCentreManager {
     public int getNumOfFullTrainingCentres() {
         int count = 0;
         for (TrainingCentre trainingCentre : listOfTrainingCentres) {
-            if (trainingCentre.getSize() == TrainingCentre.MAX_SIZE) {
+            if (trainingCentre.getSize() == trainingCentre.MAX_SIZE) {
                 count++;
             }
         }
@@ -72,14 +76,60 @@ public class TrainingCentreManager {
     }
 
     private void checkCentreAges(){
+        //For all the training centres, checks if the age is 2 months old and the centre is open
         for (TrainingCentre trainingCentre : listOfTrainingCentres){
-            if(trainingCentre.getAge() > 2 && trainingCentre.isClosed == false
-                //TODO Specify training centre type
-            ){
+            if(trainingCentre.getAge() == 2 && !trainingCentre.isClosed &&
+                //TODO Check if this works
+                    trainingCentre.getClass().getName().equals("Bootcamp") ){
+                //If so the size is checked. If below 25 the centre is closed and trainees are reallocated
                 if(trainingCentre.getInTraining().size() < 25){
                     trainingCentre.isClosed = true;
+                    List<Trainee> trainees = trainingCentre.clearTrainees();
+                    reallocateTrainees(trainees);
                 }
             }
+        }
+    }
+
+    private void updateTrainingCentres(){
+        for (TrainingCentre trainingCentre : listOfTrainingCentres){
+            trainingCentre.updateInfo();
+        }
+    }
+
+    //TODO needs a way of allocating the trainees based on their subject
+    private void reallocateTrainees(List<Trainee> trainees){
+        for (TrainingCentre trainingCentre : listOfTrainingCentres){
+            if(trainingCentre.getInTraining().size() == trainingCentre.MAX_SIZE|| trainingCentre.isClosed){
+                continue;
+            } else {
+                for (int i = 0; i< trainingCentre.spacesAvailable; i++){
+                    if (trainingCentre.getInTraining().size() < trainingCentre.MAX_SIZE) {  //redundant?
+                        Trainee trainee = trainees.remove(i);
+                        trainingCentre.addTrainee(trainee);
+                    }
+                }
+            }
+        }
+        //TODO Where to add extra trainees if all centres are full
+    }
+
+    private void reallocateTraineesRandomly(List<Trainee> trainees){
+        List<TrainingCentre> availableCentres = new ArrayList<>();
+        for (TrainingCentre trainingCentre : listOfTrainingCentres){
+            if(trainingCentre.getInTraining().size() != trainingCentre.MAX_SIZE|| !trainingCentre.isClosed){
+                availableCentres.add(trainingCentre);
+            }
+        }
+        while (availableCentres.size() > 0 && trainees.size()>0){
+            int centreSelection = randomGenerator.inRange(0, availableCentres.size());
+            for (int i = 0; i< availableCentres.get(centreSelection).spacesAvailable; i++){
+                if (availableCentres.get(centreSelection).getInTraining().size() < availableCentres.get(centreSelection).MAX_SIZE) {  //redundant?
+                    Trainee trainee = trainees.remove(i);
+                    availableCentres.get(centreSelection).addTrainee(trainee);
+                }
+            }
+            availableCentres.remove(centreSelection);
         }
     }
 
