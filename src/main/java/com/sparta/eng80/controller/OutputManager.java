@@ -11,7 +11,9 @@ import com.sparta.eng80.util.Period;
 import com.sparta.eng80.util.Printer;
 import com.sparta.eng80.view.FileOutput;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OutputManager {
 
@@ -26,11 +28,7 @@ public class OutputManager {
         this.trainingCentreManager = trainingCentreManager;
         this.traineeManager = traineeManager;
         this.endingDate = endingDate;
-        int[] trainingCentres = outputTrainingCentres();
-        int[] trainees = outputTrainees();
-        this.fileOutput = new FileOutput(overallProjectTime(endingDate), trainingCentres[0], trainingCentres[2], trainingCentres[1],
-                trainingCentres[3], trainingCentres[5], trainingCentres[4], trainingCentres[6], trainingCentres[8], trainingCentres[7],
-                trainees[0], trainees[1], trainees[2], trainees[3], trainees[4], trainees[5], trainees[6], trainees[7], trainees[8], trainees[9]);
+        this.fileOutput = new FileOutput(overallProjectTime(endingDate), outputTrainingCentres(), outputTrainees());
         this.outputToFile = outputToFile;
     }
 
@@ -51,86 +49,72 @@ public class OutputManager {
         return "\nThe overall time for this simulation is " + dateOutput;
     }
 
-    public int[] outputTrainingCentres() {
+    public Map<Class<? extends TrainingCentre>, int[]> outputTrainingCentres() {
         List<TrainingCentre> trainingCentreList = trainingCentreManager.getListOfTrainingCenters();
-        int[] trainingCentres = new int[9];
+        Map<Class<? extends TrainingCentre>, int[]> trainingCentres = new HashMap<>();
+        int[] trainingHubs = new int[3];
+        int[] techCentres = new int[3];
+        int[] bootcamps = new int[3];
         for (TrainingCentre trainingCentre : trainingCentreList) {
             if (trainingCentre instanceof TrainingHub) {
-                TrainingHub trainingHub = (TrainingHub) trainingCentre;
-                if (trainingHub.spacesAvailable == 0) {
-                    trainingCentres[0] ++;
-                } else if (trainingHub.isClosed) {
-                    trainingCentres[2] ++;
-                } else {
-                    trainingCentres[1] ++;
-                }
+                updateCentreCount(trainingCentre, trainingHubs);
             } else if (trainingCentre instanceof TechCentre) {
-                TechCentre techCentre = (TechCentre) trainingCentre;
-                if (techCentre.spacesAvailable == 0) {
-                    trainingCentres[3] ++;
-                } else if (techCentre.isClosed) {
-                    trainingCentres[5] ++;
-                } else {
-                    trainingCentres[4] ++;
-                }
+                updateCentreCount(trainingCentre, techCentres);
             } else if (trainingCentre instanceof Bootcamp) {
-                Bootcamp bootcamp = (Bootcamp) trainingCentre;
-                if (bootcamp.spacesAvailable == 0) {
-                    trainingCentres[6] ++;
-                } else if (bootcamp.isClosed) {
-                    trainingCentres[8] ++;
-                } else {
-                    trainingCentres[7] ++;
-                }
+               updateCentreCount(trainingCentre, bootcamps);
             }
         }
-        return trainingCentres;
+        return Map.of(TrainingHub.class, trainingHubs, TechCentre.class, techCentres,
+                Bootcamp.class, bootcamps);
     }
 
-    public int[] outputTrainees() {
+    private void updateCentreCount(TrainingCentre centre, int[] centreCounters) {
+        if (centre.spacesAvailable == 0) {
+            centreCounters[1]++;
+        } else if (centre.isClosed) {
+            centreCounters[2]++;
+        } else {
+            centreCounters[0]++;
+        }
+    }
+
+    public Map<CourseType, int[]> outputTrainees() {
         List<Trainee> traineeList = traineeManager.getAllTrainees();
-        int[] trainees = new int[10];
+        int[] java = new int[2];
+        int[] cSharp = new int[2];
+        int[] data = new int[2];
+        int[] devOps = new int[2];
+        int[] business = new int[2];
         for (Trainee trainee : traineeList) {
             CourseType courseType = trainee.getCourseType();
             switch (courseType) {
                 case JAVA:
-                    if (!trainee.isWaiting()) {
-                        trainees[0] ++;
-                    } else {
-                        trainees[1] ++;
-                    }
+                    updateTraineeTypeCount(trainee, java);
                     break;
                 case C_SHARP:
-                    if (!trainee.isWaiting()) {
-                        trainees[2] ++;
-                    } else {
-                        trainees[3] ++;
-                    }
+                    updateTraineeTypeCount(trainee, cSharp);
                     break;
                 case DATA:
-                    if (!trainee.isWaiting()) {
-                        trainees[4] ++;
-                    } else {
-                        trainees[5] ++;
-                    }
+                    updateTraineeTypeCount(trainee, data);
                     break;
                 case DEVOPS:
-                    if (!trainee.isWaiting()) {
-                        trainees[6] ++;
-                    } else {
-                        trainees[7] ++;
-                    }
+                    updateTraineeTypeCount(trainee, devOps);
                     break;
                 case BUSINESS:
-                    if (!trainee.isWaiting()) {
-                        trainees[8] ++;
-                    } else {
-                        trainees[9] ++;
-                    }
+                    updateTraineeTypeCount(trainee, business);
                     break;
             }
         }
-        return trainees;
+        return Map.of(CourseType.JAVA, java, CourseType.C_SHARP, cSharp,
+                CourseType.DATA, data, CourseType.DEVOPS, devOps, CourseType.BUSINESS, business);
+    }
+
+    private void updateTraineeTypeCount(Trainee trainee, int[] traineeCounters) {
+        if (!trainee.isWaiting()) {
+            traineeCounters[0]++;
+        } else {
+            traineeCounters[1]++;
+        }
     }
 
 
