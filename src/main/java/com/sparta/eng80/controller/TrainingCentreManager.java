@@ -102,9 +102,8 @@ public class TrainingCentreManager {
     public void checkCentreAges() {
         //For all the training centres, checks if the age is x months old and the centre is open
         for (TrainingCentre trainingCentre : listOfTrainingCentres) {
-            if (trainingCentre.getAge() == 3 && !trainingCentre.isClosed &&
-                    //TODO Check if this works
-                    trainingCentre.getClass().getName().contains("Boot")) {
+            if ((trainingCentre.getAge() == 3 && !trainingCentre.isClosed && trainingCentre.getClass().getName().contains("Boot"))||
+                    (trainingCentre.getAge() == 2 && !trainingCentre.isClosed && !trainingCentre.getClass().getName().contains("Boot"))) {
                 //If so the size is checked. If below 25 the centre is closed and trainees are reallocated
                 if (trainingCentre.getInTraining().size() < 25) {
                     trainingCentre.isClosed = true;
@@ -121,22 +120,6 @@ public class TrainingCentreManager {
         }
     }
 
-    //TODO needs a way of allocating the trainees based on their subject
-    private void reallocateTrainees(List<Trainee> trainees) {
-        for (TrainingCentre trainingCentre : listOfTrainingCentres) {
-            if (trainingCentre.getInTraining().size() == trainingCentre.MAX_SIZE || trainingCentre.isClosed) {
-                continue;
-            } else {
-                for (int i = 0; i < trainingCentre.spacesAvailable; i++) {
-                    if (trainingCentre.getInTraining().size() < trainingCentre.MAX_SIZE) {  //redundant?
-                        Trainee trainee = trainees.remove(i);
-                        trainingCentre.addTrainee(trainee);
-                    }
-                }
-            }
-        }
-        //TODO Where to add extra trainees if all centres are full
-    }
 
     private void reallocateTraineesRandomly(List<Trainee> trainees) {
         List<TrainingCentre> availableCentres = new ArrayList<>();
