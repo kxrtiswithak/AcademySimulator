@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class SimulationTest {
@@ -14,7 +15,7 @@ public class SimulationTest {
 //    public void setup() {
 //        numberOfMonths = 300;
 //        simulation = new Simulation();
-//        simulation.setSimulationFor(numberOfMonths);
+//        simulation.setSimulationFor(BigInteger.valueOf(numberOfMonths));
 //        simulation.run();
 //    }
 //
@@ -83,5 +84,15 @@ public class SimulationTest {
 //        int numberOfTrainingHubs = trainingCentreManager.getNumberOfTrainingHub();
 //        int numberOfTechCentres = trainingCentreManager.getNumberOfTechCentres();
 //        Assertions.assertEquals(totalNumberOfTrainingCentres, (numberOfTechCentres+numberOfTrainingHubs+numberOfBootcamps));
+//    }
+//
+//    @Test
+//    public void getTrainingCentreAge(){
+//        TrainingCentreManager trainingCentreManager = simulation.getTrainingCentreManager();
+//        List<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
+//        for (TrainingCentre trainingCentre: trainingCentres) {
+//
+//        }
+//        Assertions.assertEquals();
 //    }
 }

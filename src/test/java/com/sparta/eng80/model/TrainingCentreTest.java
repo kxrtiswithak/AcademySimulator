@@ -15,9 +15,9 @@ import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrainingCentreTest {
-    TrainingCentre techCentre;
-    TrainingCentre bootcamp;
-    TrainingCentre trainingHub;
+    TechCentre techCentre;
+    Bootcamp bootcamp;
+    TrainingHub trainingHub;
     Date startDate;
 
     @BeforeEach
@@ -191,33 +191,58 @@ public class TrainingCentreTest {
     }
 
     @Test
-    public void getTrainingCentreAge(){
-
+    public void checkClosedCentresHaveNoTrainees() {
+        
     }
 
-    @Test
-    public void moveTraineesToNewCentreOnClosure() {}
-
-    @Test
-    public void moveTraineesToWaitingListOnClosure() {}
-
-    @Test
-    public void assignCourseToTechCentre() {
-
-    }
-
-    @Test
-    public void checkJavaTechCentreTakesJavaTrainees() {}
-
-    @Test
-    public void checkCTechCentreTakesCTrainees() {}
-
-    @Test
-    public void checkDataTechCentreTakesDataTrainees() {}
-
-    @Test
-    public void checkDevOpsTechCentreTakesDevOpsTrainees() {}
-
-    @Test
-    public void checkBusinessTechCentreTakesBusinessTrainees() {}
+//    @Test
+//    public void moveTraineesToNewCentreOnClosure() {
+//        Assertions.assertFalse(true);
+//    }
+//
+//    @Test
+//    public void moveTraineesToWaitingListOnClosure() {
+//        Assertions.assertFalse(true);
+//    }
+//
+//    @Test
+//    public void assignCourseToTechCentre() {
+//        Assertions.assertFalse(true);
+//    }
+//
+//    @Test
+//    public void checkTechCentreTakesTraineesOfSameCourse() {
+//        TraineeManager traineeManager = new TraineeManager();
+//        List<Trainee> traineeList = traineeManager.generateNewTrainees(20, 30);
+//        traineeManager.addToWaitingList(traineeList);
+//        Queue<Trainee> waitingList1 = traineeManager.getWaitingList();
+//        techCentre.acceptTrainees(waitingList1, 0, 20);
+//        List<Trainee> traineesInCentre = techCentre.getInTraining();
+//        CourseType centreCourse = techCentre.getCourseType();
+//        CourseType traineeCourse;
+//        for (Trainee trainee:traineesInCentre) {
+//            traineeCourse = trainee.getCourseType();
+//            Assertions.assertEquals(centreCourse.getCourseType(), traineeCourse.getCourseType());
+//        }
+//    }
+//
+//    @Test
+//    public void checkCTechCentreTakesCTrainees() {
+//        Assertions.assertFalse(true);
+//    }
+//
+//    @Test
+//    public void checkDataTechCentreTakesDataTrainees() {
+//        Assertions.assertFalse(true);
+//    }
+//
+//    @Test
+//    public void checkDevOpsTechCentreTakesDevOpsTrainees() {
+//        Assertions.assertFalse(true);
+//    }
+//
+//    @Test
+//    public void checkBusinessTechCentreTakesBusinessTrainees() {
+//        Assertions.assertFalse(true);
+//    }
 }

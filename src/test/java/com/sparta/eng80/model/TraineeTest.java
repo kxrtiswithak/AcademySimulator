@@ -33,17 +33,4 @@ public class TraineeTest {
         Assertions.assertNotSame(trainee1, trainee2);
     }
 
-//    @Test
-//    public void generateRandomCourseTypePerTrainee() {
-//        List<Trainee> trainees = new ArrayList<>();
-//        trainees.add(trainee1);
-//        trainees.add(trainee2);
-//        trainees.add(trainee3);
-//        trainees.add(trainee4);
-//        trainees.add(trainee5);
-//        for (int count = 0; count < 3; count++) {
-//            Assertions.assertTrue((trainees.get(count).getCourseType() != trainees.get(count+1).getCourseType()) || (trainees.get(count).getCourseType() != trainees.get(count+2).getCourseType()));
-//        }
-//    }
-
 }
