@@ -85,7 +85,7 @@ public class TrainingCentreManager {
                 if(trainingCentre.getInTraining().size() < 25){
                     trainingCentre.isClosed = true;
                     List<Trainee> trainees = trainingCentre.clearTrainees();
-                    reallocateTrainees(trainees);
+                    reallocateTraineesRandomly(trainees);
                 }
             }
         }
