@@ -6,6 +6,7 @@ import com.sparta.eng80.util.RandomGenerator;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Queue;
 
@@ -17,18 +18,19 @@ public abstract class TrainingCentre {
     //private static int ID;
     private String name;
     private int size;
-    public static int MAX_SIZE;
+    public int MAX_SIZE;
     private List<Trainee> inTraining = new ArrayList<>();
     public LocalDate openDate;
     public TrainingCentreManager trainingCentreManager;
     public boolean isClosed = false;
-//    List monthUpdate = new ArrayList<>();
+    Hashtable<LocalDate, Integer> monthlyUpdates = new Hashtable();
+    public int spacesAvailable;
 
     public TrainingCentre(String name, LocalDate openDate) {
         this.name = name;
         this.size = 0;
         this.MAX_SIZE = 100;
-        this.openDate = openDate;
+        this.openDate =openDate;
     }
 
     public String getName() {
@@ -48,6 +50,7 @@ public abstract class TrainingCentre {
 
     public Queue<Trainee> acceptTrainees(Queue<Trainee> traineeQueue, int minNumber, int maxNumber) {
         int randomVal = randomGenerator.inRange(minNumber, maxNumber);
+        spacesAvailable = maxNumber - randomVal;
         for (int i = 0; i < randomVal; i++) {
             if (!traineeQueue.isEmpty()) {
                 if (inTraining.size() < MAX_SIZE) {
@@ -70,11 +73,17 @@ public abstract class TrainingCentre {
         return period.getMonths();
     }
 
-//    public void updateInfo(){
-//        if(isClosed!=true){
-//            int[] thisMonth = {getAge(),getInTraining().size()};
-//            monthUpdate.add(getInTraining().size());
-//        }
-//    }
+    public void updateInfo(){
+        if(!isClosed){
+            monthlyUpdates.put(trainingCentreManager.getCurrentDate(),getInTraining().size());
+        }
+    }
 
+    public List<Trainee> clearTrainees(){
+        List<Trainee> trainees = new ArrayList<>(inTraining);
+        for (Trainee trainee : inTraining){
+            inTraining.remove(trainee);
+        }
+        return trainees;
+    }
 }
