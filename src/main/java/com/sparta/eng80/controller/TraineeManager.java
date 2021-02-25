@@ -12,13 +12,16 @@ public class TraineeManager {
 
     private static final long SEED = 1397819237199981723L;
     private static final RandomGenerator randomGenerator = new RandomGenerator(SEED);
+    private List<Trainee> allTrainees = new ArrayList<>();
     private Queue<Trainee> waitingList = new LinkedBlockingQueue<>();
 
     public List<Trainee> generateNewTrainees(int minNumber, int maxNumber) {
         int randomVal = randomGenerator.inRange(minNumber, maxNumber);
         List<Trainee> newTrainees = new ArrayList<>();
         for (int i = 0; i < randomVal; i++) {
-            newTrainees.add(new Trainee());
+            Trainee trainee = new Trainee();
+            newTrainees.add(trainee);
+            allTrainees.add(trainee);
         }
         return newTrainees;
     }
@@ -29,5 +32,9 @@ public class TraineeManager {
 
     public void addToWaitingList(List<Trainee> trainees) {
         waitingList.addAll(trainees);
+    }
+
+    public List<Trainee> getAllTrainees() {
+        return allTrainees;
     }
 }

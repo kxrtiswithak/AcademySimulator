@@ -1,10 +1,10 @@
 package com.sparta.eng80.controller;
 
-import java.time.LocalDate;
+import com.sparta.eng80.util.Date;
 
 public interface Output {
 
-    String overallProjectTime(LocalDate endingDate); //Conversion from months to years
+    String overallProjectTime(Date endingDate); //Conversion from months to years
 
     int outputNumOfTrainees();
 

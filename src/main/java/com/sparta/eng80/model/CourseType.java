@@ -2,8 +2,6 @@ package com.sparta.eng80.model;
 
 import com.sparta.eng80.util.RandomGenerator;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public enum CourseType {
