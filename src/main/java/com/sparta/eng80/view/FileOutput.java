@@ -1,5 +1,10 @@
 package com.sparta.eng80.view;
 
+import com.sparta.eng80.model.CourseType;
+import com.sparta.eng80.model.TrainingCentre;
+import com.sparta.eng80.model.types_of_centres.Bootcamp;
+import com.sparta.eng80.model.types_of_centres.TechCentre;
+import com.sparta.eng80.model.types_of_centres.TrainingHub;
 import com.sparta.eng80.util.Printer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,54 +13,21 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.Map;
 
 public class FileOutput {
     private final String fileURL = "resources/simulationOutput.txt";
     private Logger logger = LogManager.getLogger(FileOutput.class);
 
     private String overallProjectTime;
-    private int openTrainingHubs;
-    private int fullTrainingHubs;
-    private int closedTrainingHubs;
-    private int openTechHubs;
-    private int fullTechHubs;
-    private int closedTechHubs;
-    private int openBootcamps;
-    private int fullBootcamps;
-    private int closedBootcamps;
-    private int javaInTraining;
-    private int javaInWaiting;
-    private int cSharpInTraining;
-    private int cSharpInWaiting;
-    private int dataInTraining;
-    private int dataInWaiting;
-    private int devOpsInTraining;
-    private int devOpsInWaiting;
-    private int businessInTraining;
-    private int businessInWaiting;
 
-    public FileOutput(String overallProjectTime, int openTrainingHubs, int fullTrainingHubs, int closedTrainingHubs, int openTechHubs, int fullTechHubs, int closedTechHubs, int openBootcamps, int fullBootcamps, int closedBootcamps, int javaInTraining, int javaInWaiting, int cSharpInTraining, int cSharpInWaiting, int dataInTraining, int dataInWaiting, int devOpsInTraining, int devOpsInWaiting, int businessInTraining, int businessInWaiting)
-    {
+    private Map<Class<? extends TrainingCentre>, int[]> trainingCentres;
+    private Map<CourseType, int[]> trainees;
+
+    public FileOutput(String overallProjectTime, Map<Class<? extends TrainingCentre>, int[]> trainingCentres, Map<CourseType, int[]> trainees) {
         this.overallProjectTime = overallProjectTime;
-        this.openTrainingHubs = openTrainingHubs;
-        this.fullTrainingHubs = fullTrainingHubs;
-        this.closedTrainingHubs = closedTrainingHubs;
-        this.openTechHubs = openTechHubs;
-        this.fullTechHubs = fullTechHubs;
-        this.closedTechHubs = closedTechHubs;
-        this.openBootcamps = openBootcamps;
-        this.fullBootcamps = fullBootcamps;
-        this.closedBootcamps = closedBootcamps;
-        this.javaInTraining = javaInTraining;
-        this.javaInWaiting = javaInWaiting;
-        this.cSharpInTraining = cSharpInTraining;
-        this.cSharpInWaiting = cSharpInWaiting;
-        this.dataInTraining = dataInTraining;
-        this.dataInWaiting = dataInWaiting;
-        this.devOpsInTraining = devOpsInTraining;
-        this.devOpsInWaiting = devOpsInWaiting;
-        this.businessInTraining = businessInTraining;
-        this.businessInWaiting = businessInWaiting;
+        this.trainingCentres = trainingCentres;
+        this.trainees = trainees;
     }
 
     public void outputToFile() {
@@ -81,36 +53,46 @@ public class FileOutput {
     }
 
     public String createOutput() {
+        int[] trainingHubs = trainingCentres.get(TrainingHub.class);
+        int[] techCentres = trainingCentres.get(TechCentre.class);
+        int[] bootCamps = trainingCentres.get(Bootcamp.class);
+
+        int[] java = trainees.get(CourseType.JAVA);
+        int[] cSharp = trainees.get(CourseType.C_SHARP);
+        int[] data = trainees.get(CourseType.DATA);
+        int[] devOps = trainees.get(CourseType.DEVOPS);
+        int[] business = trainees.get(CourseType.BUSINESS);
+
         return overallProjectTime +
             "\nTraining Centres:" +
                 "\n\tTraining Hubs:" +
-                    "\n\t\tOpen: " + formatResults(openTrainingHubs) +
-                    "\n\t\tFull: " + formatResults(fullTrainingHubs) +
-                    "\n\t\tClosed: " + formatResults(closedTrainingHubs) +
-                "\n\tTech Hubs:" +
-                    "\n\t\tOpen: " + formatResults(openTechHubs) +
-                    "\n\t\tFull: " + formatResults(fullTechHubs) +
-                    "\n\t\tClosed: " + formatResults(closedTechHubs) +
+                    "\n\t\tOpen: " + formatResults(trainingHubs[0]) +
+                    "\n\t\tFull: " + formatResults(trainingHubs[1]) +
+                    "\n\t\tClosed: " + formatResults(trainingHubs[2]) +
+                "\n\tTech Centre:" +
+                    "\n\t\tOpen: " + formatResults(techCentres[0]) +
+                    "\n\t\tFull: " + formatResults(techCentres[1]) +
+                    "\n\t\tClosed: " + formatResults(techCentres[2]) +
                 "\n\tBootcamps:" +
-                    "\n\t\tOpen: " + formatResults(openBootcamps) +
-                    "\n\t\tFull: " + formatResults(fullBootcamps) +
-                    "\n\t\tClosed: " + formatResults(closedTechHubs) +
+                    "\n\t\tOpen: " + formatResults(bootCamps[0]) +
+                    "\n\t\tFull: " + formatResults(bootCamps[1]) +
+                    "\n\t\tClosed: " + formatResults(bootCamps[2]) +
             "\nTrainees:" +
                 "\n\tJava:" +
-                    "\n\t\tIn Training: " + formatResults(javaInTraining) +
-                    "\n\t\tWaiting List: " + formatResults(javaInWaiting) +
+                    "\n\t\tIn Training: " + formatResults(java[0]) +
+                    "\n\t\tWaiting List: " + formatResults(java[1]) +
                 "\n\tC#:" +
-                    "\n\t\tIn Training: " + formatResults(cSharpInTraining) +
-                    "\n\t\tWaiting List: " + formatResults(cSharpInWaiting) +
+                    "\n\t\tIn Training: " + formatResults(cSharp[0]) +
+                    "\n\t\tWaiting List: " + formatResults(cSharp[1]) +
                 "\n\tData:" +
-                    "\n\t\tIn Training: " + formatResults(dataInTraining) +
-                    "\n\t\tWaiting List: " + formatResults(dataInWaiting) +
+                    "\n\t\tIn Training: " + formatResults(data[0]) +
+                    "\n\t\tWaiting List: " + formatResults(data[1]) +
                 "\n\tDevOps:" +
-                    "\n\t\tIn Training: " + formatResults(devOpsInTraining) +
-                    "\n\t\tWaiting List: " + formatResults(devOpsInWaiting) +
+                    "\n\t\tIn Training: " + formatResults(devOps[0]) +
+                    "\n\t\tWaiting List: " + formatResults(devOps[1]) +
                 "\n\tBusiness" +
-                    "\n\t\tIn Training: " + formatResults(businessInTraining) +
-                    "\n\t\tWaiting List: " + formatResults(businessInWaiting);
+                    "\n\t\tIn Training: " + formatResults(business[0]) +
+                    "\n\t\tWaiting List: " + formatResults(business[1]);
 
 //        return  overallProjectTime +
 //                "\nOpen Training Centres: " + formatResults(openTrainingCentres) +
