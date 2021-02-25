@@ -22,6 +22,7 @@ public class TrainingCentreManager {
     private Date lastCentreAddedDate;
     private ArrayList<TrainingCentre> listOfTrainingCentres = new ArrayList<>();
     private RandomGenerator randomGenerator = new RandomGenerator(8923478235482354823L);
+    private TraineeManager traineeManager;
 
 
     public TrainingCentreManager(Date startDate) {
@@ -101,7 +102,7 @@ public class TrainingCentreManager {
         for (TrainingCentre trainingCentre : listOfTrainingCentres) {
             if (trainingCentre.getAge() == 3 && !trainingCentre.isClosed &&
                     //TODO Check if this works
-                    trainingCentre.getClass().getName().equals("Bootcamp")) {
+                    trainingCentre.getClass().getName().contains("Boot")) {
                 //If so the size is checked. If below 25 the centre is closed and trainees are reallocated
                 if (trainingCentre.getInTraining().size() < 25) {
                     trainingCentre.isClosed = true;
@@ -146,11 +147,26 @@ public class TrainingCentreManager {
             int centreSelection = randomGenerator.inRange(0, availableCentres.size());
             for (int i = 0; i < availableCentres.get(centreSelection).spacesAvailable; i++) {
                 if (availableCentres.get(centreSelection).getInTraining().size() < availableCentres.get(centreSelection).MAX_SIZE) {  //redundant?
-                    Trainee trainee = trainees.remove(i);
-                    availableCentres.get(centreSelection).addTrainee(trainee);
+                    if(!availableCentres.get(centreSelection).getClass().getName().contains("Tech")) {
+                        availableCentres.get(centreSelection).addTrainee(trainees.remove(i));
+                    } else { //If its a Tech Centre
+                        TechCentre techCentre = (TechCentre) availableCentres.get(centreSelection);
+                        boolean allocated = false;
+                        for (int j=0; j<trainees.size();j++){
+                            if(!allocated){
+                                if(trainees.get(i).getCourseType() == techCentre.getCourseType()){
+                                    availableCentres.get(centreSelection).addTrainee(trainees.remove(i));
+                                    allocated = true;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             availableCentres.remove(centreSelection);
+            if(trainees.size()>0){
+                traineeManager.addToWaitingList(trainees);
+            }
         }
     }
 
