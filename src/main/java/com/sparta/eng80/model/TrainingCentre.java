@@ -1,6 +1,5 @@
 package com.sparta.eng80.model;
 
-import com.sparta.eng80.controller.TrainingCentreManager;
 import com.sparta.eng80.util.Date;
 import com.sparta.eng80.util.Period;
 import com.sparta.eng80.util.RandomGenerator;
@@ -21,16 +20,15 @@ public abstract class TrainingCentre {
     public int MAX_SIZE;
     private List<Trainee> inTraining = new ArrayList<>();
     public Date openDate;
-    public TrainingCentreManager trainingCentreManager;
     public boolean isClosed = false;
-    Hashtable<Date, Integer> monthlyUpdates = new Hashtable();
+    Hashtable<Date, Integer> monthlyUpdates = new Hashtable<>();
     public int spacesAvailable;
 
     public TrainingCentre(String name, Date openDate) {
         this.name = name;
         this.size = 0;
         this.MAX_SIZE = 100;
-        this.openDate =openDate;
+        this.openDate = openDate;
     }
 
     public String getName() {
@@ -68,20 +66,20 @@ public abstract class TrainingCentre {
         return inTraining;
     }
 
-    public int getAge(){
-        Period period = Period.between(openDate, trainingCentreManager.getCurrentDate());
+    public int getAge() {
+        Period period = Period.between(openDate, Simulation.getTrainingCentreManager().getCurrentDate());
         return period.getMonths();
     }
 
-    public void updateInfo(){
-        if(!isClosed){
-            monthlyUpdates.put(trainingCentreManager.getCurrentDate(),getInTraining().size());
+    public void updateInfo() {
+        if (!isClosed) {
+            monthlyUpdates.put(Simulation.getTrainingCentreManager().getCurrentDate(), getInTraining().size());
         }
     }
 
-    public List<Trainee> clearTrainees(){
+    public List<Trainee> clearTrainees() {
         List<Trainee> trainees = new ArrayList<>(inTraining);
-        for (Trainee trainee : inTraining){
+        for (Trainee trainee : inTraining) {
             inTraining.remove(trainee);
         }
         return trainees;

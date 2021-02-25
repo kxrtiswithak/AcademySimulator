@@ -68,13 +68,13 @@ public class OutputManager implements Output {
     @Override
     public int outputNumOfCentres() {
         return trainingCentreManager.getListOfTrainingCenters().size();
-    } //Done
+    }
 
     @Override
     public int outputNumOfOpenCentres() {
         int openCentres = 0;
         for (TrainingCentre tc : trainingCentreManager.getListOfTrainingCenters()) {
-            if (tc.getInTraining().size() != 100) {
+            if (tc.getInTraining().size() != tc.MAX_SIZE) {
                 openCentres += 1;
             }
         }
@@ -84,7 +84,7 @@ public class OutputManager implements Output {
     @Override
     public int outputNumOfFullCentres() {
         return outputNumOfCentres() - outputNumOfOpenCentres();
-    } //Done
+    }
 
     public void outputProjectResults() {
         Printer.printString(overallProjectTime(endingDate));
