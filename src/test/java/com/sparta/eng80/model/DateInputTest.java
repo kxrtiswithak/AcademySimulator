@@ -2,47 +2,49 @@ package com.sparta.eng80.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigInteger;
+
 public class DateInputTest {
 
     Simulation simulation = new Simulation();
 
     @Test
     public void inputValidMonth() {
-        simulation.setSimulationFor(5);
+        simulation.setSimulationFor(BigInteger.TWO);
     }
 
     @Test
     public void inputValidMonthAndYear() {
-        simulation.setSimulationFor(1,3);
+        simulation.setSimulationFor(BigInteger.ONE, BigInteger.TWO);
     }
 
     @Test
     public void inputValidMonthYearAndDay() {
-        simulation.setSimulationFor(2, 12, 19);
+        simulation.setSimulationFor(BigInteger.valueOf(-12), BigInteger.valueOf(-12), BigInteger.valueOf(-12));
     }
 
     @Test
     public void inputDateAfterCurrent() {
-        simulation.setSimulationUntil(2022, 1, 1);
+        simulation.setSimulationUntil(BigInteger.valueOf(2022), (short) 1, (short) 1);
     }
 
     @Test
     public void inputInvalidMonth() {
-        simulation.setSimulationFor(-10);
+        simulation.setSimulationFor(BigInteger.valueOf(-12));
     }
 
     @Test
     public void inputInvalidMonthAndYear() {
-        simulation.setSimulationFor(-10,3);
+        simulation.setSimulationFor(BigInteger.valueOf(-10), BigInteger.valueOf(3));
     }
 
     @Test
     public void inputInvalidMonthYearAndDay() {
-        simulation.setSimulationFor(2, 12, -19);
+        simulation.setSimulationFor(BigInteger.valueOf(2), BigInteger.valueOf(12), BigInteger.valueOf(-19));
     }
 
     @Test
     public void inputDateBeforeCurrent() {
-        simulation.setSimulationUntil(2020, 1, 1);
+        simulation.setSimulationUntil(BigInteger.valueOf(2020), (short) 1, (short) 1);
     }
 }

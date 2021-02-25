@@ -1,5 +1,31 @@
+
 The overall time for this simulation is 0 years and 3 months
-Open Training Centres: 0
-Full Training Centres: 0
-Total number of Trainees in Training Centres: 0
-Total number of Trainees in waiting list: 20
+Training Centres:
+	Training Hubs:
+		Open: 0
+		Full: 0
+		Closed: 0
+	Tech Centre:
+		Open: 0
+		Full: 0
+		Closed: 0
+	Bootcamps:
+		Open: 0
+		Full: 0
+		Closed: 0
+Trainees:
+	Java:
+		In Training: 0
+		Waiting List: 6
+	C#:
+		In Training: 0
+		Waiting List: 5
+	Data:
+		In Training: 0
+		Waiting List: 3
+	DevOps:
+		In Training: 0
+		Waiting List: 4
+	Business
+		In Training: 0
+		Waiting List: 7

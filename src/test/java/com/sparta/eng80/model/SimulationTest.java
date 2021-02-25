@@ -1,5 +1,6 @@
 package com.sparta.eng80.model;
 
+import com.sparta.eng80.controller.TrainingCentreManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class SimulationTest {
 //    @Test
 //    public void checkCorrectNumberOfTrainingCentresCreatedAtEnd() {
 //        int numberOfTrainingCentres = simulation.getTrainingCentreManager().getListOfTrainingCenters().size();
-//        Assertions.assertEquals(3, numberOfTrainingCentres);
+//        Assertions.assertEquals(150, numberOfTrainingCentres);
 //    }
 //
 //    @Test
@@ -71,6 +72,16 @@ public class SimulationTest {
 //                numberOfOpenCentres++;
 //            }
 //        }
-//        Assertions.assertTrue(numberOfFullCentres+numberOfOpenCentres == numberOfCentres);
+//        Assertions.assertEquals(numberOfCentres, numberOfFullCentres + numberOfOpenCentres);
+//    }
+//
+//    @Test
+//    public void checkNumberOfEachCentreIsEqualToTotal() {
+//        TrainingCentreManager trainingCentreManager = simulation.getTrainingCentreManager();
+//        int totalNumberOfTrainingCentres = trainingCentreManager.getListOfTrainingCenters().size();
+//        int numberOfBootcamps = trainingCentreManager.getNumberOfBootcamps();
+//        int numberOfTrainingHubs = trainingCentreManager.getNumberOfTrainingHub();
+//        int numberOfTechCentres = trainingCentreManager.getNumberOfTechCentres();
+//        Assertions.assertEquals(totalNumberOfTrainingCentres, (numberOfTechCentres+numberOfTrainingHubs+numberOfBootcamps));
 //    }
 }

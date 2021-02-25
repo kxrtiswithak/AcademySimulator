@@ -15,4 +15,5 @@ public class RandomGenerator {
         }
         return random.nextInt((int) ((long) (max) - (long) (min) + 1)) + min;
     }
+
 }

@@ -4,24 +4,28 @@ import com.sparta.eng80.controller.TraineeManager;
 import com.sparta.eng80.model.types_of_centres.Bootcamp;
 import com.sparta.eng80.model.types_of_centres.TechCentre;
 import com.sparta.eng80.model.types_of_centres.TrainingHub;
+import com.sparta.eng80.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
 
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrainingCentreTest {
-    TechCentre techCentre;
-    Bootcamp bootcamp;
-    TrainingHub trainingHub;
+    TrainingCentre techCentre;
+    TrainingCentre bootcamp;
+    TrainingCentre trainingHub;
+    Date startDate;
 
     @BeforeEach
     public void setup() {
-        techCentre = new TechCentre("Tech Centre");
-        bootcamp = new Bootcamp("Bootcamp");
-        trainingHub = new TrainingHub("Training Hub");
+        startDate = Date.now();
+        techCentre = new TechCentre("Tech Centre", startDate);
+        bootcamp = new Bootcamp("Bootcamp", startDate);
+        trainingHub = new TrainingHub("Training Hub", startDate);
     }
 
     @Test
@@ -41,38 +45,38 @@ public class TrainingCentreTest {
 
     @Test
     public void createUniqueTechCentre() {
-       TrainingCentre techCentre2 = new TechCentre("Tech Centre 2");
-       Assertions.assertFalse(techCentre.equals(techCentre2));
+       TrainingCentre techCentre2 = new TechCentre("Tech Centre 2",startDate);
+        Assertions.assertNotEquals(techCentre2, techCentre);
     }
 
     @Test
     public void createUniqueBootcamp() {
-        TrainingCentre bootcamp2 = new Bootcamp("Bootcamp 2");
-        Assertions.assertFalse(techCentre.equals(bootcamp2));
+        TrainingCentre bootcamp2 = new Bootcamp("Bootcamp 2",startDate);
+        Assertions.assertNotEquals(bootcamp2, techCentre);
     }
 
     @Test
     public void createUniqueTrainingHub() {
-        TrainingCentre trainingHub2 = new TechCentre("Training Hub 2");
-        Assertions.assertFalse(techCentre.equals(trainingHub2));
+        TrainingCentre trainingHub2 = new TechCentre("Training Hub 2",startDate);
+        Assertions.assertNotEquals(trainingHub2, techCentre);
     }
 
     @Test
     public void addTraineesToTechCentre() {
         techCentre.addTrainee(new Trainee());
-        Assertions.assertTrue(techCentre.getInTraining().size() == 1);
+        Assertions.assertEquals(techCentre.getInTraining().size(), 1);
     }
 
     @Test
     public void addTraineesToBootcamp() {
         bootcamp.addTrainee(new Trainee());
-        Assertions.assertTrue(bootcamp.getInTraining().size() == 1);
+        Assertions.assertEquals(bootcamp.getInTraining().size(), 1);
     }
 
     @Test
     public void addTraineesToTrainingHub() {
         trainingHub.addTrainee(new Trainee());
-        Assertions.assertTrue(trainingHub.getInTraining().size() == 1);
+        Assertions.assertEquals(trainingHub.getInTraining().size(), 1);
     }
 
     @Test
@@ -82,7 +86,7 @@ public class TrainingCentreTest {
 
     @Test
     public void add0To20TraineesTechCentreTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         for (int i = 0; i < 100; i++) {
             trainees.add(new Trainee());
         }
@@ -93,7 +97,7 @@ public class TrainingCentreTest {
 
     @Test
     public void add0To20TraineesBootcampTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         for (int i = 0; i < 100; i++) {
             trainees.add(new Trainee());
         }
@@ -104,7 +108,7 @@ public class TrainingCentreTest {
 
     @Test
     public void add0To20TraineesTrainingHubTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         for (int i = 0; i < 100; i++) {
             trainees.add(new Trainee());
         }
@@ -114,8 +118,8 @@ public class TrainingCentreTest {
     }
 
     @Test
-    public void getMaxSizeTechCentre(){
-        Assertions.assertEquals(200, techCentre.getMaxSize());
+    public void getMaxSizeTechCentre() {
+        Assertions.assertEquals(200, techCentre.MAX_SIZE);
     }
 
     @Test
@@ -130,35 +134,35 @@ public class TrainingCentreTest {
 
     @Test
     public void addMoreThanMaxSizeTraineesTechCentreTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         int maxSize = techCentre.MAX_SIZE;
         for (int i = 0; i < (maxSize+10); i++) {
             trainees.add(new Trainee());
         }
         techCentre.acceptTrainees(trainees, maxSize, maxSize+10);
-        Assertions.assertTrue(techCentre.getInTraining().size() == maxSize);
+        Assertions.assertEquals(maxSize, techCentre.getInTraining().size());
     }
 
     @Test
     public void addMoreThanMaxSizeTraineesBootcampTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         int maxSize = bootcamp.MAX_SIZE;
         for (int i = 0; i < (maxSize+10); i++) {
             trainees.add(new Trainee());
         }
         bootcamp.acceptTrainees(trainees, maxSize, maxSize+10);
-        Assertions.assertTrue(bootcamp.getInTraining().size() == maxSize);
+        Assertions.assertEquals(maxSize, bootcamp.getInTraining().size());
     }
 
     @Test
     public void addMoreThanMaxSizeTraineesTrainingHubTest() {
-        Queue<Trainee> trainees = new LinkedBlockingQueue<>();;
+        Queue<Trainee> trainees = new LinkedBlockingQueue<>();
         int maxSize = trainingHub.MAX_SIZE;
         for (int i = 0; i < (maxSize+10); i++) {
             trainees.add(new Trainee());
         }
         trainingHub.acceptTrainees(trainees, maxSize, maxSize+10);
-        Assertions.assertTrue(trainingHub.getInTraining().size() == maxSize);
+        Assertions.assertEquals(maxSize, trainingHub.getInTraining().size());
     }
 
     @Test
@@ -185,4 +189,35 @@ public class TrainingCentreTest {
         List<Trainee> traineesInCentre = techCentre.getInTraining();
         Assertions.assertEquals(traineeList.get(0), traineesInCentre.get(0));
     }
+
+    @Test
+    public void getTrainingCentreAge(){
+
+    }
+
+    @Test
+    public void moveTraineesToNewCentreOnClosure() {}
+
+    @Test
+    public void moveTraineesToWaitingListOnClosure() {}
+
+    @Test
+    public void assignCourseToTechCentre() {
+
+    }
+
+    @Test
+    public void checkJavaTechCentreTakesJavaTrainees() {}
+
+    @Test
+    public void checkCTechCentreTakesCTrainees() {}
+
+    @Test
+    public void checkDataTechCentreTakesDataTrainees() {}
+
+    @Test
+    public void checkDevOpsTechCentreTakesDevOpsTrainees() {}
+
+    @Test
+    public void checkBusinessTechCentreTakesBusinessTrainees() {}
 }
