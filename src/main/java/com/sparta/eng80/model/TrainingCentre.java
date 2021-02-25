@@ -4,6 +4,7 @@ import com.sparta.eng80.util.Date;
 import com.sparta.eng80.util.Period;
 import com.sparta.eng80.util.RandomGenerator;
 
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -43,6 +44,7 @@ public abstract class TrainingCentre {
         if (trainee == null) {
             return false;
         }
+        trainee.setIsWaiting(false);
         return inTraining.add(trainee);
     }
 
@@ -81,6 +83,7 @@ public abstract class TrainingCentre {
         List<Trainee> trainees = new ArrayList<>(inTraining);
         for (Trainee trainee : inTraining) {
             inTraining.remove(trainee);
+            trainee.setIsWaiting(true);
         }
         return trainees;
     }
