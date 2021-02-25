@@ -14,7 +14,6 @@ public abstract class TrainingCentre {
     private static final RandomGenerator randomGenerator = new RandomGenerator(SEED);
     //private static int ID;
     private String name;
-    private int size;
     public int MAX_SIZE;
     private List<Trainee> inTraining = new ArrayList<>();
     public Date openDate;
@@ -24,17 +23,19 @@ public abstract class TrainingCentre {
 
     public TrainingCentre(String name, Date openDate) {
         this.name = name;
-        this.size = 0;
         this.MAX_SIZE = 100;
+        this.openDate = openDate;
+    }
+
+    public TrainingCentre(String name, Date openDate, int size){
+        this.name = name;
+        this.MAX_SIZE = size;
+        this.spacesAvailable = MAX_SIZE;
         this.openDate = openDate;
     }
 
     public String getName() {
         return name;
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public boolean addTrainee(Trainee trainee) {

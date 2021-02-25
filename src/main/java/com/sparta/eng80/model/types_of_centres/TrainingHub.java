@@ -6,7 +6,7 @@ import com.sparta.eng80.util.Date;
 public class TrainingHub extends TrainingCentre {
 
     public TrainingHub (String name, Date openDate) {
-        super(name, openDate);
+        super(name, openDate,100);
     }
 
 }

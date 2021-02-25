@@ -88,16 +88,6 @@ public class TrainingCentreManager {
         return listOfTrainingCentres;
     }
 
-    public int getNumOfFullTrainingCentres() {
-        int count = 0;
-        for (TrainingCentre trainingCentre : listOfTrainingCentres) {
-            if (trainingCentre.getSize() == trainingCentre.MAX_SIZE) {
-                count++;
-            }
-        }
-        return count;
-    }
-
     public Date getCurrentDate() {
         return currentDate;
     }
