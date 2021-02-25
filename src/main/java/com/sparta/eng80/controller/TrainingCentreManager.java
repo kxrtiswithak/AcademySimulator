@@ -40,6 +40,8 @@ public class TrainingCentreManager {
                 break;
             case 3:
                 generateNewTrainingHub(currentDate);
+                generateNewTrainingHub(currentDate);
+                generateNewTrainingHub(currentDate);
                 break;
         }
 
@@ -48,7 +50,7 @@ public class TrainingCentreManager {
     public void generateNewBootcamp(Date currentDate) {
         String bootcampName = "Boot Camp " + numberOfBootcamps;
         this.currentDate = currentDate;
-        if (currentDate.isEqual(lastCentreAddedDate.plusMonths(BigInteger.TWO)) || currentDate.isEqual(startDate)) {
+        if (currentDate.isEqual(lastCentreAddedDate.plusMonths(BigInteger.TWO)) || currentDate.isEqual(startDate.plusMonths(BigInteger.ONE))) {
             TrainingCentre bootcamp = new Bootcamp(bootcampName, currentDate);
             numberOfBootcamps++;
             lastCentreAddedDate = currentDate;
@@ -59,7 +61,7 @@ public class TrainingCentreManager {
     public void generateNewTechCentre(Date currentDate) {
         String techCentreName = "Tech Centre " + numberOfTechCentres;
         this.currentDate = currentDate;
-        if (currentDate.isEqual(lastCentreAddedDate.plusMonths(BigInteger.TWO)) || currentDate.isEqual(startDate)) {
+        if (currentDate.isEqual(lastCentreAddedDate.plusMonths(BigInteger.TWO)) || currentDate.isEqual(startDate.plusMonths(BigInteger.ONE))) {
             TechCentre techCentre = new TechCentre(techCentreName, currentDate);
             numberOfTechCentres++;
             lastCentreAddedDate = currentDate;
@@ -68,10 +70,10 @@ public class TrainingCentreManager {
     }
 
     public void generateNewTrainingHub(Date currentDate) {
-        String techCentreName = "Tech Centre " + numberOfTrainingHub;
+        String trainingHubName = "Training Hub " + numberOfTrainingHub;
         this.currentDate = currentDate;
-        if (currentDate.isEqual(lastCentreAddedDate.plusMonths(BigInteger.TWO)) || currentDate.isEqual(startDate)) {
-            TrainingCentre trainingHub = new TrainingHub(techCentreName, currentDate);
+        if (currentDate.isEqual(lastCentreAddedDate.plusMonths(BigInteger.TWO)) || currentDate.isEqual(startDate.plusMonths(BigInteger.ONE))) {
+            TrainingCentre trainingHub = new TrainingHub(trainingHubName, currentDate);
             numberOfTrainingHub++;
             lastCentreAddedDate = currentDate;
             listOfTrainingCentres.add(trainingHub);

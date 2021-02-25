@@ -37,7 +37,7 @@ public class OutputManager implements Output {
         String dateOutput = //period.getDays() + " days, " +
                 period.getYears() + " years and " +
                         period.getMonths() + " months";
-        return "The overall time for this simulation is " + dateOutput;
+        return "\nThe overall time for this simulation is " + dateOutput;
     }
 
     @Override
