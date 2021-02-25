@@ -5,10 +5,7 @@ import com.sparta.eng80.util.Period;
 import com.sparta.eng80.util.RandomGenerator;
 
 import java.sql.Struct;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public abstract class TrainingCentre {
 
@@ -81,10 +78,15 @@ public abstract class TrainingCentre {
 
     public List<Trainee> clearTrainees() {
         List<Trainee> trainees = new ArrayList<>(inTraining);
-        for (Trainee trainee : inTraining) {
-            inTraining.remove(trainee);
-            trainee.setIsWaiting(true);
+        for (Iterator<Trainee> iter = inTraining.iterator(); iter.hasNext();) {
+            Trainee trainee = iter.next();
+            trainee.setIsWaiting(false);
+            iter.remove();
         }
+//        for (Trainee trainee : inTraining) {
+//            inTraining.remove(trainee);
+//            trainee.setIsWaiting(true);
+//        }
         return trainees;
     }
 }

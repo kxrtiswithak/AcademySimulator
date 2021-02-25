@@ -1,5 +1,6 @@
 package com.sparta.eng80.controller;
 
+import com.sparta.eng80.model.CourseType;
 import com.sparta.eng80.model.Trainee;
 import com.sparta.eng80.model.TrainingCentre;
 import com.sparta.eng80.model.types_of_centres.Bootcamp;
@@ -10,6 +11,7 @@ import com.sparta.eng80.util.RandomGenerator;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class TrainingCentreManager {
@@ -25,8 +27,9 @@ public class TrainingCentreManager {
     private TraineeManager traineeManager;
 
 
-    public TrainingCentreManager(Date startDate) {
+    public TrainingCentreManager(Date startDate, TraineeManager traineeManager) {
         this.startDate = lastCentreAddedDate = startDate;
+        this.traineeManager = traineeManager;
     }
 
     public void randomlyGenerateCentre(Date currentDate) {
@@ -124,35 +127,62 @@ public class TrainingCentreManager {
     private void reallocateTraineesRandomly(List<Trainee> trainees) {
         List<TrainingCentre> availableCentres = new ArrayList<>();
         for (TrainingCentre trainingCentre : listOfTrainingCentres) {
-            if (trainingCentre.getInTraining().size() != trainingCentre.MAX_SIZE || !trainingCentre.isClosed) {
+            if (trainingCentre.spacesAvailable != 0 && !trainingCentre.isClosed) {
                 availableCentres.add(trainingCentre);
             }
         }
-        while (availableCentres.size() > 0 && trainees.size() > 0) {
-            int centreSelection = randomGenerator.inRange(0, availableCentres.size());
-            for (int i = 0; i < availableCentres.get(centreSelection).spacesAvailable; i++) {
-                if (availableCentres.get(centreSelection).getInTraining().size() < availableCentres.get(centreSelection).MAX_SIZE) {  //redundant?
-                    if(!availableCentres.get(centreSelection).getClass().getName().contains("Tech")) {
-                        availableCentres.get(centreSelection).addTrainee(trainees.remove(i));
-                    } else { //If its a Tech Centre
-                        TechCentre techCentre = (TechCentre) availableCentres.get(centreSelection);
-                        boolean allocated = false;
-                        for (int j=0; j<trainees.size();j++){
-                            if(!allocated){
-                                if(trainees.get(i).getCourseType() == techCentre.getCourseType()){
-                                    availableCentres.get(centreSelection).addTrainee(trainees.remove(i));
-                                    allocated = true;
-                                }
-                            }
-                        }
+        if (availableCentres.size() > 0) {
+            for (Iterator<Trainee> iter = trainees.iterator(); iter.hasNext(); ) {
+                int centreSelection = randomGenerator.inRange(0, availableCentres.size() - 1);
+                TrainingCentre trainingCentre = availableCentres.get(centreSelection);
+                Trainee trainee = iter.next();
+                if (trainingCentre instanceof TechCentre) {
+                    TechCentre techCentre = (TechCentre) trainingCentre;
+                    CourseType courseType = techCentre.getCourseType();
+                    if (courseType == trainee.getCourseType()) {
+                        techCentre.addTrainee(trainee);
+                    } else {
+                        trainingCentre.addTrainee(trainee);
                     }
+                    if (trainingCentre.spacesAvailable == 0) {
+                        availableCentres.remove(centreSelection);
+                    }
+                    iter.remove();
                 }
             }
-            availableCentres.remove(centreSelection);
-            if(trainees.size()>0){
-                traineeManager.addToWaitingList(trainees);
-            }
         }
+        if (trainees.size() > 0)
+        traineeManager.addToWaitingList(trainees);
+//        for (TrainingCentre trainingCentre : listOfTrainingCentres) {
+//            if (trainingCentre.getInTraining().size() != trainingCentre.MAX_SIZE || !trainingCentre.isClosed) {
+//                availableCentres.add(trainingCentre);
+//            }
+//        }
+//        while (availableCentres.size() > 0 && trainees.size() > 0) {
+//            int centreSelection = randomGenerator.inRange(0, availableCentres.size());
+//            for (int i = 0; i < availableCentres.get(centreSelection).spacesAvailable; i++) {
+//                if (availableCentres.get(centreSelection).getInTraining().size() < availableCentres.get(centreSelection).MAX_SIZE) {  //redundant?
+//                    if(!availableCentres.get(centreSelection).getClass().getName().contains("Tech")) {
+//                        availableCentres.get(centreSelection).addTrainee(trainees.remove(i));
+//                    } else { //If its a Tech Centre
+//                        TechCentre techCentre = (TechCentre) availableCentres.get(centreSelection);
+//                        boolean allocated = false;
+//                        for (int j=0; j<trainees.size();j++){
+//                            if(!allocated){
+//                                if(trainees.get(i).getCourseType() == techCentre.getCourseType()){
+//                                    availableCentres.get(centreSelection).addTrainee(trainees.remove(i));
+//                                    allocated = true;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            availableCentres.remove(centreSelection);
+//            if(trainees.size()>0){
+//                traineeManager.addToWaitingList(trainees);
+//            }
+//        }
     }
 
 }
