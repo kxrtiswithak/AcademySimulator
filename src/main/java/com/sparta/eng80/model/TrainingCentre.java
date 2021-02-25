@@ -23,7 +23,7 @@ public abstract class TrainingCentre {
     public Date openDate;
     public TrainingCentreManager trainingCentreManager;
     public boolean isClosed = false;
-    Hashtable<LocalDate, Integer> monthlyUpdates = new Hashtable();
+    Hashtable<Date, Integer> monthlyUpdates = new Hashtable();
     public int spacesAvailable;
 
     public TrainingCentre(String name, Date openDate) {
