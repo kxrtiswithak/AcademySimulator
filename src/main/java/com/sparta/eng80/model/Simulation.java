@@ -29,7 +29,7 @@ public class Simulation implements Runnable {
 
     @Override
     public void run() {
-        trainingCentreManager = new TrainingCentreManager(currentDate);
+        trainingCentreManager = new TrainingCentreManager(currentDate, traineeManager);
         if (simulateUntil.isEqual(currentDate)) {
             Printer.printString("Please set the amount of time the simulation should simulate until!");
         } else {
