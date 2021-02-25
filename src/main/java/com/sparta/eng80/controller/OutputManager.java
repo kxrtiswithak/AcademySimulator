@@ -1,22 +1,21 @@
 package com.sparta.eng80.controller;
 
 import com.sparta.eng80.model.TrainingCentre;
+import com.sparta.eng80.util.Date;
+import com.sparta.eng80.util.Period;
 import com.sparta.eng80.util.Printer;
 import com.sparta.eng80.view.FileOutput;
 
-import java.time.LocalDate;
-import java.time.Period;
-
 public class OutputManager implements Output {
 
-    public LocalDate currentDate = LocalDate.now();
+    public Date currentDate = Date.now();
     TrainingCentreManager trainingCentreManager;
     TraineeManager traineeManager;
-    LocalDate endingDate;
+    Date endingDate;
     FileOutput fileOutput;
     boolean outputToFile;
 
-    public OutputManager(TrainingCentreManager trainingCentreManager, TraineeManager traineeManager, LocalDate endingDate, boolean outputToFile) {
+    public OutputManager(TrainingCentreManager trainingCentreManager, TraineeManager traineeManager, Date endingDate, boolean outputToFile) {
         this.trainingCentreManager = trainingCentreManager;
         this.traineeManager = traineeManager;
         this.endingDate = endingDate;
@@ -33,7 +32,7 @@ public class OutputManager implements Output {
     }
 
     @Override
-    public String overallProjectTime(LocalDate endingDate) {
+    public String overallProjectTime(Date endingDate) {
         Period period = Period.between(currentDate, endingDate);
         String dateOutput = //period.getDays() + " days, " +
                 period.getYears() + " years and " +

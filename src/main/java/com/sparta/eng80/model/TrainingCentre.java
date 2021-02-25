@@ -1,10 +1,10 @@
 package com.sparta.eng80.model;
 
 import com.sparta.eng80.controller.TrainingCentreManager;
+import com.sparta.eng80.util.Date;
+import com.sparta.eng80.util.Period;
 import com.sparta.eng80.util.RandomGenerator;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -20,13 +20,13 @@ public abstract class TrainingCentre {
     private int size;
     public int MAX_SIZE;
     private List<Trainee> inTraining = new ArrayList<>();
-    public LocalDate openDate;
+    public Date openDate;
     public TrainingCentreManager trainingCentreManager;
     public boolean isClosed = false;
     Hashtable<LocalDate, Integer> monthlyUpdates = new Hashtable();
     public int spacesAvailable;
 
-    public TrainingCentre(String name, LocalDate openDate) {
+    public TrainingCentre(String name, Date openDate) {
         this.name = name;
         this.size = 0;
         this.MAX_SIZE = 100;
