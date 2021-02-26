@@ -9,5 +9,4 @@ public class PrinterTest {
     public void PrinterTest() {
         Printer.printString("Test");
     }
-
 }
