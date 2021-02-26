@@ -13,17 +13,21 @@ import java.util.Hashtable;
 import java.util.List;
 
 public class ClientManager {
-    public List<Client> newClients = new ArrayList();
+    private List<Client> newClients = new ArrayList();
     private final RandomGenerator randomGenerator = new RandomGenerator();
-    private final ClientFactory traineeFactory = new ClientFactory();
+    private final ClientFactory clientFactory = new ClientFactory();
 
     public List<Client> randomlyGenerateClients( Date currentDate) {
         int randomVal = randomGenerator.inRange(1, 3);
         for (int i = 0; i < randomVal; i++) {
-            Client client = ClientFactory.generateClient(currentDate,CourseType.randomCourseType());
+            Client client = clientFactory.generateClient(currentDate,CourseType.randomCourseType());
             newClients.add(client);
 
         }
+        return newClients;
+    }
+
+    public List<Client> getClients() {
         return newClients;
     }
 }
