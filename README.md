@@ -81,20 +81,22 @@ If a Bootcamp has 3 consecutive months of low attendance, it will close. For the
 
 ### Planning
 
-Much akin to Sprint 0, we created new user stories for the updated requirements. We had split up for this process as some requirements were still missing from the previous Sprint and tests still needed to
- be completed for the remainder of the code. We then spoke to the client to make certain that all the user stories were correct, clear and diverse enough.
+Similarly to sprint 0, we delegated requirements for individuals to work on creating user stories. As we were under a strong time constraint we had 3 of out team work on creating the user stories for these requirements and reviewing them. Once finalised by the rest of the team  we then began to work on the execution.
+
 
 ### Execution
-
-
+Similarly to the previous sprint we used branches to make the changes. Dividing the user stories among ourselves and working on branches together where the user stories were connected, allowed us to make changes easily without altering the final code until the changes were reviewed. 
+Through pull requests we made sure there were no issues with merge conflicts.
 
 ### Review
 
+In our review we analysed the broject board to review what had been completed and tested. We showed the client the program and went through any changes that could be made as well as and issues that needed to be corrected before we moved on to the next sprint.
 
 
 ### Retrospective
 
-
+In our retrospective we learnt that we work better when doing things such as paired programming so we decided to utilise this more in Sprint 3.
+We also moved one of our testers to a developer so that we could optimise code and focus less on testing for the meantime.
 
 ## Sprint 3
 
@@ -110,11 +112,14 @@ Much akin to Sprint 0, we created new user stories for the updated requirements.
 
 ### Planning
 
-Similaryly as with sprints 0 and 2, we created new user stories for the updated requirements. Due to time constraints we delegated sections of the 
+
+Similarly as with sprints 0 and 2, we created new user stories for the updated requirements. Due to time constraints we delegated sections of the requirements to individuals in the team to create user stories, each with definitions of done and test cases. We then came together to review the user stories created and finalise them before proceeding with coding.
+
 
 ### Execution
 
 
+Much akin to Sprint 0 and 2, we created new user stories for the updated requirements. We had split up for this process as some requirements were still missing from the previous Sprint and tests still needed to	We assigned the team in pairs to different batches of user stories, so as to cultivate a pair programming atmosphere. We chose this approach to avoid assigning too little of a workload to one team member, thus avoiding unnecessary bottlenecks. At the time of writing we are still executing this sprint, with some features still in the phases of implementation and testing
 
 ### Review
 
