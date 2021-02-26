@@ -111,15 +111,12 @@ Through pull requests we made sure there were no issues with merge conflicts.
 
 ### Planning
 
-Similarly as with sprints 0 and 2, we created new user stories for the updated requirements. Due to time constraints we delegated sections of the requirements to individuals in the team to create user stories. We then came together to review the user stories created and finalise them before proceeding with coding.
+Similarly as with sprints 0 and 2, we created new user stories for the updated requirements. Due to time constraints we delegated sections of the requirements to individuals in the team to create user stories, each with definitions of done and test cases. We then came together to review the user stories created and finalise them before proceeding with coding.
 
 ### Execution
 
-Much akin to Sprint 0 and 2, we created new user stories for the updated requirements. We had split up for this process as some requirements were still missing from the previous Sprint and tests still needed to
- be completed for the remainder of the code. We then spoke to the client to make certain that all the user stories were correct, clear and diverse enough.
+We assigned the team in pairs to different batches of user stories, so as to cultivate a pair programming atmosphere. We chose this approach to avoid assigning too little of a workload to one team member, thus avoiding unnecessary bottlenecks. At the time of writing we are still executing this sprint, with some tickets still left in development. We then spoke to the client to make certain that all the user stories were correct, clear and diverse enough.
 
 ### Review
-
-
 
 ### Retrospective
