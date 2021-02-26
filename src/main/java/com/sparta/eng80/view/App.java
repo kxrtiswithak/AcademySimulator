@@ -84,55 +84,42 @@ public class App {
         return dayMonthYear;
     }
 
-    private static BigInteger enterMonths() {
-        Printer.printString("Please enter the number of MONTHS:");
-        while (!scanner.hasNextBigInteger()) {
-            Printer.printString("Please enter the number of MONTHS:");
-            scanner.nextLine();
+    private static BigInteger getBigInteger(String message) {
+        while (true) {
+            Printer.printString(message);
+            if (scanner.hasNextBigInteger()) {
+                BigInteger input = scanner.nextBigInteger();
+                if (input.compareTo(BigInteger.ZERO) >= 0) {
+                    return input;
+                }
+            } else {
+                scanner.next();
+            }
+            Printer.printString("Invalid Input!");
         }
-        return scanner.nextBigInteger();
+    }
+
+    private static BigInteger enterMonths() {
+        return getBigInteger("Please entre the number of MONTHS:");
     }
 
     private static BigInteger enterDays() {
-        Printer.printString("Please enter the number of DAYS:");
-        while (!scanner.hasNextBigInteger()) {
-            Printer.printString("Please enter the number of DAYS:");
-            scanner.nextLine();
-        }
-        return scanner.nextBigInteger();
+        return getBigInteger("Please enter the number of DAYS:");
     }
 
     private static BigInteger enterYears() {
-        Printer.printString("Please enter the number of YEARS:");
-        while (!scanner.hasNextBigInteger()) {
-            Printer.printString("Please enter the number of YEARS:");
-            scanner.nextLine();
-        }
-        return scanner.nextBigInteger();
+        return getBigInteger("Please enter the number of YEARS:");
     }
 
     private static BigInteger[] enterDate() {
         BigInteger[] date = new BigInteger[3];
         Printer.printString("Please enter the YEAR (yyyy)");
-        while (!scanner.hasNextBigInteger()) {
-            Printer.printString("Please enter the YEAR (yyyy)");
-            scanner.nextLine();
-        }
-        date[0] = scanner.nextBigInteger();
 
-        Printer.printString("Please enter the MONTH (M)");
-        while (!scanner.hasNextBigInteger()) {
-            Printer.printString("Please enter the MONTH (M)");
-            scanner.nextLine();
-        }
-        date[1] = scanner.nextBigInteger();
+        date[0] = enterYears();
 
-        Printer.printString("Please enter the DAY (D)");
-        while (!scanner.hasNextBigInteger()) {
-            Printer.printString("Please enter the DAY (D)");
-            scanner.nextLine();
-        }
-        date[2] = scanner.nextBigInteger();
+        date[1] = enterMonths();
+
+        date[2] = enterDays();
 
         return date;
     }
