@@ -1,8 +1,8 @@
 package com.sparta.eng80.model.client;
 
 import com.sparta.eng80.model.trainee.CourseType;
+import com.sparta.eng80.util.Date;
 
-import java.util.Date;
 
 public class ClientFactory {
     public Client generateClient(Date currentDate, CourseType courseType){
