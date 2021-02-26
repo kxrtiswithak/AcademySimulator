@@ -55,18 +55,28 @@ public class TrainingCentreManager {
         listOfTrainingCentres.add(trainingCentre);
     }
 
-    public void checkCentreAges() {
-        //For all the training centres, checks if the age is x months old and the centre is open
+    public void updateCentre() {
+        //For all the training centres, update their age and trainee age.
         for (TrainingCentre trainingCentre : listOfTrainingCentres) {
             trainingCentre.increaseAge();
-            if ((trainingCentre.getAge().equals(BigInteger.valueOf(3)) && !trainingCentre.isClosed() && trainingCentre.getClass() == Bootcamp.class) ||
-                    (trainingCentre.getAge().equals(BigInteger.TWO) && !trainingCentre.isClosed() && trainingCentre.getClass() != Bootcamp.class)) {
-                //If so the size is checked. If below 25 the centre is closed and trainees are reallocated
-                if (trainingCentre.getInTraining().size() < 25) {
-                    trainingCentre.setClosed();
-                    List<Trainee> trainees = trainingCentre.clearTrainees();
-                    reallocateTraineesRandomly(trainees);
+            for (Trainee trainee : trainingCentre.getInTraining()) {
+                trainee.incrementMonthsInTraining();
+                if (trainee.getMonthsInTraining() == 12) {
+                    traineeManager.addToBench(trainee);
                 }
+            }
+            checkToClose(trainingCentre);
+        }
+    }
+
+    private void checkToClose(TrainingCentre trainingCentre) {
+        if ((trainingCentre.getAge().equals(BigInteger.valueOf(3)) && !trainingCentre.isClosed() && trainingCentre.getClass() == Bootcamp.class) ||
+                (trainingCentre.getAge().equals(BigInteger.TWO) && !trainingCentre.isClosed() && trainingCentre.getClass() != Bootcamp.class)) {
+            //If so the size is checked. If below 25 the centre is closed and trainees are reallocated
+            if (trainingCentre.getInTraining().size() < 25) {
+                trainingCentre.setClosed();
+                List<Trainee> trainees = trainingCentre.clearTrainees();
+                reallocateTraineesRandomly(trainees);
             }
         }
     }
@@ -76,12 +86,7 @@ public class TrainingCentreManager {
     }
 
     private void reallocateTraineesRandomly(List<Trainee> trainees) {
-        List<TrainingCentre> availableCentres = new ArrayList<>();
-        for (TrainingCentre trainingCentre : listOfTrainingCentres) {
-            if (trainingCentre.getSpacesAvailable() != 0 && !trainingCentre.isClosed()) {
-                availableCentres.add(trainingCentre);
-            }
-        }
+        List<TrainingCentre> availableCentres = getAvailableCentres();
         if (availableCentres.size() > 0) {
             for (Iterator<Trainee> iter = trainees.iterator(); iter.hasNext(); ) {
                 int centreSelection = randomGenerator.inRange(0, availableCentres.size() - 1);
@@ -104,5 +109,15 @@ public class TrainingCentreManager {
         }
         if (trainees.size() > 0)
         traineeManager.addToWaitingList(trainees);
+    }
+
+    private List<TrainingCentre> getAvailableCentres() {
+        List<TrainingCentre> availableCentres = new ArrayList<>();
+        for (TrainingCentre trainingCentre : listOfTrainingCentres) {
+            if (trainingCentre.getSpacesAvailable() != 0 && !trainingCentre.isClosed()) {
+                availableCentres.add(trainingCentre);
+            }
+        }
+        return availableCentres;
     }
 }

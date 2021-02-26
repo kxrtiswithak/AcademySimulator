@@ -35,7 +35,7 @@ public class Simulation implements Runnable {
         } else {
             boolean byMonth = App.outputTypeSelection();
             while (!currentDate.isAfter(simulateUntil) && !currentDate.isEqual(simulateUntil)) {
-                trainingCentreManager.checkCentreAges();
+                trainingCentreManager.updateCentre();
                 trainingCentreManager.randomlyGenerateCentre(currentDate);
                 if(byMonth) {
                     OutputManager outputManager = new OutputManager(trainingCentreManager, traineeManager, currentDate, false);
