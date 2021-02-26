@@ -1,10 +1,10 @@
 package com.sparta.eng80.view;
 
-import com.sparta.eng80.model.CourseType;
-import com.sparta.eng80.model.TrainingCentre;
-import com.sparta.eng80.model.types_of_centres.Bootcamp;
-import com.sparta.eng80.model.types_of_centres.TechCentre;
-import com.sparta.eng80.model.types_of_centres.TrainingHub;
+import com.sparta.eng80.model.trainee.CourseType;
+import com.sparta.eng80.model.centre.TrainingCentre;
+import com.sparta.eng80.model.centre.Bootcamp;
+import com.sparta.eng80.model.centre.TechCentre;
+import com.sparta.eng80.model.centre.TrainingHub;
 import com.sparta.eng80.util.Printer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -92,12 +92,6 @@ public class FileOutput {
                 "\n\tBusiness" +
                     "\n\t\tIn Training: " + formatResults(business[0]) +
                     "\n\t\tWaiting List: " + formatResults(business[1]);
-
-//        return  overallProjectTime +
-//                "\nOpen Training Centres: " + formatResults(openTrainingCentres) +
-//                "\nFull Training Centres: " + formatResults(fullTrainingCentres) +
-//                "\nTotal number of Trainees in Training Centres: " + formatResults(traineesInTraining) +
-//                "\nTotal number of Trainees in waiting list: " + formatResults(traineesInWaitingList);
     }
 
     private boolean fileExists() {

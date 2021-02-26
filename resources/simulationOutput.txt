@@ -1,5 +1,5 @@
 
-The overall time for this simulation is 0 years and 3 months
+The overall time for this simulation is 0 years and 2 months
 Training Centres:
 	Training Hubs:
 		Open: 0
@@ -10,22 +10,22 @@ Training Centres:
 		Full: 0
 		Closed: 0
 	Bootcamps:
-		Open: 0
+		Open: 1
 		Full: 0
 		Closed: 0
 Trainees:
 	Java:
-		In Training: 0
-		Waiting List: 6
-	C#:
-		In Training: 0
-		Waiting List: 5
-	Data:
-		In Training: 0
+		In Training: 1
 		Waiting List: 3
+	C#:
+		In Training: 1
+		Waiting List: 6
+	Data:
+		In Training: 2
+		Waiting List: 10
 	DevOps:
-		In Training: 0
-		Waiting List: 4
+		In Training: 2
+		Waiting List: 6
 	Business
-		In Training: 0
-		Waiting List: 7
+		In Training: 4
+		Waiting List: 8
