@@ -119,7 +119,7 @@ Similarly as with sprints 0 and 2, we created new user stories for the updated r
 ### Execution
 
 
-Much akin to Sprint 0 and 2, we created new user stories for the updated requirements. We had split up for this process as some requirements were still missing from the previous Sprint and tests still needed to	We assigned the team in pairs to different batches of user stories, so as to cultivate a pair programming atmosphere. We chose this approach to avoid assigning too little of a workload to one team member, thus avoiding unnecessary bottlenecks. At the time of writing we are still executing this sprint, with some features still in the phases of implementation and testing
+Much akin to Sprint 0 and 2, we created new user stories for the updated requirements. We had split up for this process as some requirements were still missing from the previous Sprint and tests still needed to be passed. We assigned the team in pairs to different batches of user stories, so as to cultivate a pair programming atmosphere. We chose this approach to avoid assigning too little of a workload to one team member, thus avoiding unnecessary bottlenecks. At the time of writing we are still executing this sprint, with some features still in the phases of implementation and testing
 
 ### Review
 
