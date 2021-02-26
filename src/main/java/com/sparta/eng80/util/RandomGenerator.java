@@ -5,8 +5,11 @@ import java.util.Random;
 public class RandomGenerator {
     private Random random;
 
+    public RandomGenerator() {
+        random = new Random();
+    }
     public RandomGenerator(long seed) {
-        random = new Random(/*seed*/);
+        random = new Random(seed);
     }
 
     public int inRange(int min, int max) {

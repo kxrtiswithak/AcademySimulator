@@ -1,25 +1,26 @@
 package com.sparta.eng80.controller;
 
-import com.sparta.eng80.model.Trainee;
+import com.sparta.eng80.model.trainee.CourseType;
+import com.sparta.eng80.model.trainee.Trainee;
+import com.sparta.eng80.model.trainee.TraineeFactory;
 import com.sparta.eng80.util.RandomGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class TraineeManager {
+    private final RandomGenerator randomGenerator = new RandomGenerator();
+    private final TraineeFactory traineeFactory = new TraineeFactory();
+    private final List<Trainee> allTrainees = new ArrayList<>();
+    private final Queue<Trainee> waitingList = new LinkedBlockingDeque<>();
 
-    private static final long SEED = 1397819237199981723L;
-    private static final RandomGenerator randomGenerator = new RandomGenerator(SEED);
-    private List<Trainee> allTrainees = new ArrayList<>();
-    private Queue<Trainee> waitingList = new LinkedBlockingQueue<>();
-
-    public List<Trainee> generateNewTrainees(int minNumber, int maxNumber) {
+    public List<Trainee> randomlyGenerateTrainee(int minNumber, int maxNumber) {
         int randomVal = randomGenerator.inRange(minNumber, maxNumber);
         List<Trainee> newTrainees = new ArrayList<>();
         for (int i = 0; i < randomVal; i++) {
-            Trainee trainee = new Trainee();
+            Trainee trainee = traineeFactory.generateTrainee(CourseType.randomCourseType());
             newTrainees.add(trainee);
             allTrainees.add(trainee);
         }

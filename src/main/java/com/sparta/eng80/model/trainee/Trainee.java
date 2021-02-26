@@ -1,8 +1,12 @@
-package com.sparta.eng80.model;
+package com.sparta.eng80.model.trainee;
 
 public class Trainee {
-    private final CourseType courseType = CourseType.randomCourseType();
+    private final CourseType courseType;
     private boolean isWaiting = true;
+
+    protected Trainee(CourseType courseType) {
+        this.courseType = courseType;
+    }
 
     public CourseType getCourseType() {
         return courseType;
