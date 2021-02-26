@@ -11,9 +11,9 @@ import java.util.List;
 
 public class Client {
     private final CourseType courseType;
-    public final int traineesNeeded;
+    private final int traineesNeeded;
     private boolean isHappy;
-    public Date joinDate;
+    private Date joinDate;
     private RandomGenerator randomGenerator;
     private List<Trainee> clientTrainees = new ArrayList<>();
     private List<Trainee> traineesTaken = new ArrayList<>();
@@ -23,6 +23,10 @@ public class Client {
         this.courseType = courseType;
         //TODO MAX trainees to be decided
         this.traineesNeeded = randomGenerator.inRange(15, 30);
+    }
+
+    public int getTraineesNeeded() {
+        return traineesNeeded;
     }
 
     public boolean getIsHappy(){
