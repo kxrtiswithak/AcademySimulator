@@ -16,16 +16,16 @@ Training Centres:
 Trainees:
 	Java:
 		In Training: 0
-		Waiting List: 6
+		Waiting List: 1
 	C#:
 		In Training: 0
-		Waiting List: 5
+		Waiting List: 4
 	Data:
 		In Training: 0
-		Waiting List: 6
+		Waiting List: 8
 	DevOps:
 		In Training: 0
-		Waiting List: 5
+		Waiting List: 4
 	Business
 		In Training: 0
-		Waiting List: 8
+		Waiting List: 7
