@@ -52,6 +52,4 @@ public class Client {
         traineesTaken.addAll(clientTrainees);
         clientTrainees.clear();
     }
-
-
 }
