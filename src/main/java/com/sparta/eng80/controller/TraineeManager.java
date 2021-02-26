@@ -15,6 +15,7 @@ public class TraineeManager {
     private final TraineeFactory traineeFactory = new TraineeFactory();
     private final List<Trainee> allTrainees = new ArrayList<>();
     private final Queue<Trainee> waitingList = new LinkedBlockingDeque<>();
+    private final List<Trainee> bench = new ArrayList<>();
 
     public List<Trainee> randomlyGenerateTrainee(int minNumber, int maxNumber) {
         int randomVal = randomGenerator.inRange(minNumber, maxNumber);
@@ -38,4 +39,8 @@ public class TraineeManager {
     public List<Trainee> getAllTrainees() {
         return allTrainees;
     }
+
+    public List<Trainee> getBench() { return bench; }
+
+
 }
