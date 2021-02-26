@@ -88,9 +88,9 @@ Similarly to sprint 0, we delegated requirements for individuals to work on crea
 Similarly to the previous sprint we used branches to make the changes. Dividing the user stories among ourselves and working on branches together where the user stories were connected, allowed us to make changes easily without altering the final code until the changes were reviewed. 
 Through pull requests we made sure there were no issues with merge conflicts.
 
-
 ### Review
 
+In our review we analysed the broject board to review what had been completed and tested. We showed the client the program and went through any changes that could be made as well as and issues that needed to be corrected before we moved on to the next sprint.
 
 
 ### Retrospective
