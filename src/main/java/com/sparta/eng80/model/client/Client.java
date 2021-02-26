@@ -14,7 +14,7 @@ public class Client {
     private boolean isHappy;
     private Date joinDate;
     private RandomGenerator randomGenerator;
-    public List<Trainee> clientTrainees = new ArrayList<>();
+    private List<Trainee> clientTrainees = new ArrayList<>();
 
     protected Client(Date joinDate, CourseType courseType) {
         this.joinDate = joinDate;
@@ -35,6 +35,10 @@ public class Client {
         if (clientTrainees.size() == traineesNeeded){
             isHappy = true;
         }
+    }
+
+    public List<Trainee> getTrainees() {
+        return clientTrainees;
     }
 
     public CourseType getCourseType() {
