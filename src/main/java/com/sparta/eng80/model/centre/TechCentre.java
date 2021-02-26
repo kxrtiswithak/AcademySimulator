@@ -24,11 +24,16 @@ public class TechCentre extends TrainingCentre {
         Stack<Trainee> queueHead = new Stack<>();
         for (int i = 0; i < randomVal; i++) {
             if (!traineeQueue.isEmpty()) {
-                while (traineeQueue.peek().getCourseType() != courseType) {
-                    queueHead.add(traineeQueue.poll());
+                Trainee trainee;
+                while ((trainee = traineeQueue.peek()) != null) {
+                    if (trainee.getCourseType() != courseType) {
+                        queueHead.add(traineeQueue.poll());
+                    } else {
+                        break;
+                    }
                 }
                 if (inTraining.size() < maxsize) {
-                    Trainee trainee = traineeQueue.poll();
+                    trainee = traineeQueue.poll();
                     addTrainee(trainee);
                 } else {
                     break;
