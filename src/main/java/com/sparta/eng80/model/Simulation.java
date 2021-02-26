@@ -3,12 +3,12 @@ package com.sparta.eng80.model;
 import com.sparta.eng80.controller.OutputManager;
 import com.sparta.eng80.controller.TraineeManager;
 import com.sparta.eng80.controller.TrainingCentreManager;
+import com.sparta.eng80.model.centre.TrainingCentre;
+import com.sparta.eng80.model.trainee.Trainee;
 import com.sparta.eng80.util.Date;
 import com.sparta.eng80.util.Printer;
 import com.sparta.eng80.view.App;
-import com.sparta.eng80.view.FileOutput;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Queue;
@@ -35,14 +35,14 @@ public class Simulation implements Runnable {
         } else {
             boolean byMonth = App.outputTypeSelection();
             while (!currentDate.isAfter(simulateUntil) && !currentDate.isEqual(simulateUntil)) {
+                trainingCentreManager.updateCentre();
                 trainingCentreManager.randomlyGenerateCentre(currentDate);
-                trainingCentreManager.checkCentreAges();
                 if(byMonth) {
                     OutputManager outputManager = new OutputManager(trainingCentreManager, traineeManager, currentDate, false);
                     outputManager.run();
                 }
 
-                List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
+                List<Trainee> newTrainees = traineeManager.randomlyGenerateTrainee(20, 30);
                 traineeManager.addToWaitingList(newTrainees);
                 Queue<Trainee> waitingList = traineeManager.getWaitingList();
                 List<TrainingCentre> trainingCentres = trainingCentreManager.getListOfTrainingCenters();
@@ -118,17 +118,5 @@ public class Simulation implements Runnable {
             Printer.printString("The specified date is before or equal to the current date! Simulation won't occur.");
             simulateUntil = null;
         }
-    }
-
-    public TraineeManager getTraineeManager() {
-        return traineeManager;
-    }
-
-    public static TrainingCentreManager getTrainingCentreManager() {
-        return trainingCentreManager;
-    }
-
-    public OutputManager getOutputManager() {
-        return outputManager;
     }
 }

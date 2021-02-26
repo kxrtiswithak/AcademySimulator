@@ -1,4 +1,4 @@
-package com.sparta.eng80.model;
+package com.sparta.eng80.model.trainee;
 
 import com.sparta.eng80.util.RandomGenerator;
 
