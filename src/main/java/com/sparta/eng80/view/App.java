@@ -85,12 +85,18 @@ public class App {
     }
 
     private static BigInteger enterMonths() {
-        Printer.printString("Please enter the number of MONTHS:");
-        while (!scanner.hasNextBigInteger()) {
+        while (true) {
             Printer.printString("Please enter the number of MONTHS:");
-            scanner.nextLine();
+            if (scanner.hasNextBigInteger()) {
+                BigInteger input = scanner.nextBigInteger();
+                if (input.compareTo(BigInteger.ZERO) >= 1) {
+                    return input;
+                }
+            } else {
+                scanner.next();
+            }
+            Printer.printString("Invalid Input!");
         }
-        return scanner.nextBigInteger();
     }
 
     private static BigInteger enterDays() {

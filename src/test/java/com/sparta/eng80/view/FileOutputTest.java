@@ -15,8 +15,8 @@ public class FileOutputTest {
 
     @Test
     public void consoleOutputTest() {
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(Date.now());
         TraineeManager traineeManager = new TraineeManager();
+        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(Date.now(), traineeManager);
         List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
         traineeManager.addToWaitingList(newTrainees);
         Date simulateUntil = Date.now();
@@ -32,8 +32,8 @@ public class FileOutputTest {
 
     @Test
     public void fileOutputTest() {
-        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(Date.now());
         TraineeManager traineeManager = new TraineeManager();
+        TrainingCentreManager trainingCentreManager = new TrainingCentreManager(Date.now(), traineeManager);
         List<Trainee> newTrainees = traineeManager.generateNewTrainees(20, 30);
         traineeManager.addToWaitingList(newTrainees);
         Date simulateUntil = Date.now();
