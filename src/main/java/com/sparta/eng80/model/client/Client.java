@@ -2,10 +2,11 @@ package com.sparta.eng80.model.client;
 
 import com.sparta.eng80.model.trainee.CourseType;
 import com.sparta.eng80.model.trainee.Trainee;
+import com.sparta.eng80.util.Date;
 import com.sparta.eng80.util.RandomGenerator;
 
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 public class Client {
@@ -15,6 +16,7 @@ public class Client {
     public Date joinDate;
     private RandomGenerator randomGenerator;
     private List<Trainee> clientTrainees = new ArrayList<>();
+    private List<Trainee> traineesTaken = new ArrayList<>();
 
     protected Client(Date joinDate, CourseType courseType) {
         this.joinDate = joinDate;
@@ -27,13 +29,25 @@ public class Client {
         return isHappy;
     }
 
-    public void checkSatisfaction(){
-        if (clientTrainees.size() == traineesNeeded){
-            isHappy = true;
-        }
-    }
-
     public CourseType getCourseType() {
         return courseType;
     }
+
+    public Date getJoinDate(){
+        return joinDate;
+    }
+
+    public void checkSatisfaction(){
+        if (clientTrainees.size() == traineesNeeded){
+            isHappy = true;
+            takeTrainees();
+        }
+    }
+
+    public void takeTrainees(){
+        traineesTaken.addAll(clientTrainees);
+        clientTrainees.clear();
+    }
+
+
 }

@@ -1,11 +1,13 @@
 package com.sparta.eng80.model;
 
+import com.sparta.eng80.controller.ClientManager;
 import com.sparta.eng80.controller.OutputManager;
 import com.sparta.eng80.controller.TraineeManager;
 import com.sparta.eng80.controller.TrainingCentreManager;
 import com.sparta.eng80.model.centre.TrainingCentre;
 import com.sparta.eng80.model.trainee.Trainee;
 import com.sparta.eng80.util.Date;
+import com.sparta.eng80.util.Period;
 import com.sparta.eng80.util.Printer;
 import com.sparta.eng80.view.App;
 
@@ -18,13 +20,17 @@ public class Simulation implements Runnable {
     private static TrainingCentreManager trainingCentreManager;
     private Date simulateUntil;
     private Date currentDate;
+    private Date startDate;
     private final TraineeManager traineeManager;
     private OutputManager outputManager;
+    private final ClientManager clientManager;
 
     public Simulation() {
         simulateUntil = Date.now();
         currentDate = Date.now();
+        startDate = Date.now();
         traineeManager = new TraineeManager();
+        clientManager = new ClientManager();
     }
 
     @Override
@@ -51,7 +57,10 @@ public class Simulation implements Runnable {
                     if (waitingList.isEmpty()) break;
                     waitingList = trainingCentre.acceptTrainees(waitingList, 0, 20);
                 }
-
+                if(Period.between(startDate, currentDate).getYears().intValue()>1){
+                    clientManager.randomlyGenerateClients(currentDate);
+                    clientManager.reviewClients(currentDate);
+                }
                 currentDate = currentDate.plusMonths(BigInteger.ONE);
             }
         }
