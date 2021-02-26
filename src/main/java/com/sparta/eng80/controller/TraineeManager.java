@@ -34,7 +34,7 @@ public class TraineeManager {
         int traineesAssigned = getNumOfTrainees();
 
         while(traineesNeeded != 0 || traineesAssigned != 0) {
-            client.clientTrainees.add(bench.poll());
+            client.getTrainees().add(bench.poll());
             traineesNeeded--;
             traineesAssigned--;
         }

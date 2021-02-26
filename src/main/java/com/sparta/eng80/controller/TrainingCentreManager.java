@@ -59,10 +59,12 @@ public class TrainingCentreManager {
         //For all the training centres, update their age and trainee age.
         for (TrainingCentre trainingCentre : listOfTrainingCentres) {
             trainingCentre.increaseAge();
-            for (Trainee trainee : trainingCentre.getInTraining()) {
+            for (Iterator<Trainee> iter = trainingCentre.getInTraining().iterator(); iter.hasNext();) {
+                Trainee trainee = iter.next();
                 trainee.incrementMonthsInTraining();
                 if (trainee.getMonthsInTraining() == 12) {
                     traineeManager.addToBench(trainee);
+                    iter.remove();
                 }
             }
             checkToClose(trainingCentre);

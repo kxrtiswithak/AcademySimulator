@@ -48,8 +48,12 @@ public class Client {
         }
     }
 
-    public void takeTrainees(){
+    public void takeTrainees() {
         traineesTaken.addAll(clientTrainees);
         clientTrainees.clear();
+    }
+
+    public List<Trainee> getTrainees() {
+        return clientTrainees;
     }
 }
