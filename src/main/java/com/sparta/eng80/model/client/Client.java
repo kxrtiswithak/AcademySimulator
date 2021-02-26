@@ -14,7 +14,7 @@ public class Client {
     private boolean isHappy;
     private Date joinDate;
     private RandomGenerator randomGenerator;
-    private List<Trainee> clientTrainees = new ArrayList<>();
+    public List<Trainee> clientTrainees = new ArrayList<>();
 
     protected Client(Date joinDate, CourseType courseType) {
         this.joinDate = joinDate;

@@ -1,5 +1,6 @@
 package com.sparta.eng80.controller;
 
+import com.sparta.eng80.model.client.Client;
 import com.sparta.eng80.model.trainee.CourseType;
 import com.sparta.eng80.model.trainee.Trainee;
 import com.sparta.eng80.model.trainee.TraineeFactory;
@@ -26,6 +27,25 @@ public class TraineeManager {
             allTrainees.add(trainee);
         }
         return newTrainees;
+    }
+
+    public void giveToTraineesToClient(Client client){
+        int traineesNeeded  = client.getTraineesNeeded();
+        int traineesAssigned = getNumOfTrainees();
+
+        while(traineesNeeded != 0 || traineesAssigned != 0) {
+            client.clientTrainees.add(bench.poll());
+            traineesNeeded--;
+            traineesAssigned--;
+        }
+    }
+
+    public int getNumOfTrainees(){
+        if(bench.size() <= 15){
+            return bench.size();
+        }else{
+            return randomGenerator.inRange(1,15);
+        }
     }
 
     public Queue<Trainee> getWaitingList() {
